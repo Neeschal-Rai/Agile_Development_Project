@@ -151,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 10.0, left: 20, bottom: 10),
-                            child: Text('Help selection',
+                            child: Text('Help section',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 15,
