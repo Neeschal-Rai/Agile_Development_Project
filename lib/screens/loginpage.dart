@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 MaterialPageRoute(builder: (context) => RegisterScreen()),
                               ),
                       child: Text("Register here.", style: TextStyle(
-                        color: Colors.lightBlue.withOpacity(0.8)
+                        color: Colors.deepPurpleAccent.withOpacity(0.8)
                       ),),
                     ),
                   ],

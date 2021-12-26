@@ -30,12 +30,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Text("Create an account",
-                      style: TextStyle(color: Colors.white)),
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Image.asset("assets/images/logos.png",
                       height: 100, width: 100, fit: BoxFit.contain),
                 ),
@@ -43,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 40,
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 20.0),
+                  margin: const EdgeInsets.only(top: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
