@@ -1,5 +1,6 @@
+import 'package:dhun/screens/dashboard.dart';
 import 'package:dhun/screens/homepage.dart';
-import 'package:dhun/screens/register.dart';
+import 'package:dhun/screens/registerpage.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -41,18 +42,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           style : TextStyle(color: Colors.white),
                           controller: emailController,
                           decoration: new InputDecoration(
-
                             enabledBorder: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(15),
                                 borderSide: new BorderSide(
                                     color: Colors.white
                                 )
                           ),
-
                         ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -115,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 MaterialPageRoute(builder: (context) => RegisterScreen()),
                               ),
                       child: Text("Register here.", style: TextStyle(
-                        color: Colors.deepPurpleAccent.withOpacity(0.8)
+                        color: Colors.deepPurpleAccent,
                       ),),
                     ),
                   ],

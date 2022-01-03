@@ -1,7 +1,7 @@
 
 import 'package:dhun/screens/homepage.dart';
-import 'package:dhun/screens/login.dart';
-import 'package:dhun/screens/register.dart';
+import 'package:dhun/screens/loginpage.dart';
+import 'package:dhun/screens/registerpage.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -26,9 +26,8 @@ class _SplashHomeState extends State<SplashHome> {
               SplashScreen(
                   seconds: 5,
                   navigateAfterSeconds: new RegisterScreen(),
-                  title: new Text('Welcome In SplashScreen'),
                   image: new Image.network('https://i1.sndcdn.com/avatars-000606604806-j6ghpm-t500x500.jpg'),
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.black,
                   styleTextUnderTheLoader: new TextStyle(),
                   photoSize: 100.0,
                   loaderColor: Colors.red

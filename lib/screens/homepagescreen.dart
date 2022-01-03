@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dhun/screens/dashboard.dart';
 import 'package:dhun/screens/mylibrary.dart';
 import 'package:dhun/screens/profilepage.dart';
+import 'package:dhun/screens/searchpage.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -12,10 +13,10 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  int index = 1;
+  int index = 0;
   final screens=[
     Dashboardscreen(),
-    null,
+    SearchScreen(),
     LibraryScreen(),
     ProfileScreen(),
   ];
