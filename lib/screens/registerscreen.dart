@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:dhun/component/Model/User.dart';
 import 'package:dhun/constraints/constraints.dart';
-import 'package:dhun/screens/dashboard.dart';
-import 'package:dhun/screens/loginpage.dart';
+import 'package:dhun/screens/loginscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterScreen extends StatefulWidget {
@@ -32,10 +32,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
         body: <String, String>{
           'email': user.email,
           'username':user.username,
+          'usertype': user.usertype,
           'password': user.password,
         });
     dynamic body = jsonDecode(res.body);
     if(body["success"] ==true){
+      Fluttertoast.showToast(
+          msg: 'You are successfully registerd',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.deepPurple,
+          textColor: Colors.white
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -46,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  User user = User("", "", "");
+  User user = User("", "", "","");
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +131,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onChanged: (value) {
                               user.username = value;
                             },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Username is required';
+                              } else if (value.length>8) {
+                                return null;
+                              }
+                              else {
+                                return 'Username length must be greater than 8';
+                              }
+                            },
                             decoration: new InputDecoration(
                               enabledBorder: new OutlineInputBorder(
                                   borderRadius: new BorderRadius.circular(15.0),
@@ -138,6 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                           child: Container(
+                            height: 60,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 14),
                             decoration: BoxDecoration(
@@ -150,7 +170,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 iconSize: 20,
                                 dropdownColor: Colors.black,
                                 icon: Icon(Icons.arrow_drop_down,
-                                    color: Colors.purple, size: 30),
+                                    color: Colors.deepPurple, size: 30),
                                 isExpanded: true,
                                 items: items.map(buildMenuItem).toList(),
                                 onChanged: (value) =>
@@ -166,6 +186,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(color: Colors.white),
                             controller: passwordController,
                             obscureText: _isObscure,
+                            onChanged: (value) {
+                              user.password = value;
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Password is required";
+                              } else if (value.length>8) {
+                                return null;
+                              } else {
+                                return 'Password length must be greater than 8';
+                              }
+                            },
+
                             decoration: new InputDecoration(
                               suffixIcon: IconButton(
                                   icon: Icon(_isObscure
@@ -194,6 +227,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(color: Colors.white),
                             controller: confirmPasswordController,
                             obscureText: _isObscure,
+
                             decoration: new InputDecoration(
                               suffixIcon: IconButton(
                                   icon: Icon(_isObscure
@@ -225,7 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (_formKey.currentState!.validate()) {
                                   save();
                                 } else {
-                                  print("not ok");
+                                  print("Error");
                                 }
                               },
                               style: ButtonStyle(

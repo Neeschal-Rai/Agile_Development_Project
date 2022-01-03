@@ -1,7 +1,13 @@
-import 'package:dhun/screens/dashboard.dart';
-import 'package:dhun/screens/homepage.dart';
-import 'package:dhun/screens/registerpage.dart';
+import 'dart:convert';
+
+import 'package:dhun/component/Model/User.dart';
+import 'package:dhun/constraints/constraints.dart';
+import 'package:dhun/screens/dashboardscreen.dart';
+import 'package:dhun/screens/homepagescreen.dart';
+import 'package:dhun/screens/registerscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,110 +17,190 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final items = ["User", "Artist"];
+  String? value;
   bool _isObscure = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  Future save() async {
+    var res = await http.post(Uri.parse(getLoginUrl), headers: <String, String>{
+      'Context-Type': 'application/json;charSet=UTF-8'
+    }, body: <String, String>{
+      'email': user.email,
+      'usertype': user.usertype,
+      'password': user.password,
+    });
+    dynamic body = jsonDecode(res.body);
+    if (body["success"] == true) {
+      Fluttertoast.showToast(
+          msg: 'Login Successful',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.deepPurple,
+          textColor: Colors.white);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    } else {
+      Fluttertoast.showToast(
+          msg: 'Invalid Login',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.deepPurple,
+          textColor: Colors.white);
+    }
+  }
+
+  User user = User("", "", "", "");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
-        body: SafeArea(child: Container(
+        body: SafeArea(
+            child: Container(
           padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 50,),
-                Container(
-                  child: Image.asset("assets/images/logos.png", height: 200, width: 200, fit: BoxFit.contain),
+                SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text("Log In",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
-                SizedBox(height: 100,),
+                SizedBox(height: 20),
+                Container(
+                  child: Image.asset("assets/images/logos.png",
+                      height: 200, width: 200, fit: BoxFit.contain),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Email Address", style : TextStyle(color: Colors.white)),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: TextFormField(
-                          style : TextStyle(color: Colors.white),
-                          controller: emailController,
-                          decoration: new InputDecoration(
-                            enabledBorder: new OutlineInputBorder(
-                                borderRadius: new BorderRadius.circular(15),
-                                borderSide: new BorderSide(
-                                    color: Colors.white
-                                )
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Email Address",
+                            style: TextStyle(color: Colors.white)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: TextFormField(
+                            style: TextStyle(color: Colors.white),
+                            controller: emailController,
+                            onChanged: (value) {
+                              user.email = value;
+                            },
+                            decoration: new InputDecoration(
+                              enabledBorder: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(15),
+                                  borderSide:
+                                      new BorderSide(color: Colors.white)),
+                            ),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Text("Usertype",
+                              style: TextStyle(color: Colors.white)),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Password", style : TextStyle(color: Colors.white)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: TextFormField(
-
-                      style : TextStyle(color: Colors.white),
-                      controller: passwordController,
-                      obscureText: _isObscure,
-                      decoration: new InputDecoration(
-                        suffixIcon: IconButton(
-                            icon: Icon(_isObscure
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _isObscure = !_isObscure;
-                              });
-                            }),
-
-                        enabledBorder: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(15),
-                            borderSide: new BorderSide(
-                                color: Colors.white
-                            )
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          child: Container(
+                            height: 60,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 14),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.white),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: value,
+                                iconSize: 20,
+                                dropdownColor: Colors.black,
+                                icon: Icon(Icons.arrow_drop_down,
+                                    color: Colors.deepPurple, size: 30),
+                                isExpanded: true,
+                                items: items.map(buildMenuItem).toList(),
+                                onChanged: (value) =>
+                                    setState(() => this.value = value),
+                              ),
+                            ),
+                          ),
                         ),
-
-                      ),
+                        Text("Password", style: TextStyle(color: Colors.white)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: TextFormField(
+                            style: TextStyle(color: Colors.white),
+                            controller: passwordController,
+                            obscureText: _isObscure,
+                            onChanged: (value) {
+                              user.password = value;
+                            },
+                            decoration: new InputDecoration(
+                              suffixIcon: IconButton(
+                                  icon: Icon(_isObscure
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isObscure = !_isObscure;
+                                    });
+                                  }),
+                              enabledBorder: new OutlineInputBorder(
+                                  borderRadius: new BorderRadius.circular(15),
+                                  borderSide:
+                                      new BorderSide(color: Colors.white)),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                    ],
                   ),
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton(onPressed: ()=>Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Homepage()),
-                      ), child: Text(
-                        "Log In"
-                      )),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              save();
+                            } else {
+                              print("Error");
+                            }
+                          },
+                          child: Text("Log In")),
                     ),
-
                   ],
                 ),
                 Row(
                   children: [
-                    Text("If you are new, please ", style : TextStyle(color: Colors.white)),
+                    Text("If you are new, please ",
+                        style: TextStyle(color: Colors.white)),
                     InkWell(
-                      onTap: ()=>Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => RegisterScreen()),
-                              ),
-                      child: Text("Register here.", style: TextStyle(
-                        color: Colors.deepPurpleAccent,
-                      ),),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterScreen()),
+                      ),
+                      child: Text(
+                        "Register here.",
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
                     ),
                   ],
                 )
@@ -123,4 +209,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         )));
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+      value: item,
+      child: Text(
+        item,
+        style: TextStyle(color: Colors.deepPurple),
+      ));
 }

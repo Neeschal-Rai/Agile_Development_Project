@@ -1,7 +1,7 @@
 
-import 'package:dhun/screens/homepage.dart';
-import 'package:dhun/screens/loginpage.dart';
-import 'package:dhun/screens/registerpage.dart';
+import 'package:dhun/screens/homepagescreen.dart';
+import 'package:dhun/screens/loginscreen.dart';
+import 'package:dhun/screens/registerscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 

@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dhun/screens/musicscreen.dart';
-import 'package:dhun/screens/profilepage.dart';
+import 'package:dhun/screens/profilescreen.dart';
 import 'package:flutter/material.dart';
 
 

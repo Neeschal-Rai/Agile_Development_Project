@@ -1,4 +1,4 @@
-import 'package:dhun/screens/loginpage.dart';
+import 'package:dhun/screens/loginscreen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -175,13 +175,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               thickness: 3,
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 10.0, left: 20),
-                              child: Text('Logout',
+                              padding: const EdgeInsets.only(
+                                  top: 10.0, left: 20, bottom: 10),
+                              child: InkWell(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginScreen()),
+                                ),
+                                child: Text(
+                                  "Logout",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.bold)),
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ],
                         ),

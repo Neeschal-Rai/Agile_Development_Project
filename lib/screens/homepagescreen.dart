@@ -1,18 +1,18 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:dhun/screens/dashboard.dart';
-import 'package:dhun/screens/mylibrary.dart';
-import 'package:dhun/screens/profilepage.dart';
-import 'package:dhun/screens/searchpage.dart';
+import 'package:dhun/screens/dashboardscreen.dart';
+import 'package:dhun/screens/libraryscreen.dart';
+import 'package:dhun/screens/profilescreen.dart';
+import 'package:dhun/screens/searchscreen.dart';
 import 'package:flutter/material.dart';
 
-class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomepageState createState() => _HomepageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
   final screens=[
     Dashboardscreen(),
