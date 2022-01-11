@@ -1,19 +1,19 @@
 import 'dart:convert';
-import 'package:dhun/Services/LoginServices.dart';
 import 'package:dhun/Services/Userservices.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
-  test("User Login", () async {
+  test("User Register", () async {
     bool expected = true;
 
-    var userServices = LoginServices();
+    var userServices = UserServices();
     var body = {
+      "username":"Bidhan_rai",
       "email": "bidhan@gmail.com",
       "password": "raitorai123",
 
     };
-    var response = await userServices.Login(body);
+    var response = await userServices.Register(body);
     var resBody = json.decode(response.toString());
     bool received = resBody["success"];
     expect(expected, received);
