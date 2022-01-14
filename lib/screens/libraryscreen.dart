@@ -1,3 +1,4 @@
+import 'package:dhun/screens/favoritescreeen.dart';
 import 'package:flutter/material.dart';
 
 class LibraryScreen extends StatefulWidget {
@@ -93,40 +94,45 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 30.0),
-                child: Card(
-                  color: Colors.deepPurpleAccent,
-                  child: Row(
-                    children: [
-                      Container(
-                        child: Padding(
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FavoriteScreen()),
+                ),
+                child: Container(
+                  margin: const EdgeInsets.only(top: 30.0),
+                  child: Card(
+                    color: Colors.deepPurpleAccent,
+                    child: Row(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Image.asset("assets/images/sabinrai.jpg",
                               height: 80, width: 80, fit: BoxFit.contain),
                         ),
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50),
-                            child: Text('Nepali Songs',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text('105 songs',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                        ],
-                      )
-                    ],
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 50),
+                              child: Text('Liked songs',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text('105 songs',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal)),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -136,12 +142,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   color: Colors.deepPurpleAccent,
                   child: Row(
                     children: [
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Image.asset("assets/images/sabinrai.jpg",
-                              height: 80, width: 80, fit: BoxFit.contain),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Image.asset("assets/images/sabinrai.jpg",
+                            height: 80, width: 80, fit: BoxFit.contain),
                       ),
                       Column(
                         children: [

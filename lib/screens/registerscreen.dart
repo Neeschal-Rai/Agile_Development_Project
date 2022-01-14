@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:dhun/Services/Userservices.dart';
 import 'package:dhun/component/Model/User.dart';
-import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/screens/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -24,39 +24,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  Future save() async {
-    var res = await http.post(Uri.parse(getRegisterUrl),
-        headers: <String, String>{
-          'Context-Type': 'application/json;charSet=UTF-8'
-        },
-        body: <String, String>{
-          'email': user.email,
-          'username':user.username,
-          'usertype': user.usertype,
-          'password': user.password,
-        });
-    dynamic body = jsonDecode(res.body);
-    if(body["success"] ==true){
-      Fluttertoast.showToast(
-          msg: 'You are successfully registerd',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.deepPurple,
-          textColor: Colors.white
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => LoginScreen()),
-      );
-    }else{
-      print("FALSE AYO");
+  String username = "";
+  String email = "";
+  String password = "";
+  String usertype ="user";
+
+
+  postData() async {
+    try{
+      var body = {
+        "username":username,
+        "email":email,
+        "password":password,
+        "usertype":usertype
+      };
+
+      var userServices = UserServices();
+      var response = await userServices.Register(body);
+      return response;
+    }
+    catch(e){
+      print(e);
     }
   }
 
-  User user = User("", "", "","");
-
+  UserModel user = UserModel("", "", "", "");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,13 +89,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(color: Colors.white),
                             controller: emailController,
                             onChanged: (value) {
-                              user.email = value;
+                              email = value;
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Enter something';
+                                return 'Email address is required';
                               } else if (RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                   .hasMatch(value)) {
                                 return null;
                               } else {
@@ -129,15 +121,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(color: Colors.white),
                             controller: nameController,
                             onChanged: (value) {
-                              user.username = value;
+                              username = value;
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Username is required';
-                              } else if (value.length>8) {
+                              } else if (value.length > 8) {
                                 return null;
-                              }
-                              else {
+                              } else {
                                 return 'Username length must be greater than 8';
                               }
                             },
@@ -187,18 +178,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: passwordController,
                             obscureText: _isObscure,
                             onChanged: (value) {
-                              user.password = value;
+                              password = value;
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Password is required";
-                              } else if (value.length>8) {
+                              } else if (value.length > 8) {
                                 return null;
                               } else {
                                 return 'Password length must be greater than 8';
                               }
                             },
-
                             decoration: new InputDecoration(
                               suffixIcon: IconButton(
                                   icon: Icon(_isObscure
@@ -212,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               enabledBorder: new OutlineInputBorder(
                                   borderRadius: new BorderRadius.circular(15),
                                   borderSide:
-                                  new BorderSide(color: Colors.white)),
+                                      new BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),
@@ -227,7 +217,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(color: Colors.white),
                             controller: confirmPasswordController,
                             obscureText: _isObscure,
-
                             decoration: new InputDecoration(
                               suffixIcon: IconButton(
                                   icon: Icon(_isObscure
@@ -251,21 +240,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Row(
-
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  save();
+                                  var response = await postData();
+                                  var res = json.decode(response);
+                                  if(res["success"] == true){
+                                    Fluttertoast.showToast(
+                                        msg: 'Invalid Login',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.deepPurple,
+                                        textColor: Colors.white);
+                                    final snackB = SnackBar(content: Text(res["message"]));
+                                  }
                                 } else {
                                   print("Error");
                                 }
                               },
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurpleAccent),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.deepPurpleAccent),
                               ),
-                              child: Text("Register", style: TextStyle(color:Colors.white))),
+                              child: const Text("Register",
+                                  style: TextStyle(color: Colors.white))),
                         ),
                       ],
                     ),
@@ -282,8 +284,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         child: Text(
                           "Login here.",
-                          style:
-                              TextStyle(color: Colors.green.withOpacity(0.8),decoration: TextDecoration.underline),
+                          style: TextStyle(
+                              color: Colors.green.withOpacity(0.8),
+                              decoration: TextDecoration.underline),
                         ),
                       ),
                     ],

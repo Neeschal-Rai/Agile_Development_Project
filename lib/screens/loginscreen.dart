@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:dhun/Services/LoginServices.dart';
 import 'package:dhun/component/Model/User.dart';
-import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/screens/dashboardscreen.dart';
 import 'package:dhun/screens/homepagescreen.dart';
 import 'package:dhun/screens/registerscreen.dart';
@@ -24,39 +24,21 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  Future save() async {
-    var res = await http.post(Uri.parse(getLoginUrl), headers: <String, String>{
-      'Context-Type': 'application/json;charSet=UTF-8'
-    }, body: <String, String>{
-      'email': user.email,
-      'usertype': user.usertype,
-      'password': user.password,
-    });
-    dynamic body = jsonDecode(res.body);
-    if (body["success"] == true) {
-      Fluttertoast.showToast(
-          msg: 'Login Successful',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.deepPurple,
-          textColor: Colors.white);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
-    } else {
-      Fluttertoast.showToast(
-          msg: 'Invalid Login',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.deepPurple,
-          textColor: Colors.white);
+  String email = "";
+  String password = "";
+  String usertype = "user";
+
+  postData() async {
+    try {
+      var body = {"email": email, "password": password, "usertype": usertype};
+      var userServices = LoginServices();
+      var response = await userServices.Login(body);
+      return response;
+    } catch (e) {
+      print(e);
     }
   }
 
-  User user = User("", "", "", "");
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(color: Colors.white),
                             controller: emailController,
                             onChanged: (value) {
-                              user.email = value;
+                              email = value;
                             },
                             decoration: new InputDecoration(
                               enabledBorder: new OutlineInputBorder(
@@ -147,7 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: passwordController,
                             obscureText: _isObscure,
                             onChanged: (value) {
-                              user.password = value;
+                              print(value);
+                              password = value;
                             },
                             decoration: new InputDecoration(
                               suffixIcon: IconButton(
@@ -174,9 +157,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              save();
+                              var response = await postData();
+                              var res = json.decode(response);
+
+                              if (res["success"] == true) {
+                                Fluttertoast.showToast(
+                                    msg: 'yeta',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.deepPurple,
+                                    textColor: Colors.white);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()),
+                                );
+                                final snackB =
+                                    SnackBar(content: Text(res["message"]));
+                              }
                             } else {
                               print("Error");
                             }
@@ -198,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Register here.",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.red,
                         ),
                       ),
                     ),

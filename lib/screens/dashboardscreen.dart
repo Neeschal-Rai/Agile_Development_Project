@@ -1,6 +1,5 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dhun/screens/musicscreen.dart';
-import 'package:dhun/screens/profilescreen.dart';
+import 'package:dhun/screens/uploadsongscreen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -25,7 +24,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                stops: [0.003, 3],
+                stops: [0.3, 3],
                 colors: [
                   Colors.deepPurple,
                   Colors.black,
@@ -227,6 +226,25 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 ]),
               ),
             ),
-          ));
+          ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 60.0),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => UploadScreen()),
+            );
+          },
+          child: Icon(Icons.add, color: Colors.white, size: 29,),
+          backgroundColor: Colors.deepPurple,
+          tooltip: 'Capture Picture',
+          elevation: 5,
+          splashColor: Colors.grey,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,);
+
   }
 }

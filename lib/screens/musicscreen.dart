@@ -34,7 +34,6 @@ class _MusicScreenState extends State<MusicScreen> {
   @override
   void initState() {
     super.initState();
-
     /// Compulsory
     audioPlayer = AudioPlayer();
     audioCache = AudioCache(fixedPlayer: audioPlayer);
@@ -87,6 +86,7 @@ class _MusicScreenState extends State<MusicScreen> {
     return audioDuration;
   }
 
+
   /// Optional
   Widget getLocalFileDuration() {
     return FutureBuilder<int>(
@@ -128,6 +128,16 @@ class _MusicScreenState extends State<MusicScreen> {
         backgroundColor: Colors.black,
         body: SafeArea(
             child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.003, 3],
+                  colors: [
+                    Colors.deepPurple,
+                    Colors.black,
+                  ],
+                )),
                 alignment: Alignment.center,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -147,7 +157,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     Center(
                       child: Container(
                         width: 280.0,
-                        height: 350.0,
+                        height: 300.0,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30.0),
                             image: DecorationImage(
@@ -176,7 +186,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     ),
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.only(top: 20.0),
+                        padding: const EdgeInsets.only(top: 0.0),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -241,7 +251,8 @@ class _MusicScreenState extends State<MusicScreen> {
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
                                     iconSize: 30.0,
@@ -251,7 +262,6 @@ class _MusicScreenState extends State<MusicScreen> {
                                       Icons.favorite,
                                     ),
                                   ),
-
                                   IconButton(
                                     iconSize: 30.0,
                                     color: Colors.black,
@@ -260,7 +270,6 @@ class _MusicScreenState extends State<MusicScreen> {
                                       Icons.shuffle,
                                     ),
                                   ),
-
                                   IconButton(
                                     iconSize: 30.0,
                                     color: Colors.black,
@@ -277,7 +286,6 @@ class _MusicScreenState extends State<MusicScreen> {
                                       Icons.more_vert,
                                     ),
                                   ),
-
                                 ],
                               ),
                             )
@@ -285,7 +293,6 @@ class _MusicScreenState extends State<MusicScreen> {
                         ),
                       ),
                     ),
-
                   ],
                 ))));
   }

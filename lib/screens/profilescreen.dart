@@ -1,5 +1,13 @@
+import 'dart:convert';
+
+import 'package:dhun/component/Model/User.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/screens/loginscreen.dart';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -9,6 +17,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   MaterialPageRoute(
                                       builder: (context) => LoginScreen()),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   "Notifications",
                                   style: TextStyle(
                                       color: Colors.black,
@@ -178,11 +187,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               padding: const EdgeInsets.only(
                                   top: 10.0, left: 20, bottom: 10),
                               child: InkWell(
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
-                                ),
+                                onTap: () => {logout()
+
+                                },
                                 child: Text(
                                   "Logout",
                                   style: TextStyle(
@@ -195,12 +202,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               )),
-        )
-        //
-        );
+        ),
+
+    );
+
+  }
+
+  void logout() async{
+    SharedPreferences userprefs = await SharedPreferences.getInstance();
+    userprefs.clear();
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => LoginScreen()),
+    );
+
   }
 }
