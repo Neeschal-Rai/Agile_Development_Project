@@ -15,17 +15,15 @@ class _SplashHomeState extends State<SplashHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         body:
         Builder(
             builder: (context) {
-
               return Center(
                   child:
                   SplashScreen(
                       seconds: 5,
-                      navigateAfterSeconds: new RegisterScreen(),
-                      image: Image.asset("assets/images/logos.png",
+                      navigateAfterSeconds: new HomeScreen(),
+                      image: Image.asset("assets/images/logo.png",
                           height: 100, width: 100, fit: BoxFit.contain),
                       backgroundColor: Colors.black,
                       styleTextUnderTheLoader: new TextStyle(),

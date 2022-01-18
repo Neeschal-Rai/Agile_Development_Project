@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:dhun/Services/Userservices.dart';
 import 'package:dhun/component/Model/User.dart';
 import 'package:dhun/screens/loginscreen.dart';
+import 'package:dhun/services/RegisterServices.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         "usertype":usertype
       };
 
-      var userServices = UserServices();
+      var userServices = RegisterServices();
       var response = await userServices.Register(body);
       return response;
     }

@@ -1,12 +1,13 @@
 import 'dart:convert';
-import 'package:dhun/Services/Userservices.dart';
+
+import 'package:dhun/services/RegisterServices.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
   test("User Register", () async {
     bool expected = true;
 
-    var userServices = UserServices();
+    var userServices = RegisterServices();
     var body = {
       "username":"Bidhan_rai",
       "email": "bidhan@gmail.com",

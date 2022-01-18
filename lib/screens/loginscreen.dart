@@ -8,6 +8,7 @@ import 'package:dhun/screens/registerscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -161,8 +162,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_formKey.currentState!.validate()) {
                               var response = await postData();
                               var res = json.decode(response);
-
                               if (res["success"] == true) {
+                                SharedPreferences userprefs = await SharedPreferences.getInstance();
+                                userprefs.setString("userid", res["userId"]);
+                                userprefs.clear();
                                 Fluttertoast.showToast(
                                     msg: 'yeta',
                                     toastLength: Toast.LENGTH_SHORT,

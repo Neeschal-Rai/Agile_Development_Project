@@ -1,5 +1,6 @@
 import 'package:dhun/screens/favoritescreeen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -29,14 +30,36 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                   ),
+
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0, right: 20),
-                    child: Icon(
-                      Icons.add,
-                      size: 30,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.add,
+                      ),
+                      iconSize: 30,
                       color: Colors.white,
+                      splashColor: Colors.deepPurple,
+                      onPressed: () {
+                        print("hello world");
+                        Fluttertoast.showToast(
+                            msg: 'Coming soon',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepPurple,
+                            textColor: Colors.white);
+                      },
                     ),
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 10.0, right: 20),
+                  //   child: Icon(
+                  //     Icons.add,
+                  //     size: 30,
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
                 ],
               ),
               Container(
@@ -101,113 +124,125 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       builder: (context) => FavoriteScreen()),
                 ),
                 child: Container(
-                  margin: const EdgeInsets.only(top: 30.0),
+                  height: 90,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 0, color: Colors.black),
+                    color: Colors.black,
+                  ),
+                    margin: const EdgeInsets.only(top: 30.0),
                   child: Card(
                     color: Colors.deepPurpleAccent,
                     child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Image.asset("assets/images/sabinrai.jpg",
-                              height: 80, width: 80, fit: BoxFit.contain),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Image.asset("assets/images/lover.png",
+                              height: 60, width: 80, fit: BoxFit.contain),
                         ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 50),
-                              child: Text('Liked songs',
+                        Container(
+                          margin: const EdgeInsets.only(left: 50.0, top: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Liked songs',
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text('105 songs',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal)),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Text('105 songs',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal)),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 10.0),
-                child: Card(
-                  color: Colors.deepPurpleAccent,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Image.asset("assets/images/sabinrai.jpg",
-                            height: 80, width: 80, fit: BoxFit.contain),
-                      ),
-                      Column(
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 0, color: Colors.black),
+                color: Colors.black,
+              ),
+              child: Card(
+                color: Colors.deepPurpleAccent,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.asset("assets/images/sabinrai.jpg",
+                          height: 80, width: 80, fit: BoxFit.contain),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 50.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50),
-                            child: Text('Chill songs',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold)),
-                          ),
+                          Text('Mood',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
                           Padding(
                             padding: const EdgeInsets.only(top: 5),
-                            child: Text('3 songs',
+                            child: Text('202 songs',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal)),
                           ),
                         ],
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 10.0),
-                child: Card(
-                  color: Colors.deepPurpleAccent,
-                  child: Row(
-                    children: [
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Image.asset("assets/images/sabinrai.jpg",
-                              height: 80, width: 80, fit: BoxFit.contain),
+            ),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 0, color: Colors.black),
+              color: Colors.black,
+            ),
+            child: Card(
+              color: Colors.deepPurpleAccent,
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25),
+                    child: Image.asset("assets/images/sabinrai.jpg",
+                        height: 80, width: 80, fit: BoxFit.contain),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 50.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Nepali songs',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text('202 songs',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal)),
                         ),
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 50),
-                            child: Text('Hindi songs',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text('5 songs',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                      ],
+                    ),
+                  )
+                ],
               ),
+            ),
+          ),
             ],
           ),
         ),
