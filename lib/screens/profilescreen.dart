@@ -23,7 +23,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       var userServices = ProfileServices();
       var response = await userServices.getUser();
-      print(response);
       return response;
     } catch (e) {
       print(e);
@@ -41,8 +40,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: FutureBuilder(
                   future: getData(),
                   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    dynamic data = jsonDecode(jsonDecode(snapshot.data.toString()))["data"];
-                    print("DATA:: "+data.toString());
                     return Column(
                       children: [
                         Row(
@@ -50,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
-                              child: Text(data["email"],
+                              child: Text('My Profile',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
