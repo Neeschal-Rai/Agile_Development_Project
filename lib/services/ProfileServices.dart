@@ -8,8 +8,9 @@ class ProfileServices {
     SharedPreferences userprefs = await SharedPreferences.getInstance();
     final String user_id = userprefs.getString("userid");
     try {
-      var res = await http.get(Uri.parse(getUserProfile+user_id));
-      return res.body;
+      var res = await http.get(Uri.parse(getUserProfile+"61dd49d9e97c6d15e65f5a4f"));
+      
+      return json.encode(res.body);
     } catch (e) {
       print(e);
     }
