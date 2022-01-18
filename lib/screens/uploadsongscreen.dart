@@ -18,6 +18,8 @@ class UploadScreen extends StatefulWidget {
 
 class _UploadScreenState extends State<UploadScreen> {
   final songnameController = TextEditingController();
+  final artistnameController = TextEditingController();
+
   Future register() async {
     var res =
         await http.post(Uri.parse(getUploadSong), headers: <String, String>{
@@ -45,131 +47,136 @@ class _UploadScreenState extends State<UploadScreen> {
       print("False credentials");
     }
   }
+
   Song song = Song("", "", "", "");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         body: SafeArea(
-       child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.003, 3],
-            colors: [
-              Colors.deepPurple,
-              Colors.black,
-            ],
-          )),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                  child: Text('Upload your music',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Song Name",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                          child: TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            controller: songnameController,
-                            onChanged: (value) {
-                              song.song_name = value;
-                            },
-                            decoration: new InputDecoration(
-                              enabledBorder: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15.0),
-                                  borderSide:
-                                      new BorderSide(color: Colors.white)),
-                            ),
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [0.003, 3],
+          colors: [
+            Colors.deepPurple,
+            Colors.black,
+          ],
+        )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+              child: Text('Upload your music',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold)),
+            ),
+            Expanded(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Song Name",
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        child: TextFormField(
+                          style: TextStyle(color: Colors.white),
+                          controller: songnameController,
+                          onChanged: (value) {
+                            song.song_name = value;
+                          },
+                          decoration: new InputDecoration(
+                            enabledBorder: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(15.0),
+                                borderSide:
+                                    new BorderSide(color: Colors.white)),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Song Artist",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                          child: TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            controller: songnameController,
-                            onChanged: (value) {
-                              song.song_name = value;
-                            },
-                            decoration: new InputDecoration(
-                              enabledBorder: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15.0),
-                                  borderSide:
-                                      new BorderSide(color: Colors.white)),
-                            ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Song Artist",
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        child: TextFormField(
+                          style: TextStyle(color: Colors.white),
+                          controller: artistnameController,
+                          onChanged: (value) {
+                            song.song_artist = value;
+                          },
+                          decoration: new InputDecoration(
+                            enabledBorder: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(15.0),
+                                borderSide:
+                                    new BorderSide(color: Colors.white)),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Song Image",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        ElevatedButton(
-                            onPressed: () async {
-                              final result =
-                                  await FilePicker.platform.pickFiles();
-                              if (result == null) {
-                                return;
-                              }
-                              final file = result.files.first;
-                              openFile(file);
-                            },
-                            child: Text("Choose file")),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("Song Image",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        ElevatedButton(
-                            onPressed: () async {
-                              final result =
-                                  await FilePicker.platform.pickFiles();
-                              if (result == null) {
-                                return;
-                              }
-                              final file = result.files.first;
-                              openFile(file);
-                            },
-                            child: Text("Choose file"))
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Song Image",
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            final result =
+                                await FilePicker.platform.pickFiles();
+                            if (result == null) {
+                              return;
+                            }
+                            final file = result.files.first;
+                            openFile(file);
+                          },
+                          child: Text("Choose file")),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("Song Image",
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            final result =
+                                await FilePicker.platform.pickFiles();
+                            if (result == null) {
+                              return;
+                            }
+                            final file = result.files.first;
+                            openFile(file);
+                          },
+                          child: Text("Choose file"))
+                    ],
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LibraryScreen()),
-                      );
-                    },
-                    child: Text("Upload",style: TextStyle(
-                    color: Colors.white, backgroundColor: Colors.deepPurple)))
-              ],
+              ),
             ),
-          )),
+            ElevatedButton(
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LibraryScreen()),
+                  );
+                },
+                child: Text("Upload",
+                    style: TextStyle(
+                        color: Colors.white,
+                        backgroundColor: Colors.deepPurple)))
+          ],
+        ),
+      ),
     ));
   }
 
