@@ -128,6 +128,24 @@ class _UploadScreenState extends State<UploadScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
+                        child: Text("Song Description",
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                Container(
+
+                  height: 5* 24.0,
+                  child: TextField(
+                    maxLines: 5,
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    decoration: InputDecoration(
+                      fillColor: Colors.deepPurple,
+                      filled: true,
+
+                    ),
+                  ),
+                ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Text("Song Image",
                             style: TextStyle(color: Colors.white)),
                       ),
@@ -144,7 +162,7 @@ class _UploadScreenState extends State<UploadScreen> {
                           child: Text("Choose file")),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text("Song Image",
+                        child: Text("Song file",
                             style: TextStyle(color: Colors.white)),
                       ),
                       ElevatedButton(

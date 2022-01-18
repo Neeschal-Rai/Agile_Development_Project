@@ -1,5 +1,5 @@
 
-const String BASE_URL = "http://10.1.1.33:90/";
+const String BASE_URL = "http://192.168.1.69:90/";
 // 172.25.1.122
 // 10.1.1.51
 // const String BASE_URL = "http://192.168.1.72:90/";

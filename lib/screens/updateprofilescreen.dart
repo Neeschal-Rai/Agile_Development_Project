@@ -11,7 +11,7 @@ class _UpdateprofileState extends State<Updateprofile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(
@@ -41,9 +41,12 @@ class _UpdateprofileState extends State<Updateprofile> {
                   )
                 ],
               ),
-              Text(
-                "Edit Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              Center(
+                child: Text(
+                  "Edit Profile",
+                  style: TextStyle(color:Colors.white,fontSize: 25, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
               ),
               SizedBox(
                 height: 15,
@@ -56,9 +59,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                         width: 130,
                         height: 130,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
+
                           shape: BoxShape.circle,
                           image: DecorationImage(
                             fit: BoxFit.cover,
@@ -93,21 +94,72 @@ class _UpdateprofileState extends State<Updateprofile> {
               SizedBox(
                 height: 35,
               ),
-              buildTextField("Full Name", "Ruby Rai"),
-              buildTextField("Username", "rubytorubs"),
-              buildTextField("E-mail", "rubytorubs@gmail.com"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Update",
-                        style: TextStyle(
-                            fontSize: 15,
-                            letterSpacing: 2.5,
-                            color: Colors.white)),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: TextFormField(
+                  style: TextStyle(color: Colors.white),
+                  // controller: nameController,
+                  // onChanged: (value) {
+                  //   username = value;
+                  // // },
+                  // validator: (value) {
+                  //   if (value!.isEmpty) {
+                  //     return 'Username is required';
+                  //   } else if (value.length > 8) {
+                  //     return null;
+                  //   } else {
+                  //     return 'Username length must be greater than 8';
+                  //   }
+                  // },
+                  decoration: new InputDecoration(
+                    enabledBorder: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(15.0),
+                        borderSide:
+                        new BorderSide(color: Colors.white)),
                   ),
-                ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: TextFormField(
+                  style: TextStyle(color: Colors.white),
+                  // controller: nameController,
+                  // onChanged: (value) {
+                  //   username = value;
+                  // // },
+                  // validator: (value) {
+                  //   if (value!.isEmpty) {
+                  //     return 'Username is required';
+                  //   } else if (value.length > 8) {
+                  //     return null;
+                  //   } else {
+                  //     return 'Username length must be greater than 8';
+                  //   }
+                  // },
+                  decoration: new InputDecoration(
+                    enabledBorder: new OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(15.0),
+                        borderSide:
+                        new BorderSide(color: Colors.white)),
+                  ),
+                ),
+              ),
+              // buildTextField("Username", "rubytorubs"),
+              // buildTextField("E-mail", "rubytorubs@gmail.com"),
+              Padding(
+                padding: const EdgeInsets.only(top:12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Update",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white)),
+                    ),
+                  ],
+                ),
               )
             ],
           ),

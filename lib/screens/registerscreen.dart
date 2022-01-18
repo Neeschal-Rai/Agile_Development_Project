@@ -27,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String username = "";
   String email = "";
   String password = "";
-  String usertype ="user";
+  String usertype ="";
 
 
   postData() async {
@@ -36,7 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         "username":username,
         "email":email,
         "password":password,
-        "usertype":usertype
+        "usertype":value
       };
 
       var userServices = RegisterServices();
@@ -68,8 +68,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
-                    child: Image.asset("assets/images/logos.png",
-                        height: 100, width: 100, fit: BoxFit.contain),
+                    child: Image.asset("assets/images/logo.png",
+                        height: 200, width: 200, fit: BoxFit.contain),
                   ),
                   SizedBox(
                     height: 40,
@@ -164,8 +164,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     color: Colors.deepPurple, size: 30),
                                 isExpanded: true,
                                 items: items.map(buildMenuItem).toList(),
-                                onChanged: (value) =>
-                                    setState(() => this.value = value),
+                                onChanged: (value) =>{
+                                  print(value),
+                                  setState(() => {this.value = value!}),
+                                }
+
                               ),
                             ),
                           ),
@@ -248,13 +251,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   var response = await postData();
                                   var res = json.decode(response);
                                   if(res["success"] == true){
+                                    Navigator.pop(context);
                                     Fluttertoast.showToast(
-                                        msg: 'Invalid Login',
+                                        msg: 'Registered successfully',
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.BOTTOM,
                                         timeInSecForIosWeb: 1,
                                         backgroundColor: Colors.deepPurple,
                                         textColor: Colors.white);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => LoginScreen()));
+
+
                                     final snackB = SnackBar(content: Text(res["message"]));
                                   }
                                 } else {
@@ -285,8 +295,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Text(
                           "Login here.",
                           style: TextStyle(
-                              color: Colors.green.withOpacity(0.8),
-                              decoration: TextDecoration.underline),
+                              color: Colors.red.withOpacity(0.8),
+                          )
                         ),
                       ),
                     ],

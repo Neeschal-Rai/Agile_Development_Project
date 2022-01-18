@@ -61,8 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  child: Image.asset("assets/images/logos.png",
-                      height: 200, width: 200, fit: BoxFit.contain),
+                  width: 150,
+                  height: 150,
+                  child: Image.asset("assets/images/logo.png",
+                      height: 300, width: 300, fit: BoxFit.contain),
                 ),
                 SizedBox(
                   height: 100,
@@ -164,6 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               var response = await postData();
                               var res = json.decode(response);
                               if (res["success"] == true) {
+                                Navigator.pop(context);
                                 SharedPreferences userprefs = await SharedPreferences.getInstance();
                                 userprefs.setString("userid", res["userId"]);
                                 userprefs.clear();
