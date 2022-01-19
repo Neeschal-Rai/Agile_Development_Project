@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dhun/services/ProfileServices.dart';
 import 'package:flutter/material.dart';
 
 class Updateprofile extends StatefulWidget {
@@ -8,6 +11,20 @@ class Updateprofile extends StatefulWidget {
 }
 
 class _UpdateprofileState extends State<Updateprofile> {
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+
+  getData() async {
+    try {
+      var profileServices = ProfileServices();
+      var response = await profileServices.getUser();
+      print(response);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +61,10 @@ class _UpdateprofileState extends State<Updateprofile> {
               Center(
                 child: Text(
                   "Edit Profile",
-                  style: TextStyle(color:Colors.white,fontSize: 25, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -59,7 +79,6 @@ class _UpdateprofileState extends State<Updateprofile> {
                         width: 130,
                         height: 130,
                         decoration: BoxDecoration(
-
                           shape: BoxShape.circle,
                           image: DecorationImage(
                             fit: BoxFit.cover,
@@ -94,73 +113,110 @@ class _UpdateprofileState extends State<Updateprofile> {
               SizedBox(
                 height: 35,
               ),
+              FutureBuilder(
+                  future: getData(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      dynamic data = jsonDecode(
+                          jsonDecode(snapshot.data.toString()))["data"];
+                      return Container(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 35.0),
+                              child: TextFormField(
+                                controller: nameController,
+                                decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Username",
+                                    labelStyle: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                    hintText: data["username"],
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                      BorderSide(color: Colors.deepPurple),
+                                    )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 35.0),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 3),
+                                    labelText: "Email",
+                                    labelStyle: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    hintText: data["email"],
+                                    hintStyle: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.deepPurple),
+                                    )),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      );
+                    } else {
+                      return
+                          Center(// heightFactor: 3,
+                            // widthFactor: 0.8,
+                            child: Container(
+
+                              child: Text(
+                                'Error Occured',
+                                textScaleFactor: 3,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                      );
+                    }
+
+                  }),
+
+
               Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  // controller: nameController,
-                  // onChanged: (value) {
-                  //   username = value;
-                  // // },
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'Username is required';
-                  //   } else if (value.length > 8) {
-                  //     return null;
-                  //   } else {
-                  //     return 'Username length must be greater than 8';
-                  //   }
-                  // },
-                  decoration: new InputDecoration(
-                    enabledBorder: new OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(15.0),
-                        borderSide:
-                        new BorderSide(color: Colors.white)),
+                padding: const EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Updateprofile()));
+                  },
+                  child: Text("Edit",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal)),
+                  style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all<Color>(
+                        Colors.deepPurpleAccent),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  // controller: nameController,
-                  // onChanged: (value) {
-                  //   username = value;
-                  // // },
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'Username is required';
-                  //   } else if (value.length > 8) {
-                  //     return null;
-                  //   } else {
-                  //     return 'Username length must be greater than 8';
-                  //   }
-                  // },
-                  decoration: new InputDecoration(
-                    enabledBorder: new OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(15.0),
-                        borderSide:
-                        new BorderSide(color: Colors.white)),
-                  ),
-                ),
-              ),
-              // buildTextField("Username", "rubytorubs"),
-              // buildTextField("E-mail", "rubytorubs@gmail.com"),
-              Padding(
-                padding: const EdgeInsets.only(top:12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Update",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.white)),
-                    ),
-                  ],
-                ),
-              )
+
             ],
           ),
         ),
@@ -168,21 +224,4 @@ class _UpdateprofileState extends State<Updateprofile> {
     );
   }
 
-  Widget buildTextField(String labelText, String placeholder) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 3),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: placeholder,
-            hintStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.deepPurple,
-            )),
-      ),
-    );
-  }
 }

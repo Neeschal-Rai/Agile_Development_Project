@@ -39,16 +39,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         "usertype":value
       };
 
-      var userServices = RegisterServices();
-      var response = await userServices.Register(body);
+      var loginServices = RegisterServices();
+      var response = await loginServices.Register(body);
       return response;
     }
     catch(e){
       print(e);
     }
   }
-
-  UserModel user = UserModel("", "", "", "");
   @override
   Widget build(BuildContext context) {
     return Scaffold(

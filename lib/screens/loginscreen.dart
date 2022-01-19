@@ -32,8 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
   postData() async {
     try {
       var body = {"email": email, "password": password, "usertype": usertype};
-      var userServices = LoginServices();
-      var response = await userServices.Login(body);
+      var registerServices = LoginServices();
+      var response = await registerServices.Login(body);
       return response;
     } catch (e) {
       print(e);

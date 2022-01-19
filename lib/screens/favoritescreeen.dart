@@ -14,7 +14,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Container(
-
           margin: const EdgeInsets.symmetric(vertical: 20.0),
           child: Column(
             children: [
