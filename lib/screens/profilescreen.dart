@@ -16,10 +16,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
   getData() async {
+    SharedPreferences userprefs = await SharedPreferences.getInstance();
+    final String user_id = userprefs.getString("userid");
     try {
       var profileServices = ProfileServices();
-      var response = await profileServices.getUser();
+      var response = await profileServices.getUser("61e6adfe29ff7fa5e8c43cb1");
       print(response);
       return response;
     } catch (e) {

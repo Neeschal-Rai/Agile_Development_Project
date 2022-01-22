@@ -4,11 +4,9 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileServices {
-  Future<dynamic> getUser() async {
-    SharedPreferences userprefs = await SharedPreferences.getInstance();
-    final String user_id = userprefs.getString("userid");
+  Future<dynamic> getUser(String id) async {
     try {
-      var res = await http.get(Uri.parse(getUserProfile+"61e6adfe29ff7fa5e8c43cb1"));
+      var res = await http.get(Uri.parse(getUserProfile+id));
       
       return json.encode(res.body);
     } catch (e) {

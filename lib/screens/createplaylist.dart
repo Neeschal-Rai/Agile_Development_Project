@@ -7,8 +7,13 @@ class CreatePlaylist extends StatefulWidget {
 }
 
 class _CreatePlaylistState extends State<CreatePlaylist> {
+  final songnameController = TextEditingController();
+  final artistnameController = TextEditingController();
+  final songdescController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Container();
+
   }
 }

@@ -1,6 +1,9 @@
+import 'package:dhun/screens/createplaylist.dart';
 import 'package:dhun/screens/favoritescreeen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'loginscreen.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -41,14 +44,39 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       color: Colors.white,
                       splashColor: Colors.deepPurple,
                       onPressed: () {
-                        print("hello world");
-                        Fluttertoast.showToast(
-                            msg: 'Coming soon',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.deepPurple,
-                            textColor: Colors.white);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.deepPurple,
+                              title: Text("Create playlist", style: TextStyle(
+                                color: Colors.white,
+                              )),
+                              content: Text("Are you sure want to create new playlist?",style: TextStyle(
+                                color: Colors.white,
+                              )),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: new Text("Cancel",style: TextStyle(
+                                    color: Colors.white,
+                                  )),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: new Text("Ok",style: TextStyle(
+                                    color: Colors.white,
+                                  )),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+
                       },
                     ),
                   ),

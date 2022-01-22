@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Updateprofile extends StatefulWidget {
   const Updateprofile({Key? key}) : super(key: key);
@@ -13,11 +15,37 @@ class Updateprofile extends StatefulWidget {
 class _UpdateprofileState extends State<Updateprofile> {
   final emailController = TextEditingController();
   final nameController = TextEditingController();
+  Future<void> _optionsDialogBox() {
+    return showDialog(context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  TextButton(
+                  onPressed: () => OpenCamera()
+            ,
+                  child: Text("Open camera"),
+
+                  ),
+
+
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   getData() async {
+    SharedPreferences userprefs = await SharedPreferences.getInstance();
+    final String user_id = userprefs.getString("userid");
     try {
       var profileServices = ProfileServices();
-      var response = await profileServices.getUser();
+      var response = await profileServices.getUser("61e6adfe29ff7fa5e8c43cb1");
       print(response);
       return response;
     } catch (e) {
@@ -97,13 +125,17 @@ class _UpdateprofileState extends State<Updateprofile> {
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                width: 4,
+                                width: 2,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                               ),
                               color: Colors.deepPurple),
-                          child: Icon(
-                            Icons.camera,
+                          child: IconButton(
+                            icon: Icon(Icons.camera_alt_rounded),
+                            onPressed: () {
+                              _optionsDialogBox();
+                            }
+                            ,
                             color: Colors.white,
                           ),
                         ))
@@ -190,10 +222,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                             ),
                       );
                     }
-
                   }),
-
-
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton(
@@ -221,6 +250,11 @@ class _UpdateprofileState extends State<Updateprofile> {
           ),
         ),
       ),
+    );
+  }
+
+  void OpenCamera() async{
+    var picture = await ImagePicker().pickImage( source: ImageSource.camera
     );
   }
 
