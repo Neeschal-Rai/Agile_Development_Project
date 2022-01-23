@@ -33,7 +33,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0, right: 20),
                     child: IconButton(
@@ -49,45 +48,47 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: Colors.deepPurple,
-                              title: Text("Create playlist", style: TextStyle(
-                                color: Colors.white,
-                              )),
-                              content: Text("Are you sure want to create new playlist?",style: TextStyle(
-                                color: Colors.white,
-                              )),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: new Text("Cancel",style: TextStyle(
+                              title: Text("Create playlist",
+                                  style: TextStyle(
                                     color: Colors.white,
                                   )),
+                              content: Text(
+                                  "Are you sure want to create new playlist?",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  )),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text("Cancel",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      )),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
                                 TextButton(
-                                  child: new Text("Ok",style: TextStyle(
-                                    color: Colors.white,
-                                  )),
+                                  child: Text("Ok",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      )),
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    Navigator.pop(context);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CreatePlaylist()),
+                                    );
                                   },
                                 ),
                               ],
                             );
                           },
                         );
-
                       },
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 10.0, right: 20),
-                  //   child: Icon(
-                  //     Icons.add,
-                  //     size: 30,
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
                 ],
               ),
               Container(
@@ -148,8 +149,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               GestureDetector(
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => FavoriteScreen()),
+                  MaterialPageRoute(builder: (context) => FavoriteScreen()),
                 ),
                 child: Container(
                   height: 90,
@@ -157,7 +157,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     border: Border.all(width: 0, color: Colors.black),
                     color: Colors.black,
                   ),
-                    margin: const EdgeInsets.only(top: 30.0),
+                  margin: const EdgeInsets.only(top: 30.0),
                   child: Card(
                     color: Colors.deepPurpleAccent,
                     child: Row(
@@ -193,84 +193,84 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   ),
                 ),
               ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 0, color: Colors.black),
-                color: Colors.black,
-              ),
-              child: Card(
-                color: Colors.deepPurpleAccent,
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image.asset("assets/images/sabinrai.jpg",
-                          height: 80, width: 80, fit: BoxFit.contain),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 50.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Mood',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text('202 songs',
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0, color: Colors.black),
+                  color: Colors.black,
+                ),
+                child: Card(
+                  color: Colors.deepPurpleAccent,
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Image.asset("assets/images/sabinrai.jpg",
+                            height: 80, width: 80, fit: BoxFit.contain),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 50.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Mood',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal)),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text('202 songs',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal)),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(width: 0, color: Colors.black),
-              color: Colors.black,
-            ),
-            child: Card(
-              color: Colors.deepPurpleAccent,
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: Image.asset("assets/images/sabinrai.jpg",
-                        height: 80, width: 80, fit: BoxFit.contain),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 50.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Nepali songs',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text('202 songs',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.normal)),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0, color: Colors.black),
+                  color: Colors.black,
+                ),
+                child: Card(
+                  color: Colors.deepPurpleAccent,
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Image.asset("assets/images/sabinrai.jpg",
+                            height: 80, width: 80, fit: BoxFit.contain),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 50.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Nepali songs',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Text('202 songs',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal)),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )
-                ],
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
             ],
           ),
         ),

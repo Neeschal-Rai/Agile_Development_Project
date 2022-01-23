@@ -27,26 +27,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String username = "";
   String email = "";
   String password = "";
-  String usertype ="";
-
+  String usertype = "";
 
   postData() async {
-    try{
+    try {
       var body = {
-        "username":username,
-        "email":email,
-        "password":password,
-        "usertype":value
+        "username": username,
+        "email": email,
+        "password": password,
+        "usertype": value
       };
 
       var loginServices = RegisterServices();
       var response = await loginServices.Register(body);
       return response;
-    }
-    catch(e){
+    } catch (e) {
       print(e);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,19 +154,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
-                                value: value,
-                                iconSize: 20,
-                                dropdownColor: Colors.black,
-                                icon: Icon(Icons.arrow_drop_down,
-                                    color: Colors.deepPurple, size: 30),
-                                isExpanded: true,
-                                items: items.map(buildMenuItem).toList(),
-                                onChanged: (value) =>{
-                                  print(value),
-                                  setState(() => {this.value = value!}),
-                                }
-
-                              ),
+                                  value: value,
+                                  iconSize: 20,
+                                  dropdownColor: Colors.black,
+                                  icon: Icon(Icons.arrow_drop_down,
+                                      color: Colors.deepPurple, size: 30),
+                                  isExpanded: true,
+                                  items: items.map(buildMenuItem).toList(),
+                                  onChanged: (value) => {
+                                        print(value),
+                                        setState(() => {this.value = value!}),
+                                      }),
                             ),
                           ),
                         ),
@@ -248,7 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (_formKey.currentState!.validate()) {
                                   var response = await postData();
                                   var res = json.decode(response);
-                                  if(res["success"] == true){
+                                  if (res["success"] == true) {
                                     Navigator.pop(context);
                                     Fluttertoast.showToast(
                                         msg: 'Registered successfully',
@@ -260,10 +257,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => LoginScreen()));
+                                            builder: (context) =>
+                                                LoginScreen()));
 
-
-                                    final snackB = SnackBar(content: Text(res["message"]));
                                   }
                                 } else {
                                   print("Error");
@@ -290,12 +286,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           MaterialPageRoute(
                               builder: (context) => LoginScreen()),
                         ),
-                        child: Text(
-                          "Login here.",
-                          style: TextStyle(
+                        child: Text("Login here.",
+                            style: TextStyle(
                               color: Colors.red.withOpacity(0.8),
-                          )
-                        ),
+                            )),
                       ),
                     ],
                   )

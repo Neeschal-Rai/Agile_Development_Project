@@ -15,21 +15,19 @@ class Updateprofile extends StatefulWidget {
 class _UpdateprofileState extends State<Updateprofile> {
   final emailController = TextEditingController();
   final nameController = TextEditingController();
+
   Future<void> _optionsDialogBox() {
-    return showDialog(context: context,
+    return showDialog(
+        context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   TextButton(
-                  onPressed: () => OpenCamera()
-            ,
-                  child: Text("Open camera"),
-
+                    onPressed: () => OpenCamera(),
+                    child: Text("Open camera"),
                   ),
-
-
                   Padding(
                     padding: EdgeInsets.all(8.0),
                   )
@@ -134,8 +132,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                             icon: Icon(Icons.camera_alt_rounded),
                             onPressed: () {
                               _optionsDialogBox();
-                            }
-                            ,
+                            },
                             color: Colors.white,
                           ),
                         ))
@@ -158,6 +155,11 @@ class _UpdateprofileState extends State<Updateprofile> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 35.0),
                               child: TextFormField(
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                                 controller: nameController,
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
@@ -168,7 +170,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                       color: Colors.white,
                                     ),
                                     floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
+                                        FloatingLabelBehavior.always,
                                     hintText: data["username"],
                                     hintStyle: TextStyle(
                                       fontSize: 16,
@@ -177,13 +179,18 @@ class _UpdateprofileState extends State<Updateprofile> {
                                     ),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.deepPurple),
+                                          BorderSide(color: Colors.deepPurple),
                                     )),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 35.0),
-                              child: TextField(
+                              child: TextFormField(
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
                                     labelText: "Email",
@@ -192,7 +199,8 @@ class _UpdateprofileState extends State<Updateprofile> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
-                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
                                     hintText: data["email"],
                                     hintStyle: TextStyle(
                                       fontSize: 16,
@@ -200,26 +208,25 @@ class _UpdateprofileState extends State<Updateprofile> {
                                       color: Colors.white,
                                     ),
                                     enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.deepPurple),
+                                      borderSide:
+                                          BorderSide(color: Colors.deepPurple),
                                     )),
                               ),
                             ),
-
                           ],
                         ),
                       );
                     } else {
-                      return
-                          Center(// heightFactor: 3,
-                            // widthFactor: 0.8,
-                            child: Container(
-
-                              child: Text(
-                                'Error Occured',
-                                textScaleFactor: 3,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
+                      return Center(
+                        // heightFactor: 3,
+                        // widthFactor: 0.8,
+                        child: Container(
+                          child: Text(
+                            'Error Occured',
+                            textScaleFactor: 3,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       );
                     }
                   }),
@@ -230,8 +237,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                Updateprofile()));
+                            builder: (context) => Updateprofile()));
                   },
                   child: Text("Edit",
                       style: TextStyle(
@@ -239,13 +245,11 @@ class _UpdateprofileState extends State<Updateprofile> {
                           fontSize: 15,
                           fontWeight: FontWeight.normal)),
                   style: ButtonStyle(
-                    backgroundColor:
-                    MaterialStateProperty.all<Color>(
+                    backgroundColor: MaterialStateProperty.all<Color>(
                         Colors.deepPurpleAccent),
                   ),
                 ),
               ),
-
             ],
           ),
         ),
@@ -253,9 +257,7 @@ class _UpdateprofileState extends State<Updateprofile> {
     );
   }
 
-  void OpenCamera() async{
-    var picture = await ImagePicker().pickImage( source: ImageSource.camera
-    );
+  void OpenCamera() async {
+    var picture = await ImagePicker().pickImage(source: ImageSource.camera);
   }
-
 }
