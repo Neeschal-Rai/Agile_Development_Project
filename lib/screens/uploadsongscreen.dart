@@ -157,10 +157,7 @@ class _UploadScreenState extends State<UploadScreen> {
                                 },
                                 style:
                                     TextStyle(fontSize: 18, color: Colors.white),
-                                decoration: InputDecoration(
-                                  fillColor: Colors.deepPurple,
-                                  filled: true,
-                                ),
+
                               ),
                             ),
                             Padding(
