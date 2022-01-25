@@ -169,6 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Navigator.pop(context);
                                 SharedPreferences userprefs = await SharedPreferences.getInstance();
                                 userprefs.setString("userid", res["userId"]);
+                                userprefs.setString("token", res["token"]);
                                 userprefs.clear();
                                 Fluttertoast.showToast(
                                     msg: 'yeta',

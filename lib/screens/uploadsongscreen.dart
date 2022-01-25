@@ -157,6 +157,13 @@ class _UploadScreenState extends State<UploadScreen> {
                                 },
                                 style:
                                     TextStyle(fontSize: 18, color: Colors.white),
+                                decoration: new InputDecoration(
+                                  enabledBorder: new OutlineInputBorder(
+                                      borderRadius:
+                                      new BorderRadius.circular(15.0),
+                                      borderSide:
+                                      new BorderSide(color: Colors.white)),
+                                ),
 
                               ),
                             ),

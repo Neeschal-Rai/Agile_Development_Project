@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/screens/updateprofilescreen.dart';
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:http/http.dart' as http;
@@ -51,9 +52,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: const [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
+                                  padding: EdgeInsets.only(top: 10.0),
                                   child: Text("My profile",
                                       style: TextStyle(
                                           color: Colors.white,
@@ -67,19 +68,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   const EdgeInsets.symmetric(vertical: 40.0),
                               width: 100,
                               height: 100,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/profile.jpg'),
-                                  fit: BoxFit.fill,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(image: NetworkImage(BASE_URL+data["profilepic"]),
+                                        fit: BoxFit.cover)
                                 ),
-                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
                               child: Text(data["username"],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal)),
@@ -87,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 3.0),
                               child: Text(data["email"],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal)),
@@ -116,9 +114,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
+                              children: const [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
+                                  padding: EdgeInsets.only(top: 10.0),
                                   child: Text('Following',
                                       style: TextStyle(
                                           color: Colors.white,
@@ -126,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           fontWeight: FontWeight.normal)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
+                                  padding: EdgeInsets.only(top: 10.0),
                                   child: Text('Followers',
                                       style: TextStyle(
                                           color: Colors.white,
@@ -137,9 +135,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
+                              children: const [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
+                                  padding: EdgeInsets.only(top: 10.0),
                                   child: Text('14',
                                       style: TextStyle(
                                           color: Colors.white,
@@ -147,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           fontWeight: FontWeight.normal)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
+                                  padding: EdgeInsets.only(top: 10.0),
                                   child: Text('0',
                                       style: TextStyle(
                                           color: Colors.white,
