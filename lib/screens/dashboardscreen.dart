@@ -20,7 +20,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           backgroundColor: Colors.black,
           body: SafeArea(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -38,7 +38,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                     children: [
                       Padding(
                         padding: top_pad,
-                        child: Text("WELCOME RUBY",
+                        child: const Text("WELCOME RUBY",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -46,7 +46,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                       ),
                       Padding(
                         padding: top_pad,
-                        child: Icon(
+                        child: const Icon(
                           Icons.notifications,
                           size: 30,
                           color: Colors.white,
@@ -56,7 +56,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ),
                   Padding(
                     padding: extra_pad,
-                    child: Text("RECENTLY PLAYED",
+                    child: const Text("RECENTLY PLAYED",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize:15,
@@ -86,7 +86,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                 ),
                                 Padding(
                                   padding: extra_pad,
-                                  child: Text("Hamro Nepal Ma",
+                                  child: const Text("Hamro Nepal Ma",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 15)),
                                 )
@@ -104,7 +104,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                 ),
                                 Padding(
                                   padding: extra_pad,
-                                  child: Text("Naganya maya",
+                                  child: const Text("Naganya maya",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 15)),
                                 )
@@ -117,7 +117,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ),
                   Padding(
                     padding: extra_pad,
-                    child: Text("POPULAR SONGS",
+                    child: const Text("POPULAR SONGS",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
@@ -140,7 +140,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                 ),
                                 Padding(
                                   padding: extra_pad,
-                                  child: Text('Hamro Nepal ma',
+                                  child: const Text('Hamro Nepal ma',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 15)),
                                 )
@@ -158,7 +158,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                 ),
                                 Padding(
                                   padding: extra_pad,
-                                  child: Text("Naganya maya",
+                                  child: const Text("Naganya maya",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 15)),
                                 )
@@ -171,7 +171,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   ),
                       Padding(
                         padding: extra_pad,
-                        child: Text("LATEST RELEASES",
+                        child: const Text("LATEST RELEASES",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -194,7 +194,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                     ),
                                     Padding(
                                       padding: extra_pad,
-                                      child: Text("Hamro Nepal Ma",
+                                      child: const Text("Hamro Nepal Ma",
                                           style: TextStyle(
                                               color: Colors.white, fontSize: 15)),
                                     )
@@ -234,7 +234,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => UploadScreen()),
+                  builder: (context) => UploadSongScreen()),
             );
           },
           child: Icon(Icons.add, color: Colors.white, size: 29,),

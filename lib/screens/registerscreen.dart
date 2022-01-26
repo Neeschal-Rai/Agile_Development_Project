@@ -58,8 +58,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20.0),
                     child: Text("Create an account",
                         style: TextStyle(color: Colors.white, fontSize: 18)),
                   ),
@@ -68,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Image.asset("assets/images/logo.png",
                         height: 200, width: 200, fit: BoxFit.contain),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Container(
@@ -78,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Email Address",
+                        const Text("Email Address",
                             style: TextStyle(color: Colors.white)),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
@@ -99,16 +99,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return 'Enter valid email address';
                               }
                             },
-                            decoration: new InputDecoration(
-                              enabledBorder: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15.0),
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
                                   borderSide:
-                                      new BorderSide(color: Colors.white)),
+                                      const BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
                           child: Text("Username",
                               style: TextStyle(color: Colors.white)),
                         ),
@@ -129,16 +129,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return 'Username length must be greater than 8';
                               }
                             },
-                            decoration: new InputDecoration(
-                              enabledBorder: new OutlineInputBorder(
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
                                   borderRadius: new BorderRadius.circular(15.0),
                                   borderSide:
-                                      new BorderSide(color: Colors.white)),
+                                      BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
                           child: Text("Usertype",
                               style: TextStyle(color: Colors.white)),
                         ),

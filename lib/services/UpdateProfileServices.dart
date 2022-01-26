@@ -17,7 +17,6 @@ class UpdateProfileServices {
           await http.MultipartFile.fromPath('myimage', body["image"]!.path));
 
       var response = await request.send();
-
       final res = await http.Response.fromStream(response);
       print(res.body);
     } catch (e) {

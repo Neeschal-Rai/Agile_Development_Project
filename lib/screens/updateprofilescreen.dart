@@ -39,11 +39,17 @@ class _UpdateprofileState extends State<Updateprofile> {
                 children: <Widget>[
                   TextButton(
                     onPressed: () => OpenCamera(),
-                    child: Text("Open camera"),
+                    child: Text("Open camera",style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
                   ),
                   TextButton(
                     onPressed: () => OpenGallery(),
-                    child: Text("Open gallery"),
+                    child: Text("Open gallery",style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold)),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
@@ -68,7 +74,6 @@ class _UpdateprofileState extends State<Updateprofile> {
       var updateprofileServices = UpdateProfileServices();
       var response = await updateprofileServices.updateprofile(
           "61e6adfe29ff7fa5e8c43cb1", "", body);
-      print(response);
       return response;
     } catch (e) {
       print(e);
@@ -81,7 +86,6 @@ class _UpdateprofileState extends State<Updateprofile> {
     try {
       var profileServices = ProfileServices();
       var response = await profileServices.getUser("61e6adfe29ff7fa5e8c43cb1");
-      print(response);
       return response;
     } catch (e) {
       print(e);
@@ -114,7 +118,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.arrow_back,
                                     color: Colors.deepPurpleAccent,
                                   ),
@@ -123,7 +127,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                   },
                                 ),
                                 IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.settings,
                                     color: Colors.deepPurpleAccent,
                                   ),
@@ -131,7 +135,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                 )
                               ],
                             ),
-                            Center(
+                            const Center(
                               child: Text(
                                 "Edit Profile",
                                 style: TextStyle(
@@ -141,7 +145,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Center(
@@ -201,13 +205,13 @@ class _UpdateprofileState extends State<Updateprofile> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 35,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 35.0),
                               child: TextFormField(
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -219,7 +223,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
                                     labelText: "Username",
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -227,12 +231,12 @@ class _UpdateprofileState extends State<Updateprofile> {
                                     floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
                                     hintText: data["username"],
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
-                                    enabledBorder: UnderlineInputBorder(
+                                    enabledBorder: const UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple),
                                     )),
@@ -241,7 +245,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 35.0),
                               child: TextFormField(
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -253,7 +257,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
                                     labelText: "Email Address",
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -261,12 +265,12 @@ class _UpdateprofileState extends State<Updateprofile> {
                                     floatingLabelBehavior:
                                     FloatingLabelBehavior.always,
                                     hintText: data["email"],
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
-                                    enabledBorder: UnderlineInputBorder(
+                                    enabledBorder: const UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple),
                                     )),
@@ -277,10 +281,8 @@ class _UpdateprofileState extends State<Updateprofile> {
                       );
                     } else {
                       return Center(
-                        // heightFactor: 3,
-                        // widthFactor: 0.8,
                         child: Container(
-                          child: Text(
+                          child: const Text(
                             'Error Occured',
                             textScaleFactor: 3,
                             style: TextStyle(color: Colors.white),
@@ -301,7 +303,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                         MaterialPageRoute(
                             builder: (context) => HomeScreen()));
                   },
-                  child: Text("Update",
+                  child: const Text("Update",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
