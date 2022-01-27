@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.transparent,
           animationCurve: Curves.ease,
           height: 50,
-          items: <Widget>[
+          items: const <Widget>[
             Icon(Icons.home, size: 30),
             Icon(Icons.search, size:30),
             Icon(Icons.favorite, size: 30),

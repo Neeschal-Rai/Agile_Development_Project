@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dhun/screens/createplaylist.dart';
 import 'package:dhun/screens/favoritescreeen.dart';
+import 'package:dhun/services/GetPlaylistServices.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -13,6 +16,17 @@ class LibraryScreen extends StatefulWidget {
 }
 
 class _LibraryScreenState extends State<LibraryScreen> {
+  getplaylistData() async {
+    try {
+      var getplaylistServices = GetPlaylistServices();
+      var response = await getplaylistServices.getallplaylist();
+      print(response);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +39,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, left: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10.0, left: 20),
                     child: Text('My Library',
                         style: TextStyle(
                             color: Colors.white,
@@ -36,7 +50,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0, right: 20),
                     child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add,
                       ),
                       iconSize: 30,
@@ -48,18 +62,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: Colors.deepPurple,
-                              title: Text("Create playlist",
+                              title: const Text("Create playlist",
                                   style: TextStyle(
                                     color: Colors.white,
                                   )),
-                              content: Text(
+                              content: const Text(
                                   "Are you sure want to create new playlist?",
                                   style: TextStyle(
                                     color: Colors.white,
                                   )),
                               actions: <Widget>[
                                 TextButton(
-                                  child: Text("Cancel",
+                                  child: const Text("Cancel",
                                       style: TextStyle(
                                         color: Colors.white,
                                       )),
@@ -68,7 +82,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                   },
                                 ),
                                 TextButton(
-                                  child: Text("Ok",
+                                  child: const Text("Ok",
                                       style: TextStyle(
                                         color: Colors.white,
                                       )),
@@ -106,7 +120,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5),
-                        child: Text("Artists",
+                        child: const Text("Artists",
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -121,7 +135,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5),
-                        child: Text("Albums",
+                        child: const Text("Albums",
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -136,7 +150,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5),
-                        child: Text("playlists",
+                        child: const Text("playlists",
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -171,14 +185,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           margin: const EdgeInsets.only(left: 50.0, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text('Liked songs',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold)),
                               Padding(
-                                padding: const EdgeInsets.only(top: 5),
+                                padding: EdgeInsets.only(top: 5),
                                 child: Text('105 songs',
                                     style: TextStyle(
                                         color: Colors.white,
@@ -193,84 +207,120 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0, color: Colors.black),
-                  color: Colors.black,
-                ),
-                child: Card(
-                  color: Colors.deepPurpleAccent,
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: Image.asset("assets/images/sabinrai.jpg",
-                            height: 80, width: 80, fit: BoxFit.contain),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 50.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              SingleChildScrollView(
+                child: FutureBuilder(
+                  future: getplaylistData(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      dynamic data = jsonDecode(
+                          jsonDecode(snapshot.data.toString()))["data"];
+                      print(data[0]["playlistname"]);
+                      return Column(
                           children: [
-                            Text('Mood',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold)),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text('202 songs',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal)),
-                            ),
-                          ],
+                        Container(
+                          height:100,
+                          child: ListView.builder(
+                              itemCount: data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 0, color: Colors.black),
+                                    color: Colors.black,
+                                  ),
+                                  child: Card(
+                                    color: Colors.deepPurpleAccent,
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          child: Image.asset(
+                                              "assets/images/playlist.png",
+                                              height: 80,
+                                              width: 80,
+                                              fit: BoxFit.contain),
+                                        ),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 50.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text('${data[0]["playlistname"]}',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Padding(
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text('202 songs',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.normal)),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
                         ),
-                      )
-                    ],
-                  ),
+                      ]);
+                    } else {
+                      return Column(children: [Container()]);
+                    }
+                  },
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0, color: Colors.black),
-                  color: Colors.black,
-                ),
-                child: Card(
-                  color: Colors.deepPurpleAccent,
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: Image.asset("assets/images/sabinrai.jpg",
-                            height: 80, width: 80, fit: BoxFit.contain),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 50.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Nepali songs',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold)),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text('202 songs',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal)),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+
+              // Container(
+              //   decoration: BoxDecoration(
+              //     border: Border.all(width: 0, color: Colors.black),
+              //     color: Colors.black,
+              //   ),
+              //   child: Card(
+              //     color: Colors.deepPurpleAccent,
+              //     child: Row(
+              //       children: [
+              //         ClipRRect(
+              //           borderRadius: BorderRadius.circular(25),
+              //           child: Image.asset("assets/images/sabinrai.jpg",
+              //               height: 80, width: 80, fit: BoxFit.contain),
+              //         ),
+              //         Container(
+              //           margin: const EdgeInsets.only(left: 50.0),
+              //           child: Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: const [
+              //               Text('Nepali songs',
+              //                   style: TextStyle(
+              //                       color: Colors.white,
+              //                       fontSize: 18,
+              //                       fontWeight: FontWeight.bold)),
+              //               Padding(
+              //                 padding: EdgeInsets.only(top: 5),
+              //                 child: Text('202 songs',
+              //                     style: TextStyle(
+              //                         color: Colors.white,
+              //                         fontSize: 15,
+              //                         fontWeight: FontWeight.normal)),
+              //               ),
+              //             ],
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

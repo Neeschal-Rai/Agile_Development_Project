@@ -128,7 +128,7 @@ class _MusicScreenState extends State<MusicScreen> {
         backgroundColor: Colors.black,
         body: SafeArea(
             child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -142,8 +142,8 @@ class _MusicScreenState extends State<MusicScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40.0),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 40.0),
                       child: Text("NOW PLAYING",
                           style: TextStyle(
                               color: Colors.white,
@@ -165,16 +165,16 @@ class _MusicScreenState extends State<MusicScreen> {
                             )),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 10.0),
                       child: Text("Hamro Nepal ma",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 10.0),
                       child: Text("Neetesh Jung Kunwar",
                           style: TextStyle(
                               color: Colors.white,
@@ -187,7 +187,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.only(top: 0.0),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30.0),

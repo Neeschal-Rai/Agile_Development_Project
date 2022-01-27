@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dhun/Services/LoginServices.dart';
 import 'package:dhun/component/Model/User.dart';
+import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/dashboardscreen.dart';
 import 'package:dhun/screens/homepagescreen.dart';
 import 'package:dhun/screens/registerscreen.dart';
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String email = "";
   String password = "";
-  String usertype = "user";
+  String usertype = "";
 
   postData() async {
     try {
@@ -54,8 +55,8 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
                   child: Text("Log In",
                       style: TextStyle(color: Colors.white, fontSize: 18)),
                 ),
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Email Address",
+                        const Text("Email Address",
                             style: TextStyle(color: Colors.white)),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
@@ -86,16 +87,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             onChanged: (value) {
                               email = value;
                             },
-                            decoration: new InputDecoration(
-                              enabledBorder: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15),
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide:
-                                      new BorderSide(color: Colors.white)),
+                                      BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10.0),
                           child: Text("Usertype",
                               style: TextStyle(color: Colors.white)),
                         ),
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                           child: Container(
                             height: 60,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 14),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
@@ -114,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 value: value,
                                 iconSize: 20,
                                 dropdownColor: Colors.black,
-                                icon: Icon(Icons.arrow_drop_down,
+                                icon: const Icon(Icons.arrow_drop_down,
                                     color: Colors.deepPurple, size: 30),
                                 isExpanded: true,
                                 items: items.map(buildMenuItem).toList(),
@@ -132,10 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: passwordController,
                             obscureText: _isObscure,
                             onChanged: (value) {
-                              print(value);
                               password = value;
                             },
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                               suffixIcon: IconButton(
                                   icon: Icon(_isObscure
                                       ? Icons.visibility
@@ -145,10 +145,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _isObscure = !_isObscure;
                                     });
                                   }),
-                              enabledBorder: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide:
-                                      new BorderSide(color: Colors.white)),
+                                      BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),
@@ -168,6 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (res["success"] == true) {
                                 Navigator.pop(context);
                                 SharedPreferences userprefs = await SharedPreferences.getInstance();
+                                user_id_login=res["userId"];
                                 userprefs.setString("userid", res["userId"]);
                                 userprefs.setString("token", res["token"]);
                                 userprefs.clear();
@@ -204,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         MaterialPageRoute(
                             builder: (context) => RegisterScreen()),
                       ),
-                      child: Text(
+                      child: const Text(
                         "Register here.",
                         style: TextStyle(
                           color: Colors.red,

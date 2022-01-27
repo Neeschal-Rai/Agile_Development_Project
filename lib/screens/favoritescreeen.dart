@@ -20,8 +20,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, left: 10),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10.0, left: 10),
                     child: Text('Liked songs',
                         style: TextStyle(
                             color: Colors.deepPurpleAccent,
@@ -34,7 +34,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     onPressed: () {
 
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.more_vert,
                     ),
                   ),
@@ -42,9 +42,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+                children: const [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: EdgeInsets.only(left: 10),
                     child: Text('105 songs',
                         style: TextStyle(
                             color: Colors.white,
@@ -76,14 +76,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                               margin: const EdgeInsets.only(left: 30.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text('Mohani lagla hai',
                                       style: TextStyle(
                                           color: Colors.deepPurpleAccent,
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold)),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 5),
+                                    padding: EdgeInsets.only(top: 5),
                                     child: Text('Dambar Nepali',
                                         style: TextStyle(
                                             color: Colors.white,
@@ -93,8 +93,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 60.0),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 60.0),
                               child: Icon(
                                 Icons.favorite,
                                 size: 30,

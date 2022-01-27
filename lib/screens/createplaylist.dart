@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/libraryscreen.dart';
+import 'package:dhun/services/CreatePlaylistServices.dart';
 import 'package:flutter/material.dart';
+
+import 'homepagescreen.dart';
 
 class CreatePlaylist extends StatefulWidget {
   const CreatePlaylist({Key? key}) : super(key: key);
@@ -12,12 +18,25 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
   final playlistnameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  String playlistname = "";
+
+  createplaylist() async {
+    try {
+      var body = {"playlistname": playlistname, "userid": user_id_login};
+      var createplaylistservices = CreatePlaylistServices();
+      var response = await createplaylistservices.createplaylist(body);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -30,50 +49,59 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
-              Center(
+              const Center(
                 child: Text('Enter Playlist Name',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextFormField(
-                  cursorColor: Colors.white,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                  controller: playlistnameController,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 3),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 2),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    cursorColor: Colors.white,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                    controller: playlistnameController,
+                    onChanged: (value) {
+                      playlistname = value;
+                    },
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.only(bottom: 3),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 2),
+                      ),
                     ),
                   ),
                 ),
               ),
               Center(
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                LibraryScreen()));
+                  onPressed: () async{
+                    var res = json.decode(await createplaylist());
+                    if (res["success"] == true) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                    HomeScreen()));
+                    }
                   },
-                  child: Text("Create playlist",
+                  child: const Text("Create playlist",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -90,7 +118,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Cancel",
+                  child: const Text("Cancel",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

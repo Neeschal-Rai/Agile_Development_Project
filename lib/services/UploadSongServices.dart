@@ -1,8 +1,5 @@
 import 'package:dhun/constraints/constraints.dart';
 import 'package:http/http.dart' as http;
-import 'package:dhun/constraints/constraints.dart';
-import 'package:dhun/screens/updateprofilescreen.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class UploadSongServices {

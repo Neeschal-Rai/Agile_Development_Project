@@ -1,3 +1,1 @@
-const String user_id = "";
-const String email ="";
-const String username ="";
+String user_id_login = "";

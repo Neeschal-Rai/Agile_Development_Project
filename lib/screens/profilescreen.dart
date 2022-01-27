@@ -17,7 +17,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   getData() async {
     SharedPreferences userprefs = await SharedPreferences.getInstance();
     final String user_id = userprefs.getString("userid");
@@ -43,9 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     future: getData(),
                     builder: (BuildContext context,
                         AsyncSnapshot<dynamic> snapshot) {
-                      print(snapshot.data);
                       if (snapshot.hasData) {
-                        print("heegag");
                         dynamic data = jsonDecode(
                             jsonDecode(snapshot.data.toString()))["data"];
                         return Column(
@@ -68,11 +65,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   const EdgeInsets.symmetric(vertical: 40.0),
                               width: 100,
                               height: 100,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(image: NetworkImage(BASE_URL+data["profilepic"]),
-                                        fit: BoxFit.cover)
-                                ),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          BASE_URL + data["profilepic"]),
+                                      fit: BoxFit.cover)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
