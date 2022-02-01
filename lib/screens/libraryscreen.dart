@@ -250,12 +250,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text('${data[0]["playlistname"]}',
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 18,
                                                       fontWeight:
                                                           FontWeight.bold)),
-                                              Padding(
+                                              const Padding(
                                                 padding:
                                                     EdgeInsets.only(top: 5),
                                                 child: Text('202 songs',

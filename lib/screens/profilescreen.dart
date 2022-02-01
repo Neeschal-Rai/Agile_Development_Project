@@ -45,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (snapshot.hasData) {
                         dynamic data = jsonDecode(
                             jsonDecode(snapshot.data.toString()))["data"];
+                        print(data);
                         return Column(
                           children: [
                             Row(
