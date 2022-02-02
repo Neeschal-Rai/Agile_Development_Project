@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/homepagescreen.dart';
-import 'package:dhun/screens/profilescreen.dart';
+import 'package:dhun/screens/settingsscreen.dart';
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:dhun/services/UpdateProfileServices.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,6 @@ class _UpdateprofileState extends State<Updateprofile> {
   String username = "";
   String email = "";
 
-
   Future<void> _optionsDialogBox() {
     return showDialog(
         context: context,
@@ -40,17 +38,19 @@ class _UpdateprofileState extends State<Updateprofile> {
                 children: <Widget>[
                   TextButton(
                     onPressed: () => OpenCamera(),
-                    child: Text("Open camera",style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold)),
+                    child: Text("Open camera",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                   TextButton(
                     onPressed: () => OpenGallery(),
-                    child: Text("Open gallery",style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold)),
+                    child: Text("Open gallery",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
@@ -66,15 +66,11 @@ class _UpdateprofileState extends State<Updateprofile> {
     SharedPreferences userprefs = await SharedPreferences.getInstance();
     token = userprefs.getString("token");
     try {
-      var body = {
-        "username": username,
-        "email": email,
-        "image": imageFile
-      };
+      var body = {"username": username, "email": email, "image": imageFile};
 
       var updateprofileServices = UpdateProfileServices();
-      var response = await updateprofileServices.updateprofile(
-          user_id_login, "", body);
+      var response =
+          await updateprofileServices.updateprofile(user_id_login, "", body);
       return response;
     } catch (e) {
       print(e);
@@ -86,7 +82,7 @@ class _UpdateprofileState extends State<Updateprofile> {
     user_id = userprefs.getString("userid");
     try {
       var profileServices = ProfileServices();
-      var response = await profileServices.getUser("61e6adfe29ff7fa5e8c43cb1");
+      var response = await profileServices.getUser("61e9027cd0f950d2bd6b5359");
       return response;
     } catch (e) {
       print(e);
@@ -132,7 +128,13 @@ class _UpdateprofileState extends State<Updateprofile> {
                                     Icons.settings,
                                     color: Colors.deepPurpleAccent,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SettingsPage()));
+                                  },
                                 )
                               ],
                             ),
@@ -161,8 +163,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                           shape: BoxShape.circle,
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
-                                              image: FileImage(imageFile!)
-                                          ),
+                                              image: FileImage(imageFile!)),
                                         ),
                                       ),
                                     )
@@ -173,9 +174,10 @@ class _UpdateprofileState extends State<Updateprofile> {
                                         height: 130,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            image: DecorationImage(image: NetworkImage(BASE_URL+data["profilepic"]),
-                                                fit: BoxFit.cover)
-                                        ),
+                                            image: DecorationImage(
+                                                image: NetworkImage(BASE_URL +
+                                                    data["profilepic"]),
+                                                fit: BoxFit.cover)),
                                       ),
                                     ),
                                   Positioned(
@@ -189,9 +191,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                             shape: BoxShape.circle,
                                             border: Border.all(
                                               width: 2,
-                                              color:
-                                              Theme
-                                                  .of(context)
+                                              color: Theme.of(context)
                                                   .scaffoldBackgroundColor,
                                             ),
                                             color: Colors.deepPurple),
@@ -230,7 +230,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                       color: Colors.white,
                                     ),
                                     floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
+                                        FloatingLabelBehavior.always,
                                     hintText: data["username"],
                                     hintStyle: const TextStyle(
                                       fontSize: 16,
@@ -239,7 +239,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                     ),
                                     enabledBorder: const UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.deepPurple),
+                                          BorderSide(color: Colors.deepPurple),
                                     )),
                               ),
                             ),
@@ -264,7 +264,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                       color: Colors.white,
                                     ),
                                     floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
+                                        FloatingLabelBehavior.always,
                                     hintText: data["email"],
                                     hintStyle: const TextStyle(
                                       fontSize: 16,
@@ -273,7 +273,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                     ),
                                     enabledBorder: const UnderlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.deepPurple),
+                                          BorderSide(color: Colors.deepPurple),
                                     )),
                               ),
                             ),
@@ -295,14 +295,12 @@ class _UpdateprofileState extends State<Updateprofile> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     var response = await updateData();
                     print(response);
                     Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HomeScreen()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
                   },
                   child: const Text("Update",
                       style: TextStyle(
@@ -331,6 +329,7 @@ class _UpdateprofileState extends State<Updateprofile> {
       });
     }
   }
+
   void OpenGallery() async {
     final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
     print(picture);

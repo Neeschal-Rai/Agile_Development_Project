@@ -3,10 +3,9 @@ import 'dart:convert';
 import 'package:dhun/screens/createplaylist.dart';
 import 'package:dhun/screens/favoritescreeen.dart';
 import 'package:dhun/services/GetPlaylistServices.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import "package:flutter/material.dart";
 
-import 'loginscreen.dart';
+import 'artistscreen.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -111,19 +110,25 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.transparent,
+                      GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ArtistPage()),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: const Text("Artists",
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.transparent,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
+                          child: const Text("Artists",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                        ),
                       ),
                       Container(
                         margin: const EdgeInsets.only(left: 20),
@@ -214,10 +219,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     if (snapshot.hasData) {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
-                      return Column(
-                          children: [
+                      return Column(children: [
                         Container(
-                          height:100,
+                          height: 100,
                           child: ListView.builder(
                               itemCount: data.length,
                               itemBuilder: (BuildContext context, int index) {
