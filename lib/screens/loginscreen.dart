@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (res["success"] == true) {
                                 Navigator.pop(context);
                                 SharedPreferences userprefs = await SharedPreferences.getInstance();
-                                user_id_login=res["userId"];
+                                user_id=res["userId"];
                                 userprefs.setString("userid", res["userId"]);
                                 userprefs.setString("token", res["token"]);
                                 userprefs.clear();

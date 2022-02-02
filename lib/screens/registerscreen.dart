@@ -157,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   value: value,
                                   iconSize: 20,
                                   dropdownColor: Colors.black,
-                                  icon: Icon(Icons.arrow_drop_down,
+                                  icon: const Icon(Icons.arrow_drop_down,
                                       color: Colors.deepPurple, size: 30),
                                   isExpanded: true,
                                   items: items.map(buildMenuItem).toList(),
@@ -168,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                         ),
-                        Text("Password", style: TextStyle(color: Colors.white)),
+                        const Text("Password", style: TextStyle(color: Colors.white)),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: TextFormField(
@@ -187,7 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return 'Password length must be greater than 8';
                               }
                             },
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                               suffixIcon: IconButton(
                                   icon: Icon(_isObscure
                                       ? Icons.visibility
@@ -197,15 +197,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       _isObscure = !_isObscure;
                                     });
                                   }),
-                              enabledBorder: new OutlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                   borderRadius: new BorderRadius.circular(15),
                                   borderSide:
                                       new BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
                           child: Text("Confirm password",
                               style: TextStyle(color: Colors.white)),
                         ),
@@ -215,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             style: TextStyle(color: Colors.white),
                             controller: confirmPasswordController,
                             obscureText: _isObscure,
-                            decoration: new InputDecoration(
+                            decoration: InputDecoration(
                               suffixIcon: IconButton(
                                   icon: Icon(_isObscure
                                       ? Icons.visibility
@@ -225,10 +225,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       _isObscure = !_isObscure;
                                     });
                                   }),
-                              enabledBorder: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide:
-                                      new BorderSide(color: Colors.white)),
+                                      const BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),

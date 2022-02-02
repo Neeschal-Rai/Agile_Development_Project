@@ -20,7 +20,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
     try {
       var getplaylistServices = GetPlaylistServices();
       var response = await getplaylistServices.getallplaylist();
-      print(response);
       return response;
     } catch (e) {
       print(e);
@@ -215,7 +214,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     if (snapshot.hasData) {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
-                      print(data[0]["playlistname"]);
                       return Column(
                           children: [
                         Container(
@@ -282,45 +280,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 ),
               ),
 
-              // Container(
-              //   decoration: BoxDecoration(
-              //     border: Border.all(width: 0, color: Colors.black),
-              //     color: Colors.black,
-              //   ),
-              //   child: Card(
-              //     color: Colors.deepPurpleAccent,
-              //     child: Row(
-              //       children: [
-              //         ClipRRect(
-              //           borderRadius: BorderRadius.circular(25),
-              //           child: Image.asset("assets/images/sabinrai.jpg",
-              //               height: 80, width: 80, fit: BoxFit.contain),
-              //         ),
-              //         Container(
-              //           margin: const EdgeInsets.only(left: 50.0),
-              //           child: Column(
-              //             crossAxisAlignment: CrossAxisAlignment.start,
-              //             children: const [
-              //               Text('Nepali songs',
-              //                   style: TextStyle(
-              //                       color: Colors.white,
-              //                       fontSize: 18,
-              //                       fontWeight: FontWeight.bold)),
-              //               Padding(
-              //                 padding: EdgeInsets.only(top: 5),
-              //                 child: Text('202 songs',
-              //                     style: TextStyle(
-              //                         color: Colors.white,
-              //                         fontSize: 15,
-              //                         fontWeight: FontWeight.normal)),
-              //               ),
-              //             ],
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dhun/constraints/constraints.dart';
+import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/updateprofilescreen.dart';
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:http/http.dart' as http;
@@ -18,11 +19,11 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   getData() async {
-    SharedPreferences userprefs = await SharedPreferences.getInstance();
-    final String user_id = userprefs.getString("userid");
+    print(user_id_login);
+
     try {
       var profileServices = ProfileServices();
-      var response = await profileServices.getUser("61e6adfe29ff7fa5e8c43cb1");
+      var response = await profileServices.getUser(user_id_login);
       print(response);
       return response;
     } catch (e) {
@@ -97,9 +98,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Updateprofile()));
+                                              const Updateprofile()));
                                 },
-                                child: Text("Edit",
+                                child: const Text("Edit",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -181,12 +182,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                       ),
                                     ),
-                                    Divider(
+                                    const Divider(
                                       color: Colors.black,
                                       thickness: 3,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 10.0, left: 20, bottom: 10),
                                       child: Text('Settings',
                                           style: TextStyle(
@@ -194,12 +195,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold)),
                                     ),
-                                    Divider(
+                                    const Divider(
                                       color: Colors.black,
                                       thickness: 3,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
+                                    const Padding(
+                                      padding: EdgeInsets.only(
                                           top: 10.0, left: 20, bottom: 10),
                                       child: Text('Help section',
                                           style: TextStyle(
@@ -207,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold)),
                                     ),
-                                    Divider(
+                                    const Divider(
                                       color: Colors.black,
                                       thickness: 3,
                                     ),
@@ -216,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           top: 10.0, left: 20, bottom: 10),
                                       child: InkWell(
                                         onTap: () => {logout()},
-                                        child: Text(
+                                        child: const Text(
                                           "Logout",
                                           style: TextStyle(
                                               color: Colors.black,
@@ -232,14 +233,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ],
                         );
                       } else {
-                        return Center(
-                            child: Container(
-                          child: Text(
-                            'Error occured',
-                            textScaleFactor: 3,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )); //or show a loading spinner
+                        return const Center(
+                            child: Text(
+                              'Error occured',
+                              textScaleFactor: 3,
+                              style: TextStyle(color: Colors.white),
+                            )); //or show a loading spinner
                       }
                     },
                   ),

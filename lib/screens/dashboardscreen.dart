@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dhun/constraints/constraints.dart';
+import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/musicscreen.dart';
 import 'package:dhun/screens/uploadsongscreen.dart';
 import 'package:dhun/services/GetSongServices.dart';
@@ -18,7 +19,9 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   final extra_pad = const EdgeInsets.only(left: 20);
 
   getSongData() async {
+
     try {
+
       var getsongServices = GetSongServices();
       var response = await getsongServices.getsongs();
       return response;
@@ -82,46 +85,44 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                   if (snapshot.hasData) {
                     dynamic data = jsonDecode(
                         jsonDecode(snapshot.data.toString()))["data"];
-                    print(data);
 
                     return SizedBox(
                       height: 270,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
+                        itemCount: data.length ,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left:8.0, right: 8),
-                                  child: GestureDetector(
-                                    onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MusicScreen()),
-                                    ),
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                      width: 200,
-                                      height: 200,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(BASE_URL +
-                                                  data[0]["song_image"]),
-                                              fit: BoxFit.cover)),
-                                    ),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0, right: 8),
+                                child: GestureDetector(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MusicScreen(id: data[index]["_id"])),
+                                  ),
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                    width: 200,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: NetworkImage(BASE_URL +
+                                                data[0]["song_image"]),
+                                            fit: BoxFit.cover)),
                                   ),
                                 ),
-                                Padding(
-                                  padding: extra_pad,
-                                  child: Text('${data[0]["song_name"]}',
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 15)),
-                                )
-                              ],
-                            ),
+                              ),
+                              Padding(
+                                padding: extra_pad,
+                                child: Text('${data[0]["song_name"]}',
+                                    style: const TextStyle(
+                                        color: Colors.white, fontSize: 15)),
+                              )
+                            ],
                           );
                         },
                       ),
