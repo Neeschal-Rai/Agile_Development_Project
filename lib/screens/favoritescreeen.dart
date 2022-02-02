@@ -113,7 +113,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     dynamic data = jsonDecode(
                         jsonDecode(snapshot.data.toString()))["data"];
                     print(data);
-                    if (data != null) {
+                    print(data.length==0);
+
+                    if (data.length!=0) {
                       return SizedBox(
                         height: 270,
                         child: ListView.builder(
@@ -187,6 +189,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                               await deletefavorite(
                                                   data[0]["_id"]));
                                           if (response["success"] = true) {
+
                                             Fluttertoast.showToast(
                                                 msg: 'Deleted successfully',
                                                 toastLength: Toast.LENGTH_SHORT,
@@ -195,6 +198,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                 backgroundColor:
                                                     Colors.deepPurple,
                                                 textColor: Colors.white);
+                                            Navigator.pop(context);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                builder: (context) => FavoriteScreen()));
                                           }
                                         },
                                         icon: const Icon(

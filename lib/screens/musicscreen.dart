@@ -269,15 +269,6 @@ class _MusicScreenState extends State<MusicScreen> {
                                               const EdgeInsets.only(top: 0.0),
                                           decoration: const BoxDecoration(
                                             color: Colors.deepPurple,
-                                            // gradient: LinearGradient(
-                                            //   begin: Alignment.topCenter,
-                                            //   end: Alignment.bottomCenter,
-                                            //   stops: [0.0003, 1],
-                                            //   colors: [
-                                            //     Colors.deepPurple,
-                                            //     Colors.black,
-                                            //   ],
-                                            // ),
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(30.0),
                                               topRight: Radius.circular(30.0),
