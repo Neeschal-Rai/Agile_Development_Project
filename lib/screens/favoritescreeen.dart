@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
+import 'package:dhun/services/DeleteFromFavoriteServices.dart';
 import 'package:dhun/services/GetFavoritesServices.dart';
 import 'package:dhun/services/GetSelectedSongServices.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     try {
       var getfavServices = GetFavoriteServices();
       var response = await getfavServices.getfavorites(user_id_login);
+      print(response);
       return response;
     } catch (e) {
       print(e);
@@ -32,6 +35,16 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       var response = await getServices.getsong(id);
       songdata = jsonDecode(jsonDecode(response.toString()))["data"];
       print(songdata);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  deletefavorite(String id) async {
+    try {
+      var delServices = DeleteFromFavoriteServices();
+      var response = await delServices.deletefavorites(id);
+      return response;
     } catch (e) {
       print(e);
     }
@@ -55,7 +68,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     iconSize: 30.0,
                     color: Colors.white,
                     onPressed: () {
-                     Navigator.pop(context);
+                      Navigator.pop(context);
                     },
                     icon: const Icon(
                       Icons.arrow_back,
@@ -73,8 +86,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children:
-                const [
+                children: const [
                   Padding(
                     padding: EdgeInsets.only(top: 10.0, left: 10),
                     child: Text('Liked songs',
@@ -98,24 +110,25 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   future: getFavoriteData(),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
-                      dynamic data = jsonDecode(
-                          jsonDecode(snapshot.data.toString()))["data"];
-                      getselectedsong(data[0]["songid"]);
-
+                    dynamic data = jsonDecode(
+                        jsonDecode(snapshot.data.toString()))["data"];
+                    print(data);
+                    if (data != null) {
                       return SizedBox(
                         height: 270,
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
                           itemCount: data.length,
                           itemBuilder: (BuildContext context, int index) {
+                            getselectedsong(data[index]["songid"]);
                             return Container(
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(width: 0, color: Colors.black),
                                 color: Colors.black,
                               ),
-                              margin: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
+                              margin: const EdgeInsets.only(
+                                  top: 20.0, left: 10, right: 10),
                               child: Card(
                                 color: Colors.black,
                                 child: Row(
@@ -135,21 +148,24 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       flex: 2,
                                       child: GestureDetector(
                                         child: Container(
-                                          margin: const EdgeInsets.only(left: 30.0),
+                                          margin:
+                                              const EdgeInsets.only(left: 30.0),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(songdata["song_name"],
                                                   style: const TextStyle(
-                                                      color:
-                                                          Colors.deepPurpleAccent,
+                                                      color: Colors
+                                                          .deepPurpleAccent,
                                                       fontSize: 18,
-                                                      fontWeight
-                                                          : FontWeight.bold)),
+                                                      fontWeight:
+                                                          FontWeight.bold)),
                                               Padding(
-                                                padding: EdgeInsets.only(top: 5),
-                                                child: Text(songdata["song_artist"],
+                                                padding:
+                                                    EdgeInsets.only(top: 5),
+                                                child: Text(
+                                                    songdata["song_artist"],
                                                     style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 10,
@@ -165,12 +181,24 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       padding: EdgeInsets.only(left: 60.0),
                                       child: IconButton(
                                         iconSize: 30.0,
-                                        color: Colors.white,
-                                        onPressed: () async{
-                                          var response = await()
+                                        color: Colors.red,
+                                        onPressed: () async {
+                                          var response = json.decode(
+                                              await deletefavorite(
+                                                  data[0]["_id"]));
+                                          if (response["success"] = true) {
+                                            Fluttertoast.showToast(
+                                                msg: 'Deleted successfully',
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor:
+                                                    Colors.deepPurple,
+                                                textColor: Colors.white);
+                                          }
                                         },
                                         icon: const Icon(
-                                          Icons.shuffle,
+                                          Icons.favorite,
                                         ),
                                       ),
                                     ),
@@ -184,7 +212,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     } else {
                       return const Center(
                           child: Text(
-                        'Error occured',
+                        'No favorite songs',
                         textScaleFactor: 3,
                         style: TextStyle(color: Colors.white),
                       ));

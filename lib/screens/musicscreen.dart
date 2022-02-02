@@ -377,8 +377,6 @@ class _MusicScreenState extends State<MusicScreen> {
                                                         if (response[
                                                                 "success"] ==
                                                             true) {
-                                                          Navigator.pop(
-                                                              context);
                                                           Fluttertoast.showToast(
                                                               msg:
                                                                   'Added successfully',
