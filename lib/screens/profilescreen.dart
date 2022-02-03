@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
+import 'package:dhun/screens/settingspagescreen.dart';
 import 'package:dhun/screens/updateprofilescreen.dart';
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:http/http.dart' as http;
@@ -194,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             onTap: () => Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => LoginScreen()),
+                                                  builder: (context) => SettingsScreen()),
                                             ),
                                           child: const Text(
                                             "Settings",

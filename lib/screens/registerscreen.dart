@@ -245,6 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 if (_formKey.currentState!.validate()) {
                                   var response = await postData();
                                   var res = json.decode(response);
+
                                   if (res["success"] == true) {
                                     Fluttertoast.showToast(
                                         msg: 'Registered successfully',

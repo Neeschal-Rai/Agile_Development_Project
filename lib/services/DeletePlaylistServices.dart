@@ -6,7 +6,7 @@ class DeletePlaylistServices {
   Future<dynamic> deleteplaylist(String playlistid) async {
     try {
       var res = await http.delete(Uri.parse(deletePlaylist+playlistid));
-      return json.encode(res.body);
+      return res.body;
     } catch (e) {
       print(e);
     }

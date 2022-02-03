@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dhun/screens/artistlistscreen.dart';
 import 'package:dhun/screens/createplaylist.dart';
 import 'package:dhun/screens/favoritescreeen.dart';
+import 'package:dhun/screens/homepagescreen.dart';
 import 'package:dhun/services/DeletePlaylistServices.dart';
 import 'package:dhun/services/GetPlaylistServices.dart';
 import "package:flutter/material.dart";
@@ -70,7 +71,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         onPressed: () async {
                           var response =
                               json.decode(await deletePlaylistData(playlistid));
-                          print(response["success"]);
+                          print(response);
                           if (response["success"] == true) {
                             Fluttertoast.showToast(
                                 msg: 'Deleted Successfullly',
@@ -84,7 +85,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        super.widget));
+                                        HomeScreen()));
                           }
                         },
                         icon: const Icon(

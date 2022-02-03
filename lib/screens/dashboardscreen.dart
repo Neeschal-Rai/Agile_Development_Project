@@ -166,8 +166,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image.asset("assets/images/naganya.jpg",
-                                  height: 100, width: 200, fit: BoxFit.contain),
+                              child: Image.asset("assets/images/download.jpg",
+                                  height: 200, width: 200, fit: BoxFit.contain),
                             ),
                             Padding(
                               padding: extra_pad,

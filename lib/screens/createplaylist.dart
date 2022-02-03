@@ -95,10 +95,9 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                   onPressed: () async{
                     var res = json.decode(await createplaylist());
                     print(res);
-
                     if (res["success"] == true) {
                       Fluttertoast.showToast(
-                          msg: 'Registered successfully',
+                          msg: 'Playlist Created successfully',
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 1,

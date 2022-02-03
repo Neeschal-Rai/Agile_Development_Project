@@ -141,7 +141,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: NetworkImage(BASE_URL +
-                                                  songdata["song_image"]),
+                                                  songdata[index]["song_image"]),
                                               fit: BoxFit.cover)),
                                     ),
                                     Expanded(

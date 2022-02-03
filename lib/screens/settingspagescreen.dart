@@ -27,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Container(
         child: ListView(
           children: [
-            Text(
+            const Text(
               "Settings",
               style: TextStyle(
                   color: Colors.white,
@@ -35,11 +35,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
+            const SizedBox(
               height: 45,
             ),
             Row(
-              children: [
+              children: const [
                 Icon(
                   Icons.person,
                   color: Colors.deepPurple,
@@ -56,12 +56,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
             ),
-            Divider(
+            const Divider(
               color: Colors.deepPurple,
               height: 15,
               thickness: 1.5,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             GestureDetector(
@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         title: Text("Change Password"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: [
+                          children: const [
                             Text("Option 1"),
                             Text("Option 2"),
                             Text("Option 3"),
@@ -99,25 +99,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SizedBox(
                     width: 12,
                   ),
-                  Text(
-                    'Change Password',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                  Expanded(
+                    child: Text(
+                      'Change Password',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 200),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.deepPurple,
-                    ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.deepPurple,
                   )
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             GestureDetector(
@@ -129,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         title: Text("Change Password"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: [
+                          children: const [
                             Text("Option 1"),
                             Text("Option 2"),
                             Text("Option 3"),
@@ -155,25 +154,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SizedBox(
                     width: 12,
                   ),
-                  Text(
-                    'Privacy',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                  Expanded(
+                    child: Text(
+                      'Privacy',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 285),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.deepPurple,
-                    ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.deepPurple,
                   )
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             GestureDetector(
@@ -182,10 +180,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
+                        backgroundColor: Colors.deepPurple,
                         title: Text("Change Password"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: [
+                          children: const [
                             Text("Option 1"),
                             Text("Option 2"),
                             Text("Option 3"),
@@ -211,20 +210,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SizedBox(
                     width: 12,
                   ),
-                  Text(
-                    'Security',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                  Expanded(
+                    child: Text(
+                      'Security',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 280),
-                    child: Icon(
+                  Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.deepPurple,
-                    ),
                   )
                 ],
               ),
@@ -233,7 +231,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: 45,
             ),
             Row(
-              children: [
+              children: const [
                 Icon(
                   Icons.info,
                   color: Colors.deepPurple,
@@ -250,7 +248,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
             ),
-            Divider(
+            const Divider(
               color: Colors.deepPurple,
               height: 15,
               thickness: 1.5,
@@ -319,7 +317,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Padding(

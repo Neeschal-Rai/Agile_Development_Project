@@ -86,8 +86,9 @@ class _ArtistScreeenState extends State<ArtistScreeen> {
                               height: 100,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
-                                      image: NetworkImage(BASE_URL +
-                                          data[index]["profilepic"]),
+                                      image: NetworkImage("https://picsum.photos/250?image=9"),
+                                      // image: NetworkImage(BASE_URL +
+                                      //     data[index]["profilepic"]),
                                       fit: BoxFit.cover)),
                             ),
                                   const SizedBox(
