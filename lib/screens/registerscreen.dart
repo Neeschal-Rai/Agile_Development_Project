@@ -246,7 +246,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   var response = await postData();
                                   var res = json.decode(response);
                                   if (res["success"] == true) {
-                                    Navigator.pop(context);
                                     Fluttertoast.showToast(
                                         msg: 'Registered successfully',
                                         toastLength: Toast.LENGTH_SHORT,
@@ -254,6 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         timeInSecForIosWeb: 1,
                                         backgroundColor: Colors.deepPurple,
                                         textColor: Colors.white);
+                                    Navigator.pop(context);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(

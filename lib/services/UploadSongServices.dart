@@ -20,7 +20,6 @@ class UploadSongServices {
       var response = await request.send();
       final res = await http.Response.fromStream(response);
       return res.body;
-      print(res.body);
     } catch (e) {
       print(e);
     }

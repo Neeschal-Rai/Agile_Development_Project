@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:dhun/screens/artistlistscreen.dart';
 import 'package:dhun/screens/createplaylist.dart';
 import 'package:dhun/screens/favoritescreeen.dart';
+import 'package:dhun/services/DeletePlaylistServices.dart';
 import 'package:dhun/services/GetPlaylistServices.dart';
 import "package:flutter/material.dart";
-
-import 'artistscreen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class LibraryScreen extends StatefulWidget {
 }
 
 class _LibraryScreenState extends State<LibraryScreen> {
+  bool pressed = false;
   getplaylistData() async {
     try {
       var getplaylistServices = GetPlaylistServices();
@@ -23,6 +25,83 @@ class _LibraryScreenState extends State<LibraryScreen> {
     } catch (e) {
       print(e);
     }
+  }
+
+  deletePlaylistData(String playlistid) async {
+    try {
+      var deleteplaylistServices = DeletePlaylistServices();
+      var response = await deleteplaylistServices.deleteplaylist(playlistid);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _optionsDialogBox(String playlistid) {
+    return showDialog<void>(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: Container(
+                height: 80,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.deepPurple,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:[
+                    TextButton(
+                      onPressed: () async {
+
+                      },
+                      child: const Text("Delete playlist",
+                          style:
+                         TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)
+                      )
+                    ),
+                      Card(
+                        child: IconButton(
+                        iconSize: 45.0,
+                        color: Colors.red,
+                        onPressed: () async{
+                          var response =
+                          json.decode(await deletePlaylistData(playlistid));
+                          print(response["success"]);
+                          if (response["success"] == true) {
+                            Fluttertoast.showToast(
+                                msg: 'Deleted Successfullly',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.deepPurple,
+                                textColor: Colors.white);
+                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) => super.widget));
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                        ),
+                    ),
+                      ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -90,7 +169,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              CreatePlaylist()),
+                                              const CreatePlaylist()),
                                     );
                                   },
                                 ),
@@ -113,7 +192,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       GestureDetector(
                         onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ArtistPage()),
+                          MaterialPageRoute(
+                              builder: (context) => const ArtistScreeen()),
                         ),
                         child: Container(
                           decoration: BoxDecoration(
@@ -167,7 +247,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
               GestureDetector(
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => FavoriteScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const FavoriteScreen()),
                 ),
                 child: Container(
                   height: 90,
@@ -211,17 +292,24 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   ),
                 ),
               ),
+
+
               SingleChildScrollView(
                 child: FutureBuilder(
                   future: getplaylistData(),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
+                        dynamic data = jsonDecode(
+                            jsonDecode(snapshot.data.toString()))["data"];
+                        print(data);
+
+                    if (data.length > 0) {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
                       return Column(children: [
-                        Container(
-                          height: 100,
+
+                        SizedBox(
+                          height: 400,
                           child: ListView.builder(
                               itemCount: data.length,
                               itemBuilder: (BuildContext context, int index) {
@@ -244,32 +332,46 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                               width: 80,
                                               fit: BoxFit.contain),
                                         ),
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 50.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text('${data[0]["playlistname"]}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              const Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 5),
-                                                child: Text('202 songs',
-                                                    style: TextStyle(
+                                        Expanded(
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                                left: 50.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    '${data[index]["playlistname"]}',
+                                                    style: const TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 15,
+                                                        fontSize: 18,
                                                         fontWeight:
-                                                            FontWeight.normal)),
-                                              ),
-                                            ],
+                                                            FontWeight.bold)),
+                                                const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 5),
+                                                  child: Text('202 songs',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15,
+                                                          fontWeight: FontWeight
+                                                              .normal)),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        )
+                                        ),
+                                        IconButton(
+                                          iconSize: 30.0,
+                                          color: Colors.white,
+                                          onPressed: () {
+                                            _optionsDialogBox(
+                                                data[index]["_id"]);
+                                          },
+                                          icon: const Icon(
+                                            Icons.more_vert,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -278,12 +380,23 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                       ]);
                     } else {
-                      return Column(children: [Container()]);
+                      return Column(
+                        children: const [
+                          SizedBox(
+                            height: 200,
+                          ),
+                        Center(
+                            child: Text(
+                              'No playlist',
+                              textScaleFactor: 2,
+                              style: TextStyle(color: Colors.white),
+                            )),
+                        ]
+                      );
                     }
                   },
                 ),
               ),
-
             ],
           ),
         ),

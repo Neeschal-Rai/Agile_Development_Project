@@ -6,6 +6,7 @@ import 'package:dhun/screens/libraryscreen.dart';
 import 'package:dhun/services/UploadSongServices.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
@@ -23,12 +24,35 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
   final artistnameController = TextEditingController();
   final songdescController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  //
+  // late FlutterLocalNotificationsPlugin localNotification;
+  //
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   var androidInitialize = const AndroidInitializationSettings('ic_launcher');
+  //   var initializationSettings = InitializationSettings(
+  //     android: androidInitialize
+  //   );
+  //   localNotification = FlutterLocalNotificationsPlugin();
+  //   localNotification.initialize(initializationSettings);
+  //
+  // }
+
+  Future _showNotification() async {
+    // var androiddetails = const AndroidNotificationDetails(
+    //     "channelid", "Local notification",
+    //     importance: Importance.high);
+    // var generalnotifications = NotificationDetails(android: androiddetails);
+    // await localNotification.show(0, "Notification", "This is the notification", generalnotifications);
+  }
 
   String song_name = "";
   String artist_name = "";
   String song_desc = "";
   File? imageFile;
   PlatformFile? musicFile;
+
 
   uploadsongData() async {
     try {
@@ -221,6 +245,7 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
+                      _showNotification();
                       var response = await uploadsongData();
                       var res = json.decode(response);
                       print(res["success"]);

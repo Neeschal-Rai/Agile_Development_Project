@@ -4,6 +4,7 @@ import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/libraryscreen.dart';
 import 'package:dhun/services/CreatePlaylistServices.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'homepagescreen.dart';
 
@@ -93,7 +94,16 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                 child: TextButton(
                   onPressed: () async{
                     var res = json.decode(await createplaylist());
+                    print(res);
+
                     if (res["success"] == true) {
+                      Fluttertoast.showToast(
+                          msg: 'Registered successfully',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.deepPurple,
+                          textColor: Colors.white);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

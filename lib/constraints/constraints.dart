@@ -1,4 +1,4 @@
-const String BASE_URL = "http://192.168.1.65:90/";
+const String BASE_URL = "http://172.26.0.104:90/";
 // 172.25.1.122
 // 10.1.1.51
 // const String BASE_URL = "http://172.26.0.104:90/";
@@ -14,6 +14,7 @@ const String GET_SELECTED_SONG_URL = "song/show/";
 const String ADD_TO_FAVORITES_URL = "song/favorite/";
 const String GET_FAVORITES_URL = "song/favorite/show/";
 const String DELETE_FAVORITE_URL = "favorite/delete/";
+const String DELETE_PLAYLIST_URL = "playlist/delete/";
 
 String get getRegisterUrl => BASE_URL + REGISTER_URL;
 String get getLoginUrl => BASE_URL + LOGIN_URL;
@@ -27,3 +28,4 @@ String get getSelectedSongServer => BASE_URL + GET_SELECTED_SONG_URL;
 String get addtoFavorites => BASE_URL + ADD_TO_FAVORITES_URL;
 String get getFavorites => BASE_URL + GET_FAVORITES_URL;
 String get deleteFavorites => BASE_URL + DELETE_FAVORITE_URL;
+String get deletePlaylist => BASE_URL+DELETE_PLAYLIST_URL;

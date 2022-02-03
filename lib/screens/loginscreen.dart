@@ -166,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               var response = await postData();
                               var res = json.decode(response);
                               if (res["success"] == true) {
-                                Navigator.pop(context);
+
                                 SharedPreferences userprefs = await SharedPreferences.getInstance();
                                 user_id=res["userId"];
                                 userprefs.setString("userid", res["userId"]);
@@ -179,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     timeInSecForIosWeb: 1,
                                     backgroundColor: Colors.deepPurple,
                                     textColor: Colors.white);
+                                Navigator.pop(context);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

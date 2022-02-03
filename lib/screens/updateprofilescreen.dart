@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/homepagescreen.dart';
-import 'package:dhun/screens/settingsscreen.dart';
+import 'package:dhun/screens/settingspagescreen.dart';
+
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:dhun/services/UpdateProfileServices.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                 children: <Widget>[
                   TextButton(
                     onPressed: () => OpenCamera(),
-                    child: Text("Open camera",
+                    child: const Text("Open camera",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -46,13 +47,13 @@ class _UpdateprofileState extends State<Updateprofile> {
                   ),
                   TextButton(
                     onPressed: () => OpenGallery(),
-                    child: Text("Open gallery",
+                    child: const Text("Open gallery",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(8.0),
                   )
                 ],
@@ -64,7 +65,7 @@ class _UpdateprofileState extends State<Updateprofile> {
 
   updateData() async {
     SharedPreferences userprefs = await SharedPreferences.getInstance();
-    token = userprefs.getString("token");
+    token = userprefs.getString("token")!;
     try {
       var body = {"username": username, "email": email, "image": imageFile};
 
@@ -133,7 +134,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                SettingsPage()));
+                                                SettingsScreen()));
                                   },
                                 )
                               ],
