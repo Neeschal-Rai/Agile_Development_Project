@@ -1,7 +1,9 @@
 import 'package:dhun/screens/splashscreen.dart';
+import 'package:dhun/services/NotificationServices.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  NotificationService().initAwesomeNotification();
   runApp(const MyApp());
 }
 
