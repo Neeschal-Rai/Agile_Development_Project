@@ -113,8 +113,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     dynamic data = jsonDecode(
                         jsonDecode(snapshot.data.toString()))["data"];
 
-
-                    if (data.length > 0) {
+                    if (data.isEmpty != true) {
                       return SizedBox(
                         height: 270,
                         child: ListView.builder(
@@ -163,8 +162,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                       fontWeight:
                                                           FontWeight.bold)),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(top: 5),
+                                                padding: const EdgeInsets.only(
+                                                    top: 5),
                                                 child: Text(
                                                     songdata["song_artist"],
                                                     style: const TextStyle(

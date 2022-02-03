@@ -17,6 +17,8 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   bool pressed = false;
+  late int datalength;
+
   getplaylistData() async {
     try {
       var getplaylistServices = GetPlaylistServices();
@@ -48,31 +50,26 @@ class _LibraryScreenState extends State<LibraryScreen> {
             Padding(
               padding: const EdgeInsets.all(0),
               child: Container(
-                height: 80,
+                height: 70,
                 width: MediaQuery.of(context).size.width,
                 color: Colors.deepPurple,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:[
+                  children: [
                     TextButton(
-                      onPressed: () async {
-
-                      },
-                      child: const Text("Delete playlist",
-                          style:
-                         TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)
-                      )
-                    ),
-                      Card(
-                        child: IconButton(
+                        onPressed: () async {},
+                        child: const Text("Delete playlist",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold))),
+                    Card(
+                      child: IconButton(
                         iconSize: 45.0,
                         color: Colors.red,
-                        onPressed: () async{
+                        onPressed: () async {
                           var response =
-                          json.decode(await deletePlaylistData(playlistid));
+                              json.decode(await deletePlaylistData(playlistid));
                           print(response["success"]);
                           if (response["success"] == true) {
                             Fluttertoast.showToast(
@@ -86,14 +83,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (BuildContext context) => super.widget));
+                                    builder: (BuildContext context) =>
+                                        super.widget));
                           }
                         },
                         icon: const Icon(
                           Icons.delete,
                         ),
-                    ),
                       ),
+                    ),
                   ],
                 ),
               ),
@@ -109,209 +107,205 @@ class _LibraryScreenState extends State<LibraryScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10.0, left: 20),
-                    child: Text('My Library',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, right: 20),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.add,
-                      ),
-                      iconSize: 30,
-                      color: Colors.white,
-                      splashColor: Colors.deepPurple,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: Colors.deepPurple,
-                              title: const Text("Create playlist",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  )),
-                              content: const Text(
-                                  "Are you sure want to create new playlist?",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  )),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text("Cancel",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      )),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                TextButton(
-                                  child: const Text("Ok",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      )),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const CreatePlaylist()),
-                                    );
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 10.0, left: 20),
+                  child: Text('My Library',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0, right: 20),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.add,
                     ),
+                    iconSize: 30,
+                    color: Colors.white,
+                    splashColor: Colors.deepPurple,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.deepPurple,
+                            title: const Text("Create playlist",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
+                            content: const Text(
+                                "Are you sure want to create new playlist?",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text("Cancel",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    )),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: const Text("Ok",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    )),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CreatePlaylist()),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                   ),
-                ],
+                ),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20, top: 20),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ArtistScreeen()),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.transparent,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: const Text("Artists",
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 20),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.transparent,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: const Text("Albums",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 20),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.transparent,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: const Text("playlists",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                    )
+                  ],
+                ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 20, top: 20),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
+            ),
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+              ),
+              child: Container(
+                height: 90,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0, color: Colors.black),
+                  color: Colors.black,
+                ),
+                margin: const EdgeInsets.only(top: 30.0),
+                child: Card(
+                  color: Colors.deepPurpleAccent,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ArtistScreeen()),
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white),
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.transparent,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
-                          child: const Text("Artists",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
-                        ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Image.asset("assets/images/lover.png",
+                            height: 60, width: 80, fit: BoxFit.contain),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.transparent,
+                        margin: const EdgeInsets.only(left: 50.0, top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text('Liked songs',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            Padding(
+                              padding: EdgeInsets.only(top: 5),
+                              child: Text('105 songs',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal)),
+                            ),
+                          ],
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: const Text("Albums",
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.transparent,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: const Text("playlists",
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
                       )
                     ],
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FavoriteScreen()),
-                ),
-                child: Container(
-                  height: 90,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 0, color: Colors.black),
-                    color: Colors.black,
-                  ),
-                  margin: const EdgeInsets.only(top: 30.0),
-                  child: Card(
-                    color: Colors.deepPurpleAccent,
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
-                          child: Image.asset("assets/images/lover.png",
-                              height: 60, width: 80, fit: BoxFit.contain),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 50.0, top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Liked songs',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5),
-                                child: Text('105 songs',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal)),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-
-              SingleChildScrollView(
+            ),
+            Expanded(
+              child: SingleChildScrollView(
                 child: FutureBuilder(
                   future: getplaylistData(),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                        dynamic data = jsonDecode(
-                            jsonDecode(snapshot.data.toString()))["data"];
-                        print(data);
+                    dynamic data = jsonDecode(
+                        jsonDecode(snapshot.data.toString()))["data"];
+                    print(data);
+                    datalength = data.length;
 
-                    if (data.length > 0) {
-                      dynamic data = jsonDecode(
-                          jsonDecode(snapshot.data.toString()))["data"];
+                    if (data.isEmpty != true) {
+                      print(data.length.runtimeType);
                       return Column(children: [
-
                         SizedBox(
                           height: 400,
                           child: ListView.builder(
-                              itemCount: data.length,
+                              itemCount: datalength,
                               itemBuilder: (BuildContext context, int index) {
                                 return Container(
                                   decoration: BoxDecoration(
@@ -380,25 +374,23 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                       ]);
                     } else {
-                      return Column(
-                        children: const [
-                          SizedBox(
-                            height: 200,
-                          ),
+                      return Column(children: const [
+                        SizedBox(
+                          height: 200,
+                        ),
                         Center(
                             child: Text(
-                              'No playlist',
-                              textScaleFactor: 2,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                        ]
-                      );
+                          'No playlist',
+                          textScaleFactor: 2,
+                          style: TextStyle(color: Colors.white),
+                        )),
+                      ]);
                     }
                   },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

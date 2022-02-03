@@ -19,9 +19,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   final extra_pad = const EdgeInsets.only(left: 20);
 
   getSongData() async {
-
     try {
-
       var getsongServices = GetSongServices();
       var response = await getsongServices.getsongs();
       return response;
@@ -142,27 +140,25 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               ),
               Container(
                 child: SizedBox(
-                  height: 160,
+                  height: 270,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset("assets/images/download.jpg",
-                                  height: 100, width: 200, fit: BoxFit.contain),
-                            ),
-                            Padding(
-                              padding: extra_pad,
-                              child: const Text('Hamro Nepal ma',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15)),
-                            )
-                          ],
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left:8.0, right: 8),
+                            child: Image.asset("assets/images/download.jpg",
+                                height: 200, width: 200, fit: BoxFit.contain),
+                          ),
+                          Padding(
+                            padding: extra_pad,
+                            child: const Text('Hamro Nepal ma',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15)),
+                          )
+                        ],
                       ),
                       Container(
                         child: Column(

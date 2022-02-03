@@ -160,91 +160,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               height: 215,
                               child: Card(
                                 color: Colors.white,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10.0, left: 20, bottom: 10),
-                                      child: InkWell(
-                                        onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  LoginScreen()),
-                                        ),
-                                        child: const Text(
-                                          "Notifications",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    const Divider(
-                                      color: Colors.black,
-                                      thickness: 3,
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10.0, left: 20, bottom: 10),
-                                      child: Text('Settings',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                    const Divider(
-                                      color: Colors.black,
-                                      thickness: 3,
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 10.0, left: 20, bottom: 10),
-                                      child: Text('Help section',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                    const Divider(
-                                      color: Colors.black,
-                                      thickness: 3,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10.0, left: 20, bottom: 10),
-                                      child: InkWell(
-                                        onTap: () => {logout()},
-                                        child: const Text(
-                                          "Logout",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 20, bottom: 10),
+                                        child: InkWell(
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginScreen()),
+                                          ),
+                                          child: const Text(
+                                            "Notifications",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const Divider(
-                                      color: Colors.black,
-                                      thickness: 3,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10.0, left: 20, bottom: 10),
-                                      child: InkWell(
-                                        onTap: () => {logout()},
-                                        child: const Text(
-                                          "Delete my account",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
+                                      const Divider(
+                                        color: Colors.black,
+                                        thickness: 3,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 20, bottom: 10),
+                                        child: InkWell(
+                                            onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => LoginScreen()),
+                                            ),
+                                          child: const Text(
+                                            "Settings",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        // child: Text('Settings',
+                                        //     style: TextStyle(
+                                        //         color: Colors.black,
+                                        //         fontSize: 15,
+                                        //         fontWeight: FontWeight.bold)),
+                                      ),
+                                      const Divider(
+                                        color: Colors.black,
+                                        thickness: 3,
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                            top: 10.0, left: 20, bottom: 10),
+                                        child: Text('Help section',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      const Divider(
+                                        color: Colors.black,
+                                        thickness: 3,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 20, bottom: 10),
+                                        child: InkWell(
+                                          onTap: () => {logout()},
+                                          child: const Text(
+                                            "Logout",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      const Divider(
+                                        color: Colors.black,
+                                        thickness: 3,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 20, bottom: 10),
+                                        child: InkWell(
+                                          onTap: () => {logout()},
+                                          child: const Text(
+                                            "Delete my account",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -255,7 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               'Error occured',
                               textScaleFactor: 3,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.red),
                             )); //or show a loading spinner
                       }
                     },

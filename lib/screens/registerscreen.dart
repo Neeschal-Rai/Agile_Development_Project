@@ -277,7 +277,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   Row(
                     children: [
-                      Text("Already have an account ",
+                      const Text("Already have an account ",
                           style: TextStyle(color: Colors.white)),
                       InkWell(
                         onTap: () => Navigator.push(
