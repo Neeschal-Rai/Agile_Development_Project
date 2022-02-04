@@ -18,6 +18,8 @@ const String DELETE_PLAYLIST_URL = "playlist/delete/";
 const String GET_ARTIST_URL = "artist/showall";
 const String FOLLOW_ARTIST_URL = "artist/follow";
 const String GET_FOLLOWING_ARTIST_URL = "user/artist/follow/showall/";
+const String GET_FOLLOWED_ARTIST_FROM_ID = "user/artist/showfromid/";
+const String UNFOLLOW_ARTIST= "artist/unfollow/";
 
 String get getRegisterUrl => BASE_URL + REGISTER_URL;
 String get getLoginUrl => BASE_URL + LOGIN_URL;
@@ -35,4 +37,6 @@ String get deletePlaylist => BASE_URL+DELETE_PLAYLIST_URL;
 String get getArtistShowall => BASE_URL+GET_ARTIST_URL;
 String get followArtist => BASE_URL+FOLLOW_ARTIST_URL;
 String get getallfollowArtist => BASE_URL+GET_FOLLOWING_ARTIST_URL;
+String get getfollowArtistfromid => BASE_URL+GET_FOLLOWED_ARTIST_FROM_ID;
+String get unfollowArtist => BASE_URL+UNFOLLOW_ARTIST;
 

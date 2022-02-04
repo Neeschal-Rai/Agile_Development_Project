@@ -297,8 +297,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     dynamic data = jsonDecode(
                         jsonDecode(snapshot.data.toString()))["data"];
-                    // print(data.isEmpty);
-                    // datalength = data.length!;
+
 
                     if (data.isEmpty != true) {
                       print(data.length.runtimeType);

@@ -89,7 +89,7 @@ class _ArtistScreeenState extends State<ArtistScreeen> {
                           AsyncSnapshot<dynamic> snapshot) {
                         dynamic data = jsonDecode(
                             jsonDecode(snapshot.data.toString()))["data"];
-                        print(data);
+                        print(data.length);
                         if (data.isEmpty != true) {
                           return SizedBox(
                             child: StaggeredGridView.countBuilder(

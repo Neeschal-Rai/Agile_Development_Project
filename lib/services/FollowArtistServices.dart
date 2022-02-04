@@ -16,9 +16,18 @@ class FollowArtistServices {
       print(e);
     }
   }
-  Future<dynamic> getfollowingrtist(String id) async {
+  Future<dynamic> getfollowingartist(String id) async {
     try {
       var res = await http.get(Uri.parse(getallfollowArtist+id));
+      return json.encode(res.body);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<dynamic> unfollowartist(String id) async {
+    try {
+      var res = await http.delete(Uri.parse(unfollowArtist+id));
       return res.body;
     } catch (e) {
       print(e);

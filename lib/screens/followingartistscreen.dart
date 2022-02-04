@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/services/FollowArtistServices.dart';
+import 'package:dhun/services/GetAllArtistDataServices.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -17,18 +18,42 @@ class FollowingScreen extends StatefulWidget {
 
 class _FollowingScreenState extends State<FollowingScreen> {
   String text1 = "unfollow";
-
-
+  dynamic artistdata;
   getfollowedartist() async {
     try {
       var followartistServices = FollowArtistServices();
       var response =
-          await followartistServices.getfollowingrtist(user_id_login);
+      await followartistServices.getfollowingartist(user_id_login);
       return response;
     } catch (e) {
       print(e);
     }
   }
+  getfollowfromartist(artistid) async {
+    try {
+      var followartistServices = GetAllArtistDataServices();
+      var response =
+      await followartistServices.getartistsfromid(artistid);
+      artistdata=jsonDecode(jsonDecode(response.toString()))["data"];
+      print(artistdata);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
+  unfollowartist(followid) async {
+    try {
+      var followartistServices = FollowArtistServices();
+      var response =
+      await followartistServices.unfollowartist(followid);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +79,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
                 ),
                 const Center(
                   child: Text(
-                    "Artists",
+                    "Following",
                     style: TextStyle(
                         color: Colors.deepPurpleAccent,
                         fontSize: 20,
@@ -70,14 +95,15 @@ class _FollowingScreenState extends State<FollowingScreen> {
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     dynamic data = jsonDecode(
                         jsonDecode(snapshot.data.toString()))["data"];
-                    print(data);
+                    print(data.length);
                     if (data.isEmpty != true) {
                       return SizedBox(
                         child: StaggeredGridView.countBuilder(
                           crossAxisCount: 4,
                           itemCount: data.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              Card(
+                          itemBuilder: (BuildContext context, int index){
+                          getfollowfromartist(data[index]["artistid"]);
+                              return Card(
                             color: Colors.black,
                             elevation: 5.0,
                             shape: const RoundedRectangleBorder(
@@ -95,13 +121,13 @@ class _FollowingScreenState extends State<FollowingScreen> {
                                         image: DecorationImage(
                                             // image: NetworkImage("https://picsum.photos/250?image=9"),
                                             image: NetworkImage(BASE_URL +
-                                                data[index]["profilepic"]),
+                                                artistdata[0]["profilepic"]),
                                             fit: BoxFit.cover)),
                                   ),
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  Text(data[index]["username"],
+                                  Text(artistdata[0]["username"],
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 15,
@@ -110,11 +136,12 @@ class _FollowingScreenState extends State<FollowingScreen> {
                                       onPressed: () async {
                                         var response = json.decode(
                                             await unfollowartist(
-                                                data[index]["_id"]));
+                                                data[0]["_id"]));
+                                        print(response);
                                         if (response["success"] == true) {
                                           Fluttertoast.showToast(
                                               msg:
-                                                  'Artist followed successfully',
+                                                  'Artist unfollowed successfully',
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.BOTTOM,
                                               timeInSecForIosWeb: 1,
@@ -125,6 +152,10 @@ class _FollowingScreenState extends State<FollowingScreen> {
                                             text1 = "unfollow";
                                           });
                                           Navigator.pop(context);
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (BuildContext context) => super.widget));
                                         }
                                       },
                                       style: ButtonStyle(
@@ -140,7 +171,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
 
                               // ),
                             ),
-                          ),
+                          );},
                           staggeredTileBuilder: (int index) =>
                               StaggeredTile.count(2, index.isEven ? 3 : 3),
                           mainAxisSpacing: 4.0,
@@ -148,7 +179,17 @@ class _FollowingScreenState extends State<FollowingScreen> {
                         ),
                       );
                     } else {
-                      return Container();
+                      return  Column(children: const [
+                        SizedBox(
+                          height: 200,
+                        ),
+                        Center(
+                            child: Text(
+                              'No followed artists',
+                              textScaleFactor: 2,
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ]);
                     }
                   },
                 ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
+import 'package:dhun/screens/followingartistscreen.dart';
 import 'package:dhun/screens/settingspagescreen.dart';
 import 'package:dhun/screens/updateprofilescreen.dart';
 import 'package:dhun/services/ProfileServices.dart';
@@ -25,7 +26,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       var profileServices = ProfileServices();
       var response = await profileServices.getUser(user_id_login);
-      print(response);
       return response;
     } catch (e) {
       print(e);
@@ -136,14 +136,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.only(top: 10.0),
-                                  child: Text('14',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.normal)),
+                              children: [
+                                GestureDetector(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const FollowingScreen()),
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.only(top: 10.0),
+                                    child: Text('14',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.normal)),
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(top: 10.0),

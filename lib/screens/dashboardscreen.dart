@@ -221,7 +221,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                             ),
                             Padding(
                               padding: extra_pad,
-                              child: Text("Naganya maya",
+                              child: const Text("Naganya maya",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15)),
                             )

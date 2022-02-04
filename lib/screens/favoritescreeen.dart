@@ -154,7 +154,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(songdata["song_name"],
+                                              Text(songdata[0]["song_name"],
                                                   style: const TextStyle(
                                                       color: Colors
                                                           .deepPurpleAccent,
@@ -165,7 +165,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                 padding: const EdgeInsets.only(
                                                     top: 5),
                                                 child: Text(
-                                                    songdata["song_artist"],
+                                                    songdata[0]["song_artist"],
                                                     style: const TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 10,

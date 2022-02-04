@@ -12,4 +12,14 @@ class GetAllArtistDataServices {
       print(e);
     }
   }
+
+  Future<dynamic> getartistsfromid(artistid) async {
+    try {
+      var res = await http.get(Uri.parse(getfollowArtistfromid+artistid));
+
+      return json.encode(res.body);
+    } catch (e) {
+      print(e);
+    }
+  }
 }
