@@ -16,6 +16,8 @@ const String GET_FAVORITES_URL = "song/favorite/show/";
 const String DELETE_FAVORITE_URL = "favorite/delete/";
 const String DELETE_PLAYLIST_URL = "playlist/delete/";
 const String GET_ARTIST_URL = "artist/showall";
+const String FOLLOW_ARTIST_URL = "artist/follow";
+const String GET_FOLLOWING_ARTIST_URL = "user/artist/follow/showall/";
 
 String get getRegisterUrl => BASE_URL + REGISTER_URL;
 String get getLoginUrl => BASE_URL + LOGIN_URL;
@@ -31,3 +33,6 @@ String get getFavorites => BASE_URL + GET_FAVORITES_URL;
 String get deleteFavorites => BASE_URL + DELETE_FAVORITE_URL;
 String get deletePlaylist => BASE_URL+DELETE_PLAYLIST_URL;
 String get getArtistShowall => BASE_URL+GET_ARTIST_URL;
+String get followArtist => BASE_URL+FOLLOW_ARTIST_URL;
+String get getallfollowArtist => BASE_URL+GET_FOLLOWING_ARTIST_URL;
+

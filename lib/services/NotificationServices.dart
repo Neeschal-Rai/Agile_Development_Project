@@ -11,7 +11,7 @@ class NotificationService {
 
   Future<void> initAwesomeNotification() async {
     AwesomeNotifications().initialize(
-      "assets/images/logo.png",
+      null,
       [
         NotificationChannel(
           channelKey: 'main_channel',

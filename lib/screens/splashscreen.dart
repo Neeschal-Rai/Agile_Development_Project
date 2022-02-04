@@ -1,5 +1,6 @@
 
 import 'package:dhun/screens/dashboardscreen.dart';
+import 'package:dhun/screens/followingartistscreen.dart';
 import 'package:dhun/screens/homepagescreen.dart';
 import 'package:dhun/screens/profilescreen.dart';
 import 'package:dhun/screens/registerscreen.dart';

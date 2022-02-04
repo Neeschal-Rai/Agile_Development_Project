@@ -146,7 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                           child: Container(
                             height: 60,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 14),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
@@ -198,9 +198,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     });
                                   }),
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide:
-                                      new BorderSide(color: Colors.white)),
+                                      BorderSide(color: Colors.white)),
                             ),
                           ),
                         ),
@@ -212,7 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: TextFormField(
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             controller: confirmPasswordController,
                             obscureText: _isObscure,
                             decoration: InputDecoration(
