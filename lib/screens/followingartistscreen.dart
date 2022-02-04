@@ -102,6 +102,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
                           crossAxisCount: 4,
                           itemCount: data.length,
                           itemBuilder: (BuildContext context, int index){
+                            print(index);
                           getfollowfromartist(data[index]["artistid"]);
                               return Card(
                             color: Colors.black,

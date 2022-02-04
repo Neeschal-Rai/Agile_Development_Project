@@ -37,7 +37,7 @@ class _SplashHomeState extends State<SplashHome> {
                   child:
                   SplashScreen(
                       seconds: 5,
-                      navigateAfterSeconds: HomeScreen(),
+                      navigateAfterSeconds: RegisterScreen(),
                       image: Image.asset("assets/images/logo.png",
                           height: 200, width: 200, fit: BoxFit.contain),
                       backgroundColor: Colors.black,

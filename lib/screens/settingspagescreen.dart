@@ -70,13 +70,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
+                        backgroundColor: Colors.white,
                         title: Text("Change Password"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Text("Option 1"),
-                            Text("Option 2"),
-                            Text("Option 3"),
+                          children: [
+                            TextFormField(
+                              cursorColor: Colors.white,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.only(bottom: 3),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black, width: 2),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                         actions: [
@@ -185,10 +201,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
-                            Text("Option 1"),
-                            Text("Option 2"),
-                            Text("Option 3"),
-                          ],
+                            Text("Security"),
+                          ]
                         ),
                         actions: [
                           TextButton(

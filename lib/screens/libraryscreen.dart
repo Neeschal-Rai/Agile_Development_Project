@@ -297,6 +297,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     dynamic data = jsonDecode(
                         jsonDecode(snapshot.data.toString()))["data"];
+                    print(data);
 
 
                     if (data.isEmpty != true) {
@@ -305,7 +306,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         SizedBox(
                           height: 400,
                           child: ListView.builder(
-                              itemCount: 2,
+                              itemCount: data.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Container(
                                   decoration: BoxDecoration(

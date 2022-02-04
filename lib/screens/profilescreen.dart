@@ -5,6 +5,7 @@ import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/followingartistscreen.dart';
 import 'package:dhun/screens/settingspagescreen.dart';
 import 'package:dhun/screens/updateprofilescreen.dart';
+import 'package:dhun/services/FollowArtistServices.dart';
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:http/http.dart' as http;
 import 'package:dhun/screens/loginscreen.dart';
@@ -20,6 +21,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  int follower_count=0;
   getData() async {
     print(user_id_login);
 
@@ -31,10 +33,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
       print(e);
     }
   }
+  getfollowedartist() async {
+    try {
+      var followartistServices = FollowArtistServices();
+      var response =
+      await followartistServices.getfollowingartist(user_id_login);
+      follower_count=jsonDecode(jsonDecode(response.toString()))["data"].length;
+
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         backgroundColor: Colors.black,
         body: SafeArea(
             child: Container(
@@ -47,7 +64,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (snapshot.hasData) {
                         dynamic data = jsonDecode(
                             jsonDecode(snapshot.data.toString()))["data"];
+
                         print(data);
+                        getfollowedartist();
                         return Column(
                           children: [
                             Row(
@@ -116,6 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: const [
+
                                 Padding(
                                   padding: EdgeInsets.only(top: 10.0),
                                   child: Text('Following',
@@ -143,16 +163,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     MaterialPageRoute(
                                         builder: (context) => const FollowingScreen()),
                                   ),
-                                  child: const Padding(
+                                  child: Padding(
                                     padding: EdgeInsets.only(top: 10.0),
-                                    child: Text('14',
-                                        style: TextStyle(
+                                    child: Text(follower_count.toString(),
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 15,
                                             fontWeight: FontWeight.normal)),
                                   ),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(top: 10.0),
                                   child: Text('0',
                                       style: TextStyle(
@@ -212,11 +232,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                        // child: Text('Settings',
-                                        //     style: TextStyle(
-                                        //         color: Colors.black,
-                                        //         fontSize: 15,
-                                        //         fontWeight: FontWeight.bold)),
                                       ),
                                       const Divider(
                                         color: Colors.black,
@@ -257,7 +272,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
                                         child: InkWell(
-                                          onTap: () => {logout()},
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor: Colors.deepPurple,
+                                                  title: Row(
+                                                    children: [
+                                                      IconButton(
+                                                        iconSize: 45.0,
+                                                        color: Colors.red,
+                                                        onPressed: () {},
+                                                        icon: const Icon(
+                                                          Icons.delete,
+                                                        ),
+                                                      ),
+
+                                                      const Text("Delete Account",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                        )),
+                                                  ]),
+                                                  content: const Text(
+                                                      "Are you sure want to delete your account?",
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                      )),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      child: const Text("Cancel",
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                          )),
+                                                      onPressed: () {
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                    ),
+                                                    TextButton(
+                                                      child: const Text("Ok",
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                          )),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                              const LoginScreen()),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
                                           child: const Text(
                                             "Delete my account",
                                             style: TextStyle(

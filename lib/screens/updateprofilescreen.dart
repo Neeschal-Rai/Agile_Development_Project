@@ -41,7 +41,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                     onPressed: () => OpenCamera(),
                     child: const Text("Open camera",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -49,7 +49,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                     onPressed: () => OpenGallery(),
                     child: const Text("Open gallery",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -64,8 +64,8 @@ class _UpdateprofileState extends State<Updateprofile> {
   }
 
   updateData() async {
-    SharedPreferences userprefs = await SharedPreferences.getInstance();
-    token = userprefs.getString("token")!;
+
+
     try {
       var body = {"username": username, "email": email, "image": imageFile};
 
@@ -83,7 +83,7 @@ class _UpdateprofileState extends State<Updateprofile> {
     user_id = userprefs.getString("userid");
     try {
       var profileServices = ProfileServices();
-      var response = await profileServices.getUser("61e9027cd0f950d2bd6b5359");
+      var response = await profileServices.getUser(user_id_login);
       return response;
     } catch (e) {
       print(e);
@@ -109,6 +109,8 @@ class _UpdateprofileState extends State<Updateprofile> {
                     if (snapshot.hasData) {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
+                      print(data["profilepic"]);
+                      print(data);
                       return Container(
                         child: Column(
                           children: [
@@ -169,10 +171,12 @@ class _UpdateprofileState extends State<Updateprofile> {
                                       ),
                                     )
                                   else
+
                                     Center(
                                       child: Container(
                                         width: 130,
                                         height: 130,
+
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             image: DecorationImage(
@@ -181,6 +185,10 @@ class _UpdateprofileState extends State<Updateprofile> {
                                                 fit: BoxFit.cover)),
                                       ),
                                     ),
+
+
+
+
                                   Positioned(
                                       bottom: 0,
                                       right: 125,

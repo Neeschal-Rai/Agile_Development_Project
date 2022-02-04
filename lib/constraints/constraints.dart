@@ -20,6 +20,7 @@ const String FOLLOW_ARTIST_URL = "artist/follow";
 const String GET_FOLLOWING_ARTIST_URL = "user/artist/follow/showall/";
 const String GET_FOLLOWED_ARTIST_FROM_ID = "user/artist/showfromid/";
 const String UNFOLLOW_ARTIST= "artist/unfollow/";
+const String DELETE_USER = "user/delete/";
 
 String get getRegisterUrl => BASE_URL + REGISTER_URL;
 String get getLoginUrl => BASE_URL + LOGIN_URL;
@@ -39,4 +40,5 @@ String get followArtist => BASE_URL+FOLLOW_ARTIST_URL;
 String get getallfollowArtist => BASE_URL+GET_FOLLOWING_ARTIST_URL;
 String get getfollowArtistfromid => BASE_URL+GET_FOLLOWED_ARTIST_FROM_ID;
 String get unfollowArtist => BASE_URL+UNFOLLOW_ARTIST;
+String get deleteaccount => BASE_URL+DELETE_USER;
 
