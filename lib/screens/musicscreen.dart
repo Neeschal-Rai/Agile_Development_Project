@@ -25,7 +25,7 @@ class _MusicScreenState extends State<MusicScreen> {
   AudioPlayerState audioPlayerState = AudioPlayerState.PAUSED;
   AudioCache audioCache = AudioCache();
   String filePath =
-      'music/music.m4a';
+      'music/music.mp3';
   bool isPressed = false;
 
   /// Optional
@@ -325,6 +325,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                                 ],
                                               ),
                                               Row(
+
                                                 mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                                 crossAxisAlignment:

@@ -231,15 +231,22 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
+                      NotificationService().showNotification(
+                        1,
+                        'main_channel',
+                        'New song',
+                        'New song added',
+                      );
                       var response = await uploadsongData();
                       var res = json.decode(response);
                       print(res["success"]);
+
                       if (res["success"] == true) {
                         NotificationService().showNotification(
                           1,
                           'main_channel',
                           'New song',
-                          'Uploaded',
+                          'New song added',
                         );
                         Navigator.pop(context);
                         Fluttertoast.showToast(

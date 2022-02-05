@@ -109,7 +109,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                           jsonDecode(snapshot.data.toString()))["data"];
                       username=data["username"];
                       email=data["email"];
-                      imageFile=data["profilepic"];
+                      // imageFile=data["profilepic"];
                       print(data);
                       return Container(
                         child: Column(

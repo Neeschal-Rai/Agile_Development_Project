@@ -165,6 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (_formKey.currentState!.validate()) {
                               var response = await postData();
                               var res = json.decode(response);
+                              print(res);
                               if (res["success"] == true) {
 
                                 SharedPreferences userprefs = await SharedPreferences.getInstance();
@@ -173,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 userprefs.setString("token", res["token"]);
                                 userprefs.clear();
                                 Fluttertoast.showToast(
-                                    msg: 'Login successfule',
+                                    msg: 'Login successfully',
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,

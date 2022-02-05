@@ -295,13 +295,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   future: getplaylistData(),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    dynamic data = jsonDecode(
-                        jsonDecode(snapshot.data.toString()))["data"];
-                    print(data);
-
-
-                    if (data.isEmpty != true) {
-                      print(data.length.runtimeType);
+                    if (snapshot.hasData) {
+                      dynamic data = jsonDecode(
+                          jsonDecode(snapshot.data.toString()))["data"];
+                      print(data);
                       return Column(children: [
                         SizedBox(
                           height: 400,
@@ -374,6 +371,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               }),
                         ),
                       ]);
+                    } else if (snapshot.hasError) {
+                      return Column(children: const [
+                        SizedBox(
+                          height: 200,
+                        ),
+                        Center(
+                            child: Text(
+                          'Error Occured',
+                          textScaleFactor: 2,
+                          style: TextStyle(color: Colors.white),
+                        )),
+                      ]);
                     } else {
                       return Column(children: const [
                         SizedBox(
@@ -381,10 +390,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         ),
                         Center(
                             child: Text(
-                          'No playlist',
-                          textScaleFactor: 2,
-                          style: TextStyle(color: Colors.white),
-                        )),
+                              'No playlists',
+                              textScaleFactor: 2,
+                              style: TextStyle(color: Colors.white),
+                            )),
                       ]);
                     }
                   },

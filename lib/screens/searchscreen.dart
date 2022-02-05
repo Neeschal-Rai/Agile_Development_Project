@@ -168,9 +168,8 @@ class SearchScreenState extends State<SearchScreen> {
                         child: Row(
                           children: [
                             Container(
-                              margin: const EdgeInsets.symmetric(vertical: 40.0),
-                              width: 50,
-                              height: 50,
+                              width: 60,
+                              height: 60,
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(
