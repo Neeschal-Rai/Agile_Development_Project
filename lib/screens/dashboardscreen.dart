@@ -5,6 +5,7 @@ import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/musicscreen.dart';
 import 'package:dhun/screens/uploadsongscreen.dart';
 import 'package:dhun/services/GetSongServices.dart';
+import 'package:dhun/services/ProfileServices.dart';
 import 'package:flutter/material.dart';
 
 class Dashboardscreen extends StatefulWidget {
@@ -17,6 +18,21 @@ class Dashboardscreen extends StatefulWidget {
 class _DashboardscreenState extends State<Dashboardscreen> {
   final top_pad = const EdgeInsets.all(20);
   final extra_pad = const EdgeInsets.only(left: 20);
+  getData() async {
+    print(user_id_login);
+
+    try {
+      var profileServices = ProfileServices();
+      var response = await profileServices.getUser(user_id_login);
+      dynamic profiledata = jsonDecode(
+          jsonDecode(response.toString()))["data"];
+      print(profiledata);
+      username_log = profiledata["username"];
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
 
   getSongData() async {
     try {
@@ -30,30 +46,31 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.3, 3],
-            colors: [
-              Colors.deepPurple,
-              Colors.black,
-            ],
-          )),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.3, 3],
+                colors: [
+                  Colors.deepPurple,
+                  Colors.black,
+                ],
+              )),
           child: SingleChildScrollView(
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
                     padding: top_pad,
-                    child: const Text("WELCOME RUBY",
-                        style: TextStyle(
+                    child: Text("WELCOME ${username_log}",
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
@@ -103,7 +120,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                   ),
                                   child: Container(
                                     margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
+                                        vertical: 10.0),
                                     width: 200,
                                     height: 200,
                                     decoration: BoxDecoration(
@@ -245,7 +262,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               MaterialPageRoute(builder: (context) => UploadSongScreen()),
             );
           },
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
             size: 29,

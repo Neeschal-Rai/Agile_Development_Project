@@ -173,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 userprefs.setString("token", res["token"]);
                                 userprefs.clear();
                                 Fluttertoast.showToast(
-                                    msg: 'yeta',
+                                    msg: 'Login successfule',
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,
@@ -187,6 +187,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                                 final snackB =
                                     SnackBar(content: Text(res["message"]));
+                              }
+                              if (res["success"] ==false) {
+
+                                Fluttertoast.showToast(
+                                    msg: 'Invalid login',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.deepPurple,
+                                    textColor: Colors.white);
                               }
                             } else {
                               print("Error");

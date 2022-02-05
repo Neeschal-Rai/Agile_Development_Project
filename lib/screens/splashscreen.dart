@@ -18,26 +18,28 @@ class SplashHome extends StatefulWidget {
 }
 
 class _SplashHomeState extends State<SplashHome> {
-  Future<Widget> checkLogin() async {
-    SharedPreferences userprefs = await SharedPreferences.getInstance();
-    if(userprefs.containsKey("userid")){
-      return HomeScreen();
-    }else{
-      return LoginScreen();
-    }
 
-  }
   @override
   Widget build(BuildContext context){
+    Future<Widget> checkLogin() async {
+      SharedPreferences userprefs = await SharedPreferences.getInstance();
+      if(userprefs.containsKey("userid")){
+        return HomeScreen();
+      }else{
+        return LoginScreen();
+      }
+
+    }
     return Scaffold(
         body:
         Builder(
             builder: (context) {
+
               return Center(
                   child:
                   SplashScreen(
                       seconds: 5,
-                      navigateAfterSeconds: RegisterScreen(),
+                      navigateAfterSeconds: HomeScreen(),
                       image: Image.asset("assets/images/logo.png",
                           height: 200, width: 200, fit: BoxFit.contain),
                       backgroundColor: Colors.black,

@@ -1,3 +1,4 @@
+import 'package:dhun/constraints/userdata.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -16,15 +17,15 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Container(
              child: Column(
                children: [
-                 SizedBox(
+                 const SizedBox(
                    height: 30,
                  ),
-                Text("WELCOME RUBY",
-                       style: TextStyle(
+                Text("WELCOME ${username_log}",
+                       style: const TextStyle(
                            color: Colors.white,
                            fontSize: 20,
                            fontWeight: FontWeight.bold)),
-                 SizedBox(
+                 const SizedBox(
                    height: 30,
                  ),
 
