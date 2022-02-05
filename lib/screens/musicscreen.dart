@@ -221,7 +221,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.only(top: 0.0),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30.0),

@@ -126,14 +126,14 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: NetworkImage(BASE_URL +
-                                                data[0]["song_image"]),
+                                                data[index]["song_image"]),
                                             fit: BoxFit.cover)),
                                   ),
                                 ),
                               ),
                               Padding(
                                 padding: extra_pad,
-                                child: Text('${data[0]["song_name"]}',
+                                child: Text('${data[index]["song_name"]}',
                                     style: const TextStyle(
                                         color: Colors.white, fontSize: 15)),
                               )

@@ -64,8 +64,6 @@ class _UpdateprofileState extends State<Updateprofile> {
   }
 
   updateData() async {
-
-
     try {
       var body = {"username": username, "email": email, "image": imageFile};
 
@@ -109,7 +107,9 @@ class _UpdateprofileState extends State<Updateprofile> {
                     if (snapshot.hasData) {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
-                      print(data["profilepic"]);
+                      username=data["username"];
+                      email=data["email"];
+                      imageFile=data["profilepic"];
                       print(data);
                       return Container(
                         child: Column(
@@ -227,6 +227,7 @@ class _UpdateprofileState extends State<Updateprofile> {
                                   color: Colors.white,
                                 ),
                                 controller: nameController,
+
                                 onChanged: (value) {
                                   username = value;
                                 },
