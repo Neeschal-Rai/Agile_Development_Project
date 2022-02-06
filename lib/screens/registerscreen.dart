@@ -71,170 +71,169 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Container(
-                      child: Form(
+                  Form(
                     key: _formKey,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Email Address",
-                            style: TextStyle(color: Colors.white)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            controller: emailController,
-                            onChanged: (value) {
-                              email = value;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Email address is required';
-                              } else if (RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value)) {
-                                return null;
-                              } else {
-                                return 'Enter valid email address';
-                              }
-                            },
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  borderSide:
-                                      const BorderSide(color: Colors.white)),
-                            ),
-                          ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Email Address",
+                        style: TextStyle(color: Colors.white)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        controller: emailController,
+                        onChanged: (value) {
+                          email = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Email address is required';
+                          } else if (RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(value)) {
+                            return null;
+                          } else {
+                            return 'Enter valid email address';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text("Username",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                          child: TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            controller: nameController,
-                            onChanged: (value) {
-                              username = value;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Username is required';
-                              } else if (value.length > 8) {
-                                return null;
-                              } else {
-                                return 'Username length must be greater than 8';
-                              }
-                            },
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(15.0),
-                                  borderSide:
-                                      BorderSide(color: Colors.white)),
-                            ),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text("Usertype",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                          child: Container(
-                            height: 60,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 14),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.white),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                  value: value,
-                                  iconSize: 20,
-                                  dropdownColor: Colors.black,
-                                  icon: const Icon(Icons.arrow_drop_down,
-                                      color: Colors.deepPurple, size: 30),
-                                  isExpanded: true,
-                                  items: items.map(buildMenuItem).toList(),
-                                  onChanged: (value) => {
-                                        print(value),
-                                        setState(() => {this.value = value!}),
-                                      }),
-                            ),
-                          ),
-                        ),
-                        const Text("Password", style: TextStyle(color: Colors.white)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: TextFormField(
-                            style: TextStyle(color: Colors.white),
-                            controller: passwordController,
-                            obscureText: _isObscure,
-                            onChanged: (value) {
-                              password = value;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Password is required";
-                              } else if (value.length > 8) {
-                                return null;
-                              } else {
-                                return 'Password length must be greater than 8';
-                              }
-                            },
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  icon: Icon(_isObscure
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
-                                  }),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: Colors.white)),
-                            ),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text("Confirm password",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: TextFormField(
-                            style: const TextStyle(color: Colors.white),
-                            controller: confirmPasswordController,
-                            obscureText: _isObscure,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                  icon: Icon(_isObscure
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
-                                  }),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      const BorderSide(color: Colors.white)),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  )),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text("Username",
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        controller: nameController,
+                        onChanged: (value) {
+                          username = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Username is required';
+                          } else if (value.length > 8) {
+                            return null;
+                          } else {
+                            return 'Username length must be greater than 8';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(15.0),
+                              borderSide:
+                                  BorderSide(color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text("Usertype",
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: Container(
+                        height: 60,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 14),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                              value: value,
+                              iconSize: 20,
+                              dropdownColor: Colors.black,
+                              icon: const Icon(Icons.arrow_drop_down,
+                                  color: Colors.deepPurple, size: 30),
+                              isExpanded: true,
+                              items: items.map(buildMenuItem).toList(),
+                              onChanged: (value) => {
+                                    print(value),
+                                    setState(() => {this.value = value!}),
+                                  }),
+                        ),
+                      ),
+                    ),
+                    const Text("Password", style: TextStyle(color: Colors.white)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: TextFormField(
+                        style: TextStyle(color: Colors.white),
+                        controller: passwordController,
+                        obscureText: _isObscure,
+                        onChanged: (value) {
+                          password = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Password is required";
+                          } else if (value.length > 8) {
+                            return null;
+                          } else {
+                            return 'Password length must be greater than 8';
+                          }
+                        },
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              icon: Icon(_isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              }),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide:
+                                  BorderSide(color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Text("Confirm password",
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: confirmPasswordController,
+                        obscureText: _isObscure,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              icon: Icon(_isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              }),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide:
+                                  const BorderSide(color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                  ],
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Row(

@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'lyricsscreen.dart';
+
 class MusicScreen extends StatefulWidget {
   final String id;
 
@@ -336,11 +338,11 @@ class _MusicScreenState extends State<MusicScreen> {
                                                     style: const TextStyle(
                                                         color: Colors.white),
                                                   ),
-                                                  SizedBox(width: 20),
-                                                  Container(
+                                                  const SizedBox(width: 20),
+                                                  SizedBox(
                                                       width: 200,
                                                       child: slider()),
-                                                  SizedBox(width: 20),
+                                                  const SizedBox(width: 20),
                                                   audioDuration == 0
                                                       ? getLocalFileDuration()
                                                       : Text(getTimeString(
@@ -419,9 +421,16 @@ class _MusicScreenState extends State<MusicScreen> {
                                                     IconButton(
                                                       iconSize: 30.0,
                                                       color: Colors.white,
-                                                      onPressed: () {},
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                    LyricsScreen()));
+                                                      },
                                                       icon: const Icon(
-                                                        Icons.more_vert,
+                                                        Icons.note,
                                                       ),
                                                     ),
                                                   ],

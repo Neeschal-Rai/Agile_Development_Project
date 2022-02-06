@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dhun/screens/homepagescreen.dart';
-import 'package:dhun/screens/libraryscreen.dart';
 import 'package:dhun/services/NotificationServices.dart';
 import 'package:dhun/services/UploadSongServices.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
@@ -32,13 +30,12 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
     NotificationService().requestPermission();
   }
 
-
   String song_name = "";
   String artist_name = "";
   String song_desc = "";
   File? imageFile;
-  PlatformFile? musicFile;
 
+  PlatformFile? musicFile, lyricsFile;
 
   uploadsongData() async {
     try {
@@ -48,6 +45,7 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
         "song_desc": song_desc,
         "image": imageFile,
         "song": musicFile,
+        "lyrics": lyricsFile
       };
       print(body);
 
@@ -123,6 +121,11 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                 onChanged: (value) {
                                   song_name = value;
                                 },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                },
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
@@ -149,6 +152,11 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                 onChanged: (value) {
                                   artist_name = value;
                                 },
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'This field is required';
+                                    }
+                                  },
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
@@ -201,10 +209,35 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                       fit: BoxFit.cover,
                                       image: FileImage(imageFile!)),
                                 ),
-                              ),
+                              )
+                            else
+                              const Text("*Required",
+                                  style: TextStyle(color: Colors.red)),
                             ElevatedButton(
                                 onPressed: () => openSongImage(),
                                 child: const Text("Choose Image")),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text("Song Lyrics",
+                                  style: TextStyle(color: Colors.white)),
+
+                            ),
+                            if (lyricsFile != null)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('${lyricsFile?.name}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    )),
+                              )  else
+                              const Text("*Required",
+                                  style: TextStyle(color: Colors.red)),
+                            ElevatedButton(
+                                onPressed: () => openSongImage(),
+                                child: const Text("Lyrics file")),
+
                             const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text("Song file",
@@ -219,7 +252,10 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     )),
-                              ),
+                              )
+                            else
+                              const Text("*Required",
+                                  style: TextStyle(color: Colors.red)),
                             ElevatedButton(
                                 onPressed: () => openMusicFile(),
                                 child: const Text("Choose file"))
@@ -231,31 +267,38 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      NotificationService().showNotification(
-                        1,
-                        'main_channel',
-                        'New song',
-                        'New song added',
-                      );
-                      var response = await uploadsongData();
-                      var res = json.decode(response);
-                      print(res["success"]);
+                      if (_formKey.currentState!.validate()) {
+                        var response = await uploadsongData();
+                        var res = json.decode(response);
+                        print(res["success"]);
 
-                      if (res["success"] == true) {
-                        NotificationService().showNotification(
-                          1,
-                          'main_channel',
-                          'New song',
-                          'New song added',
-                        );
-                        Navigator.pop(context);
-                        Fluttertoast.showToast(
-                            msg: 'Song uploaded',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.deepPurple,
-                            textColor: Colors.white);
+                        if (res["success"] == true) {
+                          NotificationService().showNotification(
+                            1,
+                            'main_channel',
+                            'New song',
+                            'New song added',
+                          );
+                          Navigator.pop(context);
+                          Fluttertoast.showToast(
+                              msg: 'Song uploaded',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.deepPurple,
+                              textColor: Colors.white);
+                        }
+
+
+                        if (res["success"] == false) {
+                          Fluttertoast.showToast(
+                              msg: 'Invalid.Please try again!',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.deepPurple,
+                              textColor: Colors.white);
+                        }
                       }
                     },
                     child: const Text("Upload",
@@ -268,9 +311,6 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
         ));
   }
 
-  void openFile(PlatformFile file) {
-    OpenFile.open(file.path!);
-  }
 
   void openSongImage() async {
     final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -289,6 +329,18 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
     if (result != null) {
       setState(() {
         musicFile = result.files.first;
+      });
+    }
+  }
+
+
+  void openlyricsFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    OpenFile.open(result?.files.first.path);
+    print(result?.files.first);
+    if (result != null) {
+      setState(() {
+        lyricsFile = result.files.first;
       });
     }
   }
