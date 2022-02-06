@@ -16,6 +16,9 @@ class UploadSongServices {
           await http.MultipartFile.fromPath('myfile', body["image"]!.path));
       request.files.add(
           await http.MultipartFile.fromPath('myfile', body["song"]!.path));
+      request.files.add(
+          await http.MultipartFile.fromPath('myfile', body["lyrics"]!.path));
+
 
       var response = await request.send();
       final res = await http.Response.fromStream(response);

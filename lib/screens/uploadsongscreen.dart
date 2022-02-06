@@ -235,7 +235,7 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                               const Text("*Required",
                                   style: TextStyle(color: Colors.red)),
                             ElevatedButton(
-                                onPressed: () => openSongImage(),
+                                onPressed: () => openlyricsFile(),
                                 child: const Text("Lyrics file")),
 
                             const Padding(
