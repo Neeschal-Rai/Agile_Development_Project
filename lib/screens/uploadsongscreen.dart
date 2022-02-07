@@ -76,28 +76,42 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+              Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: IconButton(
+                    iconSize: 20.0,
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
                     ),
-                  ],
+                  ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 10.0, bottom: 10),
-                  child: Text('Upload your music',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10.0, left: 70),
+                    child: Text("Upload your music",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)),
+                  ),
                 ),
+              ],
+            ),
+                // const Padding(
+                //   padding: EdgeInsets.only(top: 1.0, bottom: 10),
+                //   child: Text('Upload your music',
+                //       style: TextStyle(
+                //           color: Colors.white,
+                //           fontSize: 20,
+                //           fontWeight: FontWeight.bold)),
+
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -267,18 +281,26 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
+                      var notification=NotificationService().showNotification(
+                        1,
+                        'main_channel',
+                        'New song',
+                        'New song added',
+                      );
+                      print(jsonDecode(jsonDecode(notification.toString())));
                       if (_formKey.currentState!.validate()) {
                         var response = await uploadsongData();
                         var res = json.decode(response);
                         print(res["success"]);
 
                         if (res["success"] == true) {
-                          NotificationService().showNotification(
+                          var notification=NotificationService().showNotification(
                             1,
                             'main_channel',
                             'New song',
                             'New song added',
                           );
+                          print(notification);
                           Navigator.pop(context);
                           Fluttertoast.showToast(
                               msg: 'Song uploaded',

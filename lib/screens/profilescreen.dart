@@ -48,6 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -268,76 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         color: Colors.black,
                                         thickness: 3,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 20, bottom: 10),
-                                        child: InkWell(
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  backgroundColor: Colors.deepPurple,
-                                                  title: Row(
-                                                    children: [
-                                                      IconButton(
-                                                        iconSize: 45.0,
-                                                        color: Colors.red,
-                                                        onPressed: () {},
-                                                        icon: const Icon(
-                                                          Icons.delete,
-                                                        ),
-                                                      ),
 
-                                                      const Text("Delete Account",
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                        )),
-                                                  ]),
-                                                  content: const Text(
-                                                      "Are you sure want to delete your account?",
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                      )),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      child: const Text("Cancel",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                          )),
-                                                      onPressed: () {
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                    ),
-                                                    TextButton(
-                                                      child: const Text("Ok",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                          )),
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                              const LoginScreen()),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                          },
-                                          child: const Text(
-                                            "Delete my account",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),

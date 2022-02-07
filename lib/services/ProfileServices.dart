@@ -13,4 +13,14 @@ class ProfileServices {
       print(e);
     }
   }
+
+  Future<dynamic> deleteUser(String id) async {
+    try {
+      var res = await http.delete(Uri.parse(getUserProfile+id));
+
+      return json.encode(res.body);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

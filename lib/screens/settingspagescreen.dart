@@ -1,4 +1,9 @@
+import 'package:dhun/constraints/constraints.dart';
+import 'package:dhun/constraints/userdata.dart';
+import 'package:dhun/services/ProfileServices.dart';
 import 'package:flutter/material.dart';
+
+import 'loginscreen.dart';
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -7,6 +12,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  deleteUser() async {
+    try {
+      var userServices = ProfileServices();
+      var response =
+      await userServices.deleteUser(user_id_login);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -239,6 +254,79 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Colors.deepPurple,
                   )
                 ],
+              ),
+
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 10.0, left: 20, bottom: 10),
+              child: InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.deepPurple,
+                        title: Row(
+                            children: [
+                              IconButton(
+                                iconSize: 45.0,
+                                color: Colors.red,
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.delete,
+                                ),
+                              ),
+
+                              const Text("Delete Account",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  )),
+                            ]),
+                        content: const Text(
+                            "Are you sure want to delete your account?",
+                            style: TextStyle(
+                              color: Colors.white,
+                            )),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text("Cancel",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: const Text("Ok",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                )),
+                            onPressed: () async{
+                              var deleteresponse = await deleteUser();
+                              print(deleteresponse);
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const LoginScreen()),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: const Text(
+                  "Delete my account",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             SizedBox(
