@@ -43,7 +43,6 @@ class SearchScreenState extends State<SearchScreen> {
   Future<List<Song>> getAllulistList() async {
     try {
       var res = await http.get(Uri.parse(searchsongfromApi));
-
       // var searchServices = SearchSongsServices();
       //
       // var response = await searchServices.searchsongs();

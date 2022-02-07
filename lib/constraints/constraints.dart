@@ -1,7 +1,7 @@
-const String BASE_URL = "http://192.168.1.69:90/";
+// const String BASE_URL = "http://192.168.1.69:90/";
 // 172.25.1.122
 // 10.1.1.51
-// const String BASE_URL = "http://172.26.0.104:90/";
+const String BASE_URL = "http://172.26.0.104:90/";
 const String REGISTER_URL = "user/register";
 const String LOGIN_URL = "user/login";
 const String USER_PROFILE_URL = "user/show/";

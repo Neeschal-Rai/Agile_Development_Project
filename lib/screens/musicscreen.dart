@@ -29,6 +29,7 @@ class _MusicScreenState extends State<MusicScreen> {
   String filePath =
       'music/music.mp3';
   bool isPressed = false;
+  String url ="";
 
   /// Optional
   int timeProgress = 0;
@@ -136,10 +137,10 @@ class _MusicScreenState extends State<MusicScreen> {
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
-            return Text('No Connection...');
+            return const Text('No Connection...');
           case ConnectionState.active:
           case ConnectionState.waiting:
-            return Text('Waiting...');
+            return const Text('Waiting...');
           case ConnectionState.done:
             if (snapshot.hasError) return Text('Error: ${snapshot.error}');
             return Text(getTimeString(snapshot.data!));
@@ -228,8 +229,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 print(data);
 
 
-                                // filePath = BASE_URL + '${data["song_file"]}';
-                                print(filePath);
+                                url = BASE_URL + '${data[0]["song_lyrics"]}';
                                 return Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -412,7 +412,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                    LibraryScreen()));
+                                                                    const LibraryScreen()));
                                                       },
                                                       icon: const Icon(
                                                         Icons.playlist_play,
@@ -427,7 +427,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                    LyricsScreen()));
+                                                                    LyricsScreen(url: url)));
                                                       },
                                                       icon: const Icon(
                                                         Icons.note,

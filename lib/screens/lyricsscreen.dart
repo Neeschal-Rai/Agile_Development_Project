@@ -2,58 +2,87 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class LyricsScreen extends StatefulWidget {
-  const LyricsScreen({Key? key}) : super(key: key);
+  final String url;
+  const LyricsScreen({required this.url});
+
 
   @override
   _LyricsScreenState createState() => _LyricsScreenState();
 }
 
 class _LyricsScreenState extends State<LyricsScreen> {
-  List<String> _questions = [];
-  Future<List<String>> _loadQuestions() async {
-    List<String> questions = [];
-    await rootBundle.loadString('assets/lyrics/questions.txt').then((q) {
-      for (String i in LineSplitter().convert(q)) {
-        questions.add(i);
-      }
-    });
-    print(questions);
-    return questions;
+  List<String> _lyricslist=[];
+  Future<List<String>> _loadsonglyrics() async {
+    LineSplitter ls = new LineSplitter();
+    _lyricslist = ls.convert(await http.read(Uri.parse(widget.url)));
+    print(_lyricslist);
+    return _lyricslist;
   }
 
   @override
   void initState() {
-    _setup();
+    _loadsonglyrics();
     super.initState();
   }
 
-  _setup() async {
-    // Retrieve the questions (Processed in the background)
-    List<String> questions = await _loadQuestions();
-
-    // Notify the UI and display the questions
-    setState(() {
-      _questions = questions;
-    });
-  }
   @override
   Widget build(BuildContext context) {
       return Scaffold(
+        backgroundColor: Colors.deepPurple,
         body: SafeArea(
           child: Center(
-            child: Container(
-              child: ListView.builder(
-                itemCount: _questions.length,
-                itemBuilder: (context, index) {
-                  return Text(_questions[index]);
-                },
-              ),
+            child: Column(
+              children: [
+             Expanded(
+               child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: IconButton(
+                          iconSize: 20.0,
+                          color: Colors.white,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back,
+                          ),
+                        ),
+                      ),
+                      const Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10.0, left: 70),
+                          child: Text("SONG LYRICS",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: _lyricslist.length,
+                      itemBuilder: (context, index) {
+                        print(widget.url);
+                        return Text(_lyricslist[index], style: TextStyle(color: Colors.white, fontSize: 20));
+                      },
+                    ),
+                  ),
+                ],
             ),
-          ),
+             ),
+          ]),
         ),
-      );
+      ));
 
   }
 }
