@@ -16,9 +16,9 @@ class ProfileServices {
 
   Future<dynamic> deleteUser(String id) async {
     try {
-      var res = await http.delete(Uri.parse(getUserProfile+id));
+      var res = await http.delete(Uri.parse(deleteaccount+id));
 
-      return json.encode(res.body);
+      return res.body;
     } catch (e) {
       print(e);
     }

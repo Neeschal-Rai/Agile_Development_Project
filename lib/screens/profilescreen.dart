@@ -7,6 +7,7 @@ import 'package:dhun/screens/settingspagescreen.dart';
 import 'package:dhun/screens/updateprofilescreen.dart';
 import 'package:dhun/services/FollowArtistServices.dart';
 import 'package:dhun/services/ProfileServices.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:dhun/screens/loginscreen.dart';
 
@@ -293,6 +294,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void logout() async {
     SharedPreferences userprefs = await SharedPreferences.getInstance();
     userprefs.clear();
+    Fluttertoast.showToast(
+        msg: 'Logged out!',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.deepPurple,
+        textColor: Colors.white);
     Navigator.pop(context);
     Navigator.push(
       context,

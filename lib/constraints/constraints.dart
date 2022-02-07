@@ -1,7 +1,7 @@
-// const String BASE_URL = "http://192.168.1.69:90/";
-// 172.25.1.122
+const String BASE_URL = "http://192.168.1.69:90/";
+// 172.25.1.122v
 // 10.1.1.51
-const String BASE_URL = "http://172.26.0.104:90/";
+// const String BASE_URL = "http://172.26.0.104:90/";
 const String REGISTER_URL = "user/register";
 const String LOGIN_URL = "user/login";
 const String USER_PROFILE_URL = "user/show/";
@@ -22,7 +22,7 @@ const String GET_FOLLOWED_ARTIST_FROM_ID = "user/artist/showfromid/";
 const String UNFOLLOW_ARTIST= "artist/unfollow/";
 const String DELETE_USER = "user/delete/";
 const String SEARCH_SONGS = "song/search/";
-const String DELETE_SONGS = "user/delete/";
+
 
 String get getRegisterUrl => BASE_URL + REGISTER_URL;
 String get getLoginUrl => BASE_URL + LOGIN_URL;
