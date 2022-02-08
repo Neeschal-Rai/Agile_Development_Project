@@ -9,6 +9,7 @@ import 'package:dhun/screens/settingspagescreen.dart';
 import 'package:dhun/services/ProfileServices.dart';
 import 'package:dhun/services/UpdateProfileServices.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,9 +24,8 @@ class _UpdateprofileState extends State<Updateprofile> {
   final emailController = TextEditingController();
   final nameController = TextEditingController();
   File? imageFile;
+  final _formKey = GlobalKey<FormState>();
 
-  String user_id = "";
-  String token = "";
   String username = "";
   String email = "";
 
@@ -65,11 +65,25 @@ class _UpdateprofileState extends State<Updateprofile> {
 
   updateData() async {
     try {
+      var body = {"username": username, "email": email};
+      var updateprofileServices = UpdateProfileServices();
+      var response = await updateprofileServices.updateprofilewithoutimage(
+          user_id_login, body);
+      print(response);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  updateDatawithoutImage() async {
+    try {
       var body = {"username": username, "email": email, "image": imageFile};
 
       var updateprofileServices = UpdateProfileServices();
       var response =
           await updateprofileServices.updateprofile(user_id_login, "", body);
+      print(response);
       return response;
     } catch (e) {
       print(e);
@@ -107,10 +121,10 @@ class _UpdateprofileState extends State<Updateprofile> {
                     if (snapshot.hasData) {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
-                      username=data["username"];
-                      email=data["email"];
-                      // imageFile=data["profilepic"];
-                      print(data);
+                      username = data["username"];
+                      email = data["email"];
+
+                      print(data["email"]);
                       return Container(
                         child: Column(
                           children: [
@@ -170,13 +184,11 @@ class _UpdateprofileState extends State<Updateprofile> {
                                         ),
                                       ),
                                     )
-                                  else
-
+                                  else if (data["profilepic"] != null)
                                     Center(
                                       child: Container(
                                         width: 130,
                                         height: 130,
-
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             image: DecorationImage(
@@ -184,11 +196,20 @@ class _UpdateprofileState extends State<Updateprofile> {
                                                     data["profilepic"]),
                                                 fit: BoxFit.cover)),
                                       ),
+                                    )
+                                  else
+                                    Center(
+                                      child: Container(
+                                        width: 130,
+                                        height: 130,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/images/no-image.png"),
+                                                fit: BoxFit.cover)),
+                                      ),
                                     ),
-
-
-
-
                                   Positioned(
                                       bottom: 0,
                                       right: 125,
@@ -227,9 +248,17 @@ class _UpdateprofileState extends State<Updateprofile> {
                                   color: Colors.white,
                                 ),
                                 controller: nameController,
-
                                 onChanged: (value) {
                                   username = value;
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Username is required';
+                                  } else if (value.length > 8) {
+                                    return null;
+                                  } else {
+                                    return 'Username length must be greater than 8';
+                                  }
                                 },
                                 decoration: InputDecoration(
                                     contentPadding: EdgeInsets.only(bottom: 3),
@@ -255,36 +284,51 @@ class _UpdateprofileState extends State<Updateprofile> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 35.0),
-                              child: TextFormField(
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              child: Form(
+                                key: _formKey,
+                                child: TextFormField(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  controller: emailController,
+                                  onChanged: (value) {
+                                    email = value;
+                                  },
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Email address is required';
+                                    } else if (RegExp(
+                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        .hasMatch(value)) {
+                                      return null;
+                                    } else {
+                                      return 'Enter valid email address';
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                      contentPadding:
+                                          EdgeInsets.only(bottom: 3),
+                                      labelText: "Email Address",
+                                      labelStyle: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      hintText: data["email"],
+                                      hintStyle: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                      enabledBorder: const UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.deepPurple),
+                                      )),
                                 ),
-                                controller: emailController,
-                                onChanged: (value) {
-                                  email = value;
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Email Address",
-                                    labelStyle: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                    hintText: data["email"],
-                                    hintStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                    enabledBorder: const UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.deepPurple),
-                                    )),
                               ),
                             ),
                           ],
@@ -306,11 +350,42 @@ class _UpdateprofileState extends State<Updateprofile> {
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton(
                   onPressed: () async {
-                    var response = await updateData();
-                    print(response);
-                    Navigator.pop(context);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    if (imageFile != null) {
+                      if (_formKey.currentState!.validate()) {
+                        var response =
+                            json.decode(await updateDatawithoutImage());
+                        if (response["success"] == true) {
+                          Fluttertoast.showToast(
+                              msg: 'Profile Update Successfully',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.deepPurple,
+                              textColor: Colors.white);
+                          Navigator.pop(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Updateprofile()));
+                        }
+                      }
+                    } else {
+                      var response = json.decode(await updateData());
+                      if (response["success"] == true) {
+                        Fluttertoast.showToast(
+                            msg: 'Profile Successfully Updated',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepPurple,
+                            textColor: Colors.white);
+                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Updateprofile()));
+                      }
+                    }
                   },
                   child: const Text("Update",
                       style: TextStyle(

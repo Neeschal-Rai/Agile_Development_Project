@@ -9,7 +9,7 @@ class UpdateProfileServices {
       print(body["email"]);
       var request =
           http.MultipartRequest('PUT', Uri.parse(getUpdateProfile + id));
-      // request.headers['Authorization'] ='bearer $token';
+
       print(body["username"]);
       request.fields['username'] = body["username"];
       request.fields['email'] = body["email"];
@@ -18,8 +18,25 @@ class UpdateProfileServices {
 
       var response = await request.send();
       final res = await http.Response.fromStream(response);
-      print(res.body);
+      return res.body;
     } catch (e) {
+      print(e);
+    }
+  }
+  Future<dynamic> updateprofilewithoutimage(String id, body) async {
+    print("hello world");
+    try {
+      var res =
+      await http.put(Uri.parse(getUpdateProfilewithoutImage+id),
+          headers: {
+            'Content-Type': 'application/json',
+            "Accept": "application/json"
+          },
+          body: json.encode(body));
+      print(res.body);
+      return res.body;
+    }
+    catch (e) {
       print(e);
     }
   }

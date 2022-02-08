@@ -24,7 +24,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int follower_count=0;
+  int follower_count = 0;
+
   getData() async {
     print(user_id_login);
 
@@ -36,12 +37,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       print(e);
     }
   }
+
   getfollowedartist() async {
     try {
       var followartistServices = FollowArtistServices();
       var response =
       await followartistServices.getfollowingartist(user_id_login);
-      follower_count=jsonDecode(jsonDecode(response.toString()))["data"].length;
+      follower_count =
+          jsonDecode(jsonDecode(response.toString()))["data"].length;
 
       return response;
     } catch (e) {
@@ -49,13 +52,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         backgroundColor: Colors.black,
         body: SafeArea(
             child: Container(
@@ -68,8 +67,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (snapshot.hasData) {
                         dynamic data = jsonDecode(
                             jsonDecode(snapshot.data.toString()))["data"];
-
                         print(data);
+
                         getfollowedartist();
                         return Column(
                           children: [
@@ -86,18 +85,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                               ],
                             ),
-                            Container(
-                              margin:
-                                  const EdgeInsets.symmetric(vertical: 40.0),
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          BASE_URL + data["profilepic"]),
-                                      fit: BoxFit.cover)),
-                            ),
+                            if (data["profilepic"] != null)
+                              Container(
+                                margin:
+                                const EdgeInsets.symmetric(vertical: 40.0),
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            BASE_URL + data["profilepic"]),
+                                        fit: BoxFit.cover)),
+                              )
+                            else
+                              Container(
+                                margin:
+                                const EdgeInsets.symmetric(vertical: 40.0),
+                                width: 100,
+                                height: 100,
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/no-image.png"),
+                                        fit: BoxFit.cover)),
+                              ),
+
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
                               child: Text(data["username"],
@@ -122,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const Updateprofile()));
+                                          const Updateprofile()));
                                 },
                                 child: const Text("Edit",
                                     style: TextStyle(
@@ -131,15 +145,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         fontWeight: FontWeight.normal)),
                                 style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.deepPurpleAccent),
+                                  MaterialStateProperty.all<Color>(
+                                      Colors.deepPurpleAccent),
                                 ),
                               ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: const [
-
                                 Padding(
                                   padding: EdgeInsets.only(top: 10.0),
                                   child: Text('Following',
@@ -162,11 +175,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 GestureDetector(
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const FollowingScreen()),
-                                  ),
+                                  onTap: () =>
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            const FollowingScreen()),
+                                      ),
                                   child: Padding(
                                     padding: EdgeInsets.only(top: 10.0),
                                     child: Text(follower_count.toString(),
@@ -194,18 +209,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 color: Colors.white,
                                 child: SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
                                         child: InkWell(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginScreen()),
-                                          ),
+                                          onTap: () =>
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginScreen()),
+                                              ),
                                           child: const Text(
                                             "Notifications",
                                             style: TextStyle(
@@ -223,11 +240,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
                                         child: InkWell(
-                                            onTap: () => Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) => SettingsScreen()),
-                                            ),
+                                          onTap: () =>
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SettingsScreen()),
+                                              ),
                                           child: const Text(
                                             "Settings",
                                             style: TextStyle(
@@ -245,11 +264,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
                                         child: InkWell(
-                                          onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => HelpScreen()),
-                                          ),
+                                          onTap: () =>
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HelpScreen()),
+                                              ),
                                           child: const Text('Help section',
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -279,7 +300,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         color: Colors.black,
                                         thickness: 3,
                                       ),
-
                                     ],
                                   ),
                                 ),

@@ -35,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.deepPurple,
           ),
@@ -100,6 +100,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   fontWeight: FontWeight.bold),
 
                               decoration: const InputDecoration(
+                                hintText: "New password",
+                                contentPadding: EdgeInsets.only(bottom: 3),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black, width: 2),
+                                ),
+                              ),
+                            ),
+                            TextFormField(
+                              cursorColor: Colors.white,
+
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+
+                              decoration: const InputDecoration(
+                                hintText: "Confirm password",
                                 contentPadding: EdgeInsets.only(bottom: 3),
                                 floatingLabelBehavior: FloatingLabelBehavior.always,
                                 enabledBorder: UnderlineInputBorder(
@@ -214,7 +235,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         backgroundColor: Colors.deepPurple,
-                        title: Text("Change Password"),
+                        title: const Text("Change Password"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
