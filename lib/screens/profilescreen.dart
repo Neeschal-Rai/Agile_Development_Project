@@ -14,6 +14,8 @@ import 'package:dhun/screens/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'helpsectionscreen.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -239,14 +241,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         color: Colors.black,
                                         thickness: 3,
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(
+                                      Padding(
+                                        padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
-                                        child: Text('Help section',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold)),
+                                        child: InkWell(
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => HelpScreen()),
+                                          ),
+                                          child: const Text('Help section',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                       ),
                                       const Divider(
                                         color: Colors.black,

@@ -28,11 +28,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String email = "";
   String password = "";
-  String usertype = "";
-
   postData() async {
     try {
-      var body = {"email": email, "password": password, "usertype": usertype};
+      var body = {"email": email, "password": password, "usertype": value};
       var registerServices = LoginServices();
       var response = await registerServices.Login(body);
       return response;
@@ -119,8 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.deepPurple, size: 30),
                                 isExpanded: true,
                                 items: items.map(buildMenuItem).toList(),
-                                onChanged: (value) =>
-                                    setState(() => this.value = value),
+                                  onChanged: (value) => {
+
+                                    setState(() => {this.value = value!}),
+                                  },
                               ),
                             ),
                           ),

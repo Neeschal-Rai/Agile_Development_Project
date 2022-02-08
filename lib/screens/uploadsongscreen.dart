@@ -76,42 +76,34 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-              Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: IconButton(
-                    iconSize: 20.0,
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: IconButton(
+                        iconSize: 20.0,
+                        color: Colors.white,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                        ),
+                      ),
                     ),
-                  ),
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 10.0, left: 70),
+                        child: Text("Upload your music",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ],
                 ),
-                const Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 10.0, left: 70),
-                    child: Text("Upload your music",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ),
-              ],
-            ),
-                // const Padding(
-                //   padding: EdgeInsets.only(top: 1.0, bottom: 10),
-                //   child: Text('Upload your music',
-                //       style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 20,
-                //           fontWeight: FontWeight.bold)),
-
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -166,11 +158,11 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                 onChanged: (value) {
                                   artist_name = value;
                                 },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'This field is required';
-                                    }
-                                  },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'This field is required';
+                                  }
+                                },
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15.0),
@@ -234,7 +226,6 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                               padding: EdgeInsets.all(8.0),
                               child: Text("Song Lyrics",
                                   style: TextStyle(color: Colors.white)),
-
                             ),
                             if (lyricsFile != null)
                               Padding(
@@ -245,13 +236,13 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     )),
-                              )  else
+                              )
+                            else
                               const Text("*Required",
                                   style: TextStyle(color: Colors.red)),
                             ElevatedButton(
                                 onPressed: () => openlyricsFile(),
                                 child: const Text("Lyrics file")),
-
                             const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text("Song file",
@@ -281,7 +272,7 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      var notification=NotificationService().showNotification(
+                      var notification = NotificationService().showNotification(
                         1,
                         'main_channel',
                         'New song',
@@ -294,7 +285,8 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                         print(res["success"]);
 
                         if (res["success"] == true) {
-                          var notification=NotificationService().showNotification(
+                          var notification =
+                              NotificationService().showNotification(
                             1,
                             'main_channel',
                             'New song',
@@ -310,7 +302,6 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                               backgroundColor: Colors.deepPurple,
                               textColor: Colors.white);
                         }
-
 
                         if (res["success"] == false) {
                           Fluttertoast.showToast(
@@ -333,7 +324,6 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
         ));
   }
 
-
   void openSongImage() async {
     final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
     print(picture?.path);
@@ -354,7 +344,6 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
       });
     }
   }
-
 
   void openlyricsFile() async {
     final result = await FilePicker.platform.pickFiles();

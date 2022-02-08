@@ -199,7 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide:
-                                  BorderSide(color: Colors.white)),
+                                  const BorderSide(color: Colors.white)),
                         ),
                       ),
                     ),
