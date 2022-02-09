@@ -27,7 +27,7 @@ class _MusicScreenState extends State<MusicScreen> {
   AudioPlayerState audioPlayerState = AudioPlayerState.PAUSED;
   AudioCache audioCache = AudioCache();
   String filePath =
-      'music/music.mp3';
+      'http://192.168.1.69:90/1644167458810Y2Mate.is%20-%20Mohani%20Lagla%20Hai%20%20Nepali%20Movie%20Chino%20Song%20%20Narayan%20Gopal,%20Asha%20Bhosle%20%20Shiva%20Shrestha,%20Bhuwan%20KC-pzcBs8XrvyQ-160k-1643369128002.mp3';
   bool isPressed = false;
   String url ="";
 
@@ -63,9 +63,9 @@ class _MusicScreenState extends State<MusicScreen> {
   /// Optional
   Widget slider() {
     return Container(
-      width: 300.0,
+      width: 400.0,
       child: Slider.adaptive(
-          value: (timeProgress / 1000).floorToDouble(),
+          value: (timeProgress / 1000).roundToDouble(),
           max: (audioDuration / 1000).floorToDouble(),
           activeColor: Colors.white,
           onChanged: (value) {
@@ -107,12 +107,16 @@ class _MusicScreenState extends State<MusicScreen> {
 
   /// Compulsory
   playMusic() async {
-    await audioCache.play(filePath);
+    print(filePath);
+    await audioPlayer.play(filePath);
   }
 
   /// Compulsory
   pauseMusic() async {
     await audioPlayer.pause();
+  }
+  loopMusic() async{
+    await audioCache.loop(filePath);
   }
 
   /// Optional
@@ -228,7 +232,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                     snapshot.data.toString()))["data"];
                                 print(data);
 
-
+                                filePath = BASE_URL + '${data[0]["song_file"]}';
                                 url = BASE_URL + '${data[0]["song_lyrics"]}';
                                 return Expanded(
                                   child: Column(
@@ -327,7 +331,6 @@ class _MusicScreenState extends State<MusicScreen> {
                                                 ],
                                               ),
                                               Row(
-
                                                 mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                                 crossAxisAlignment:

@@ -1,9 +1,12 @@
 
+import 'package:dhun/screens/albumuploadscreen.dart';
+import 'package:dhun/screens/chooseuploadscreen.dart';
 import 'package:dhun/screens/dashboardscreen.dart';
 import 'package:dhun/screens/followingartistscreen.dart';
 import 'package:dhun/screens/homepagescreen.dart';
 import 'package:dhun/screens/profilescreen.dart';
 import 'package:dhun/screens/registerscreen.dart';
+import 'package:dhun/screens/uploadsongscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -39,7 +42,7 @@ class _SplashHomeState extends State<SplashHome> {
                   child:
                   SplashScreen(
                       seconds: 5,
-                      navigateAfterSeconds: HomeScreen(),
+                      navigateAfterSeconds: UploadSongScreen(),
                       image: Image.asset("assets/images/logo.png",
                           height: 200, width: 200, fit: BoxFit.contain),
                       backgroundColor: Colors.black,

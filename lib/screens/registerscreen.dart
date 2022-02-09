@@ -82,6 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: TextFormField(
+                        key: const Key("emailfield"),
                         style: TextStyle(color: Colors.white),
                         controller: emailController,
                         onChanged: (value) {
@@ -114,7 +115,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       child: TextFormField(
-                        style: TextStyle(color: Colors.white),
+                        key: const Key("usernamefield"),
+                        style: const TextStyle(color: Colors.white),
                         controller: nameController,
                         onChanged: (value) {
                           username = value;
@@ -153,6 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
+                              key: const Key("usertypefield"),
                               value: value,
                               iconSize: 20,
                               dropdownColor: Colors.black,
@@ -171,6 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: TextFormField(
+                        key: const Key("passwordfield"),
                         style: TextStyle(color: Colors.white),
                         controller: passwordController,
                         obscureText: _isObscure,
@@ -211,6 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: TextFormField(
+                        key: const Key("confirmpasswordfield"),
                         style: const TextStyle(color: Colors.white),
                         controller: confirmPasswordController,
                         obscureText: _isObscure,

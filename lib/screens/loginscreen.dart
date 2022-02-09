@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Text("Log In",
@@ -209,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Row(
                   children: [
-                    Text("If you are new, please ",
+                    const Text("If you are new, please ",
                         style: TextStyle(color: Colors.white)),
                     InkWell(
                       onTap: () => Navigator.push(

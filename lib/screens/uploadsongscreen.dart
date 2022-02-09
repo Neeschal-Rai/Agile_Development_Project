@@ -61,18 +61,10 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.deepPurple,
         body: SafeArea(
           child: Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.003, 3],
-              colors: [
-                Colors.deepPurple,
-                Colors.black,
-              ],
-            )),
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
