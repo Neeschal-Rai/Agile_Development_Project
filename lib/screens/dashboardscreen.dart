@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
+import 'package:dhun/screens/chooseuploadscreen.dart';
 import 'package:dhun/screens/musicscreen.dart';
 import 'package:dhun/screens/uploadsongscreen.dart';
 import 'package:dhun/services/GetSongServices.dart';
@@ -259,7 +260,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UploadSongScreen()),
+              MaterialPageRoute(builder: (context) => ChooseUploadScreen()),
             );
           },
           child: const Icon(

@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,13 +6,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+
 class AlbumUploadScreen extends StatefulWidget {
   const AlbumUploadScreen({Key? key}) : super(key: key);
 
   @override
   _AlbumUploadScreenState createState() => _AlbumUploadScreenState();
 }
-
 
 class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
   final AlbumnameController = TextEditingController();
@@ -75,17 +74,25 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                       ),
                     ),
                   ),
-                  const Center(
+                  Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10.0, left: 70),
-                      child: Text("Upload your music",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)),
+                      padding: const EdgeInsets.only(top: 10.0, left: 100),
+                      child: Image.asset("assets/images/musical-note.png",
+                          height: 50, width: 50, fit: BoxFit.contain),
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: const Padding(
+                  padding: EdgeInsets.only(top: 10.0, left: 100),
+                  child: Text("Upload your album",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -99,14 +106,19 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text("Album Name",
-                                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
                           ),
-
                           Padding(
                             padding:
-                            const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                const EdgeInsets.only(top: 8.0, bottom: 8.0),
                             child: TextFormField(
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
                               controller: AlbumnameController,
                               onChanged: (value) {
                                 Album_name = value;
@@ -116,29 +128,31 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                                   return 'This field is required';
                                 }
                               },
+                              cursorColor: Colors.white,
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.only(bottom: 3),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white, width: 2),
+                                  borderSide:
+                                      BorderSide(color: Colors.white, width: 2),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white, width: 2),
+                                  borderSide:
+                                      BorderSide(color: Colors.white, width: 2),
                                 ),
                               ),
-                              // decoration: InputDecoration(
-                              //   enabledBorder: OutlineInputBorder(
-                              //       borderRadius: BorderRadius.circular(15.0),
-                              //       borderSide: const BorderSide(
-                              //           color: Colors.white)),
-                              //   focusedBorder: OutlineInputBorder(
-                              //       borderRadius: BorderRadius.circular(15.0),
-                              //       borderSide: const BorderSide(
-                              //           color: Colors.white)),
-                              // ),
                             ),
                           ),
-                          Container(
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Album Description",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          SizedBox(
                             height: 5 * 24.0,
                             child: TextField(
                               maxLines: 5,
@@ -146,23 +160,29 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                               onChanged: (value) {
                                 Album_desc = value;
                               },
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                     borderSide: const BorderSide(
-                                        color: Colors.white)),
+                                        color: Colors.white, width: 2)),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                     borderSide: const BorderSide(
-                                        color: Colors.white)),
+                                        color: Colors.white, width: 2)),
                               ),
                             ),
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text("Album Image",
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
                           ),
                           if (imageFile != null)
                             Container(
@@ -175,20 +195,34 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                               ),
                             )
                           else
-                            const Text("*Required",
-                                style: TextStyle(color: Colors.red)),
-                          ElevatedButton(
-                              onPressed: () => openAlbumImage(),
-                              child: const Text("Choose Image")),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text("Album Lyrics",
-                                style: TextStyle(color: Colors.white)),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text("*Required",
+                                  style: TextStyle(color: Colors.red)),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                onPressed: () => openAlbumImage(),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                ),
+                                child: const Text(
+                                  "Choose Image",
+                                  style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontWeight: FontWeight.bold),
+                                )),
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text("Album file",
-                                style: TextStyle(color: Colors.white)),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
                           ),
                           if (musicFile != null)
                             Padding(
@@ -201,65 +235,85 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                                   )),
                             )
                           else
-                            const Text("*Required",
-                                style: TextStyle(color: Colors.red)),
-                          ElevatedButton(
-                              onPressed: () => openMusicFile(),
-                              child: const Text("Choose file"))
+                            const Padding(
+                              padding: EdgeInsets.only(left: 8.0),
+                              child: Text("*Required",
+                                  style: TextStyle(color: Colors.red)),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                onPressed: () => openMusicFile(),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                ),
+                                child: const Text("Choose file", style: TextStyle(color:Colors.deepPurple,fontWeight: FontWeight.bold),)),
+                          )
                         ],
                       ),
                     ),
                   ),
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () async {
-                    var notification = NotificationService().showNotification(
-                      1,
-                      'main_channel',
-                      'New Album',
-                      'New Album added',
-                    );
-                    print(jsonDecode(jsonDecode(notification.toString())));
-                    // if (_formKey.currentState!.validate()) {
-                    //   var response = await uploadAlbumData();
-                    //   var res = json.decode(response);
-                    //   print(res["success"]);
-                    //
-                    //   if (res["success"] == true) {
-                    //     var notification =
-                    //     NotificationService().showNotification(
-                    //       1,
-                    //       'main_channel',
-                    //       'New Album',
-                    //       'New Album added',
-                    //     );
-                    //     print(notification);
-                    //     Navigator.pop(context);
-                    //     Fluttertoast.showToast(
-                    //         msg: 'Album uploaded',
-                    //         toastLength: Toast.LENGTH_SHORT,
-                    //         gravity: ToastGravity.BOTTOM,
-                    //         timeInSecForIosWeb: 1,
-                    //         backgroundColor: Colors.deepPurple,
-                    //         textColor: Colors.white);
-                    //   }
-                    //
-                    //   if (res["success"] == false) {
-                    //     Fluttertoast.showToast(
-                    //         msg: 'Invalid.Please try again!',
-                    //         toastLength: Toast.LENGTH_SHORT,
-                    //         gravity: ToastGravity.BOTTOM,
-                    //         timeInSecForIosWeb: 1,
-                    //         backgroundColor: Colors.deepPurple,
-                    //         textColor: Colors.white);
-                    //   }
-                    // }
-                  },
-                  child: const Text("Upload",
-                      style: TextStyle(
-                          color: Colors.white,
-                          backgroundColor: Colors.deepPurple)))
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15.0),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStateProperty.all<Color>(
+                          Colors.white),
+                    ),
+                    onPressed: () async {
+                      var notification = NotificationService().showNotification(
+                        1,
+                        'main_channel',
+                        'New Album',
+                        'New Album added',
+                      );
+                      print(jsonDecode(jsonDecode(notification.toString())));
+                      // if (_formKey.currentState!.validate()) {
+                      //   var response = await uploadAlbumData();
+                      //   var res = json.decode(response);
+                      //   print(res["success"]);
+                      //
+                      //   if (res["success"] == true) {
+                      //     var notification =
+                      //     NotificationService().showNotification(
+                      //       1,
+                      //       'main_channel',
+                      //       'New Album',
+                      //       'New Album added',
+                      //     );
+                      //     print(notification);
+                      //     Navigator.pop(context);
+                      //     Fluttertoast.showToast(
+                      //         msg: 'Album uploaded',
+                      //         toastLength: Toast.LENGTH_SHORT,
+                      //         gravity: ToastGravity.BOTTOM,
+                      //         timeInSecForIosWeb: 1,
+                      //         backgroundColor: Colors.deepPurple,
+                      //         textColor: Colors.white);
+                      //   }
+                      //
+                      //   if (res["success"] == false) {
+                      //     Fluttertoast.showToast(
+                      //         msg: 'Invalid.Please try again!',
+                      //         toastLength: Toast.LENGTH_SHORT,
+                      //         gravity: ToastGravity.BOTTOM,
+                      //         timeInSecForIosWeb: 1,
+                      //         backgroundColor: Colors.deepPurple,
+                      //         textColor: Colors.white);
+                      //   }
+                      // }
+
+                    },
+                    child: const Text("Upload",
+                        style: TextStyle(
+                            color: Colors.deepPurple,
+                            fontSize: 16, fontWeight: FontWeight.bold))),
+              )
             ],
           ),
         ));
@@ -285,5 +339,4 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
       });
     }
   }
-
 }
