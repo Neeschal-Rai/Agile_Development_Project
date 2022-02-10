@@ -27,7 +27,7 @@ class _SplashHomeState extends State<SplashHome> {
     Future<Widget> checkLogin() async {
       SharedPreferences userprefs = await SharedPreferences.getInstance();
       if(userprefs.containsKey("userid")){
-        return HomeScreen();
+        return HomeScreen(index: 0);
       }else{
         return LoginScreen();
       }
@@ -42,7 +42,7 @@ class _SplashHomeState extends State<SplashHome> {
                   child:
                   SplashScreen(
                       seconds: 5,
-                      navigateAfterSeconds: HomeScreen(),
+                      navigateAfterSeconds: HomeScreen(index: 0),
                       image: Image.asset("assets/images/logo.png",
                           height: 200, width: 200, fit: BoxFit.contain),
                       backgroundColor: Colors.black,

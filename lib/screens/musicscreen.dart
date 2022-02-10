@@ -29,7 +29,7 @@ class _MusicScreenState extends State<MusicScreen> {
   String filePath =
       'http://192.168.1.69:90/1644167458810Y2Mate.is%20-%20Mohani%20Lagla%20Hai%20%20Nepali%20Movie%20Chino%20Song%20%20Narayan%20Gopal,%20Asha%20Bhosle%20%20Shiva%20Shrestha,%20Bhuwan%20KC-pzcBs8XrvyQ-160k-1643369128002.mp3';
   bool isPressed = false;
-  String url ="";
+  String url = "";
 
   /// Optional
   int timeProgress = 0;
@@ -115,7 +115,8 @@ class _MusicScreenState extends State<MusicScreen> {
   pauseMusic() async {
     await audioPlayer.pause();
   }
-  loopMusic() async{
+
+  loopMusic() async {
     await audioCache.loop(filePath);
   }
 
@@ -128,7 +129,7 @@ class _MusicScreenState extends State<MusicScreen> {
 
     audioDuration = await Future.delayed(
       Duration(seconds: 2),
-          () => audioPlayer.getDuration(),
+      () => audioPlayer.getDuration(),
     );
 
     return audioDuration;
@@ -177,14 +178,14 @@ class _MusicScreenState extends State<MusicScreen> {
             child: Container(
                 decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0.003, 3],
-                      colors: [
-                        Colors.deepPurple,
-                        Colors.black,
-                      ],
-                    )),
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.003, 3],
+                  colors: [
+                    Colors.deepPurple,
+                    Colors.black,
+                  ],
+                )),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -192,7 +193,7 @@ class _MusicScreenState extends State<MusicScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 40.0),
+                          padding: const EdgeInsets.only(top: 20.0),
                           child: IconButton(
                             iconSize: 20.0,
                             color: Colors.white,
@@ -206,7 +207,7 @@ class _MusicScreenState extends State<MusicScreen> {
                         ),
                         const Center(
                           child: Padding(
-                            padding: EdgeInsets.only(top: 40.0, left: 70),
+                            padding: EdgeInsets.only(top: 20.0, left: 70),
                             child: Text("NOW PLAYING",
                                 style: TextStyle(
                                     color: Colors.white,
@@ -237,7 +238,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                 return Expanded(
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       //Let's add the music cover
                                       Center(
@@ -246,7 +247,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                           height: 300.0,
                                           decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(30.0),
+                                                  BorderRadius.circular(30.0),
                                               image: DecorationImage(
                                                   image: NetworkImage(BASE_URL +
                                                       data[0]["song_image"]),
@@ -275,7 +276,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                       Expanded(
                                         child: Container(
                                           padding:
-                                          const EdgeInsets.only(top: 0.0),
+                                              const EdgeInsets.only(top: 0.0),
                                           decoration: const BoxDecoration(
                                             color: Colors.deepPurple,
                                             borderRadius: BorderRadius.only(
@@ -285,16 +286,17 @@ class _MusicScreenState extends State<MusicScreen> {
                                           ),
                                           child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
                                             children: [
                                               //Let's start by adding the controller
                                               //let's add the time indicator tex
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: [
+
                                                   IconButton(
                                                     iconSize: 45.0,
                                                     color: Colors.white,
@@ -308,18 +310,18 @@ class _MusicScreenState extends State<MusicScreen> {
                                                       color: Colors.white,
                                                       onPressed: () {
                                                         audioPlayerState ==
-                                                            AudioPlayerState
-                                                                .PLAYING
+                                                                AudioPlayerState
+                                                                    .PLAYING
                                                             ? pauseMusic()
                                                             : playMusic();
                                                         setState(() {});
                                                       },
                                                       icon: Icon(audioPlayerState ==
-                                                          AudioPlayerState
-                                                              .PLAYING
+                                                              AudioPlayerState
+                                                                  .PLAYING
                                                           ? Icons.pause_rounded
                                                           : Icons
-                                                          .play_arrow_rounded)),
+                                                              .play_arrow_rounded)),
                                                   IconButton(
                                                     iconSize: 45.0,
                                                     color: Colors.white,
@@ -328,13 +330,22 @@ class _MusicScreenState extends State<MusicScreen> {
                                                       Icons.skip_next,
                                                     ),
                                                   ),
+
+                                                  IconButton(
+                                                    iconSize: 25.0,
+                                                    color: Colors.white,
+                                                    onPressed: () {},
+                                                    icon: const Icon(
+                                                      Icons.loop,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                               Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     getTimeString(timeProgress),
@@ -349,24 +360,24 @@ class _MusicScreenState extends State<MusicScreen> {
                                                   audioDuration == 0
                                                       ? getLocalFileDuration()
                                                       : Text(getTimeString(
-                                                      audioDuration))
+                                                          audioDuration))
                                                 ],
                                               ),
                                               Padding(
                                                 padding:
-                                                const EdgeInsets.all(10.0),
+                                                    const EdgeInsets.all(10.0),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
                                                     IconButton(
                                                       iconSize: 30.0,
                                                       color: (isPressed)
                                                           ? const Color(
-                                                          0xFFFF0000)
+                                                              0xFFFF0000)
                                                           : const Color(
-                                                          0xFFFFFFFF),
+                                                              0xFFFFFFFF),
                                                       onPressed: () async {
                                                         setState(() {
                                                           isPressed = true;
@@ -375,23 +386,23 @@ class _MusicScreenState extends State<MusicScreen> {
                                                             await addtofavorites());
                                                         print(response);
                                                         if (response[
-                                                        "success"] ==
+                                                                "success"] ==
                                                             true) {
                                                           Fluttertoast.showToast(
                                                               msg:
-                                                              'Added successfully',
+                                                                  'Added successfully',
                                                               toastLength: Toast
                                                                   .LENGTH_SHORT,
                                                               gravity:
-                                                              ToastGravity
-                                                                  .BOTTOM,
+                                                                  ToastGravity
+                                                                      .BOTTOM,
                                                               timeInSecForIosWeb:
-                                                              1,
+                                                                  1,
                                                               backgroundColor:
-                                                              Colors
-                                                                  .deepPurple,
+                                                                  Colors
+                                                                      .deepPurple,
                                                               textColor:
-                                                              Colors.white);
+                                                                  Colors.white);
                                                         }
                                                       },
                                                       icon: const Icon(
@@ -415,7 +426,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                    const LibraryScreen()));
+                                                                        const LibraryScreen()));
                                                       },
                                                       icon: const Icon(
                                                         Icons.playlist_play,
@@ -428,9 +439,10 @@ class _MusicScreenState extends State<MusicScreen> {
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                    LyricsScreen(url: url)));
+                                                                builder: (context) =>
+                                                                    LyricsScreen(
+                                                                        url:
+                                                                            url)));
                                                       },
                                                       icon: const Icon(
                                                         Icons.note,
@@ -449,10 +461,10 @@ class _MusicScreenState extends State<MusicScreen> {
                               } else {
                                 return const Center(
                                     child: Text(
-                                      'Error occured',
-                                      textScaleFactor: 3,
-                                      style: TextStyle(color: Colors.white),
-                                    ));
+                                  'Error occured',
+                                  textScaleFactor: 3,
+                                  style: TextStyle(color: Colors.white),
+                                ));
                               }
                             },
                           )

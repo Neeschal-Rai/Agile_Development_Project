@@ -107,7 +107,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                    HomeScreen()));
+                                    HomeScreen(index: 2,)));
                     }
                   },
                   child: const Text("Create playlist",

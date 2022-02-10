@@ -6,14 +6,16 @@ import 'package:dhun/screens/searchscreen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final int index;
 
+  const HomeScreen({required this.index});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int index = 0;
+
+  late int index = widget.index;
   final screens=[
     Dashboardscreen(),
     SearchScreen(),
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    print(index);
     return Scaffold(
       extendBody: true,
       body:screens[index],

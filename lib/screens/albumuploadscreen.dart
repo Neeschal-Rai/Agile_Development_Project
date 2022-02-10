@@ -28,7 +28,7 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
   String Album_name = "";
   String Album_desc = "";
   File? imageFile;
-
+ late List<File> files;
   PlatformFile? musicFile;
 
   uploadAlbumData() async {
@@ -227,7 +227,7 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                           if (musicFile != null)
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text('${musicFile?.name}',
+                              child: Text('${musicFile}',
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -331,11 +331,11 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
 
   void openMusicFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-
-    print(result?.files.first);
     if (result != null) {
       setState(() {
-        musicFile = result.files.first;
+        files = result.paths.map((path) => File(path!)).toList();
+        print(files);
+
       });
     }
   }

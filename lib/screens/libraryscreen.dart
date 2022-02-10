@@ -85,7 +85,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        HomeScreen()));
+                                        const HomeScreen(index: 2,)));
                           }
                         },
                         icon: const Icon(

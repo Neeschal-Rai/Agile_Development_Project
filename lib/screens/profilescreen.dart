@@ -24,8 +24,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int follower_count = 0;
-
   getData() async {
     print(user_id_login);
 
@@ -42,9 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       var followartistServices = FollowArtistServices();
       var response =
-      await followartistServices.getfollowingartist(user_id_login);
-      follower_count =
-          jsonDecode(jsonDecode(response.toString()))["data"].length;
+          await followartistServices.getfollowingartist(user_id_login);
 
       return response;
     } catch (e) {
@@ -69,7 +65,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             jsonDecode(snapshot.data.toString()))["data"];
                         print(data);
 
-                        getfollowedartist();
                         return Column(
                           children: [
                             Row(
@@ -88,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             if (data["profilepic"] != null)
                               Container(
                                 margin:
-                                const EdgeInsets.symmetric(vertical: 40.0),
+                                    const EdgeInsets.symmetric(vertical: 40.0),
                                 width: 100,
                                 height: 100,
                                 decoration: BoxDecoration(
@@ -101,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             else
                               Container(
                                 margin:
-                                const EdgeInsets.symmetric(vertical: 40.0),
+                                    const EdgeInsets.symmetric(vertical: 40.0),
                                 width: 100,
                                 height: 100,
                                 decoration: const BoxDecoration(
@@ -111,7 +106,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             "assets/images/no-image.png"),
                                         fit: BoxFit.cover)),
                               ),
-
                             Padding(
                               padding: const EdgeInsets.only(top: 10.0),
                               child: Text(data["username"],
@@ -136,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                          const Updateprofile()));
+                                              const Updateprofile()));
                                 },
                                 child: const Text("Edit",
                                     style: TextStyle(
@@ -145,8 +139,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         fontWeight: FontWeight.normal)),
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      Colors.deepPurpleAccent),
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.deepPurpleAccent),
                                 ),
                               ),
                             ),
@@ -174,23 +168,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                GestureDetector(
-                                  onTap: () =>
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            const FollowingScreen()),
-                                      ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 10.0),
-                                    child: Text(follower_count.toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.normal)),
-                                  ),
-                                ),
+                                FutureBuilder(
+                                    future: getfollowedartist(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<dynamic> snapshot) {
+                                      dynamic data =
+                                          jsonDecode(jsonDecode(snapshot.data.toString()))["data"];
+                                      print(snapshot.hasData);
+                                      if (snapshot.hasData){
+                                        return GestureDetector(
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                const FollowingScreen()),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(top: 10.0),
+                                            child: Text(data.length.toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.normal)),
+                                          ),
+                                        );
+                                      }else if(snapshot.hasError){
+                                        return Container();
+                                      }
+                                      else{
+                                        return Container();
+                                      }
+
+                                    }),
+
                                 const Padding(
                                   padding: EdgeInsets.only(top: 10.0),
                                   child: Text('0',
@@ -210,19 +220,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 child: SingleChildScrollView(
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
                                         child: InkWell(
-                                          onTap: () =>
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginScreen()),
-                                              ),
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginScreen()),
+                                          ),
                                           child: const Text(
                                             "Notifications",
                                             style: TextStyle(
@@ -240,13 +249,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
                                         child: InkWell(
-                                          onTap: () =>
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SettingsScreen()),
-                                              ),
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SettingsScreen()),
+                                          ),
                                           child: const Text(
                                             "Settings",
                                             style: TextStyle(
@@ -264,13 +272,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         padding: const EdgeInsets.only(
                                             top: 10.0, left: 20, bottom: 10),
                                         child: InkWell(
-                                          onTap: () =>
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HelpScreen()),
-                                              ),
+                                          onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HelpScreen()),
+                                          ),
                                           child: const Text('Help section',
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -310,10 +317,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       } else {
                         return const Center(
                             child: Text(
-                              'Error occured',
-                              textScaleFactor: 3,
-                              style: TextStyle(color: Colors.red),
-                            )); //or show a loading spinner
+                          'Error occured',
+                          textScaleFactor: 3,
+                          style: TextStyle(color: Colors.red),
+                        )); //or show a loading spinner
                       }
                     },
                   ),

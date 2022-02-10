@@ -22,11 +22,11 @@ class _LyricsScreenState extends State<LyricsScreen> {
     return _lyricslist;
   }
 
-  @override
-  void initState() {
-    _loadsonglyrics();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _loadsonglyrics();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +69,30 @@ class _LyricsScreenState extends State<LyricsScreen> {
                     ],
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: _lyricslist.length,
-                      itemBuilder: (context, index) {
-                        print(widget.url);
-                        return Text(_lyricslist[index], style: TextStyle(color: Colors.white, fontSize: 20));
-                      },
+                    child: FutureBuilder(
+                      future: _loadsonglyrics(),
+                      builder: (BuildContext context,
+                      AsyncSnapshot<dynamic> snapshot) {
+                        if(snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: _lyricslist.length,
+                            itemBuilder: (context, index) {
+                              return Text(_lyricslist[index],
+                                  style: const TextStyle(color: Colors.white,
+                                      fontWeight: FontWeight.w100,
+                                      fontSize: 22));
+                            },
+                          );
+                        }else{
+                          return const Center(
+                              child: Text(
+                                'No lyrics found',
+                                textScaleFactor: 3,
+                                style: TextStyle(color: Colors.red),
+                              ));
+                        }
+
+                      }
                     ),
                   ),
                 ],
