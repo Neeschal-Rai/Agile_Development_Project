@@ -62,140 +62,135 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.black,
         body: SafeArea(
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: IconButton(
-                        iconSize: 20.0,
-                        color: Colors.white,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                        ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: IconButton(
+                      iconSize: 20.0,
+                      color: Colors.white,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back,
                       ),
                     ),
-                    const Center(
+                  ),
+                  Expanded(
+                    child: Center(
                       child: Padding(
-                        padding: EdgeInsets.only(top: 10.0, left: 70),
-                        child: Text("Upload your music",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold)),
+                        padding: const EdgeInsets.only(top: 20.0, right: 50),
+                        child: Image.asset("assets/images/music-notes.png",
+                            height: 50, width: 50, fit: BoxFit.contain),
                       ),
                     ),
-                  ],
+                  ),
+
+                ],
+              ),
+              const Center(
+                child: Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Text("Upload your music",
+                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("Song Name",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                              child: TextFormField(
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                                controller: songnameController,
-                                onChanged: (value) {
-                                  song_name = value;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                },
-                                cursorColor: Colors.white,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.only(bottom: 3),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 2),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 2),
-                                  ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Song Name",
+                                style: TextStyle(color: Colors.white, fontSize:16,fontWeight: FontWeight.bold)),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left:8, bottom: 8.0),
+                            child: TextFormField(
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                              controller: songnameController,
+                              onChanged: (value) {
+                                song_name = value;
+                              },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                              },
+                              cursorColor: Colors.white,
+                                decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(5.0),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderSide:
+                                        const BorderSide(color: Colors.white, width: 2)),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderSide: const BorderSide(
+                                            color: Colors.deepPurpleAccent, width: 6))
                                 ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Song Artist",
+                                style: TextStyle(color: Colors.white, fontSize:16,fontWeight: FontWeight.bold)),
+                          ),
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(left:8, bottom: 8.0),
+                            child: TextFormField(
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                              controller: artistnameController,
+                              onChanged: (value) {
+                                artist_name = value;
+                              },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'This field is required';
+                                }
+                              },
+                              cursorColor: Colors.white,
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(5.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide:
+                                      const BorderSide(color: Colors.white, width: 2)),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(
+                                          color: Colors.deepPurpleAccent, width: 6))
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("Song Artist",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                              child: TextFormField(
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                                controller: artistnameController,
-                                onChanged: (value) {
-                                  artist_name = value;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'This field is required';
-                                  }
-                                },
-                                cursorColor: Colors.white,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.only(bottom: 3),
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 2),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 2),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("Song Description",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            Container(
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Song Description",
+                                style: TextStyle(color: Colors.white, fontSize:16,fontWeight: FontWeight.bold)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
                               height: 5 * 24.0,
                               child: TextField(
                                 maxLines: 5,
@@ -203,7 +198,7 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                 onChanged: (value) {
                                   song_desc = value;
                                 },
-                                style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                                style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
                                 cursorColor: Colors.white,
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
@@ -217,189 +212,180 @@ class _UploadSongScreenState extends State<UploadSongScreen> {
                                 ),
                               ),
                             ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Song Image",
+                                style: TextStyle(color: Colors.white, fontSize:16,fontWeight: FontWeight.bold)),
+                          ),
+                          if (imageFile != null)
+                            Container(
+                              width: 130,
+                              height: 130,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: FileImage(imageFile!)),
+                              ),
+                            )
+                          else
                             const Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Text("Song Image",
+                              child: Text("*Required",
+                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: ElevatedButton(
+                              onPressed: () => openSongImage(),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                              ),
+                              child: const Text("Choose Image",
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
+                                      color: Colors.deepPurple,
                                       fontWeight: FontWeight.bold)),
                             ),
-                            if (imageFile != null)
-                              Container(
-                                width: 130,
-                                height: 130,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: FileImage(imageFile!)),
-                                ),
-                              )
-                            else
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text("*Required",
-                                    style: TextStyle(color: Colors.red)),
-                              ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Song Lyrics",
+                                style: TextStyle(color: Colors.white, fontSize:16,fontWeight: FontWeight.bold)),
+                          ),
+                          if (lyricsFile != null)
                             Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: ElevatedButton(
-                                onPressed: () => openSongImage(),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('${lyricsFile?.name}',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  )),
+                            )
+                          else
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text("*Required",
+                                  style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: ElevatedButton(
+                                onPressed: () => openlyricsFile(),
                                 style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
                                           Colors.white),
                                 ),
-                                child: const Text("Choose Image",
-                                    style: TextStyle(
-                                        color: Colors.deepPurple,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text("Song Lyrics",
+                                child: const Text(
+                                  "Lyrics file",
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            if (lyricsFile != null)
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('${lyricsFile?.name}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    )),
-                              )
-                            else
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text("*Required",
-                                    style: TextStyle(color: Colors.red)),
-                              ),
+                                      color: Colors.deepPurple,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text("Song File",
+                                style: TextStyle(color: Colors.white, fontSize:16,fontWeight: FontWeight.bold)),
+                          ),
+                          if (musicFile != null)
                             Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: ElevatedButton(
-                                  onPressed: () => openlyricsFile(),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                  ),
-                                  child: const Text(
-                                    "Lyrics file",
-                                    style: TextStyle(
-                                        color: Colors.deepPurple,
-                                        fontWeight: FontWeight.bold),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('${musicFile?.name}',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   )),
-                            ),
+                            )
+                          else
                             const Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Text("Song file",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18)),
+                              child: Text("*Required",
+                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
                             ),
-                            if (musicFile != null)
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text('${musicFile?.name}',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    )),
-                              )
-                            else
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text("*Required",
-                                    style: TextStyle(color: Colors.red)),
-                              ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: ElevatedButton(
-                                  onPressed: () => openMusicFile(),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                  ),
-                                  child: const Text("Choose file", style: TextStyle(color:Colors.deepPurple, fontWeight: FontWeight.bold),)),
-                            )
-                          ],
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: ElevatedButton(
+                                onPressed: () => openMusicFile(),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.white),
+                                ),
+                                child: const Text("Choose file", style: TextStyle(color:Colors.deepPurple, fontWeight: FontWeight.bold),)),
+                          )
+                        ],
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15.0),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all<Color>(
-                            Colors.white),
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          if(musicFile==null || lyricsFile==null || imageFile ==null){
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15.0),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStateProperty.all<Color>(
+                          Colors.white),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        if(musicFile==null || lyricsFile==null || imageFile ==null){
+                          Fluttertoast.showToast(
+                              msg: 'Please select all required field',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.deepPurple,
+                              textColor: Colors.white);
+                        }else{
+                          var response = await uploadsongData();
+                          var res = json.decode(response);
+                          print(res["success"]);
+
+                          if (res["success"] == true) {
+                            var notification =
+                            NotificationService().showNotification(
+                              1,
+                              'main_channel',
+                              'New song',
+                              'New song added',
+                            );
+                            print(notification);
+                            Navigator.pop(context);
                             Fluttertoast.showToast(
-                                msg: 'Please select all required field',
+                                msg: 'Song uploaded',
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.BOTTOM,
                                 timeInSecForIosWeb: 1,
                                 backgroundColor: Colors.deepPurple,
                                 textColor: Colors.white);
-                          }else{
-                            var response = await uploadsongData();
-                            var res = json.decode(response);
-                            print(res["success"]);
-
-                            if (res["success"] == true) {
-                              var notification =
-                              NotificationService().showNotification(
-                                1,
-                                'main_channel',
-                                'New song',
-                                'New song added',
-                              );
-                              print(notification);
-                              Navigator.pop(context);
-                              Fluttertoast.showToast(
-                                  msg: 'Song uploaded',
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.deepPurple,
-                                  textColor: Colors.white);
-                            }
-
-                            if (res["success"] == false) {
-                              Fluttertoast.showToast(
-                                  msg: 'Invalid.Please try again!',
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.deepPurple,
-                                  textColor: Colors.white);
-                            }
-                          }
                           }
 
-                      },
-                      child: const Text("Upload",
-                          style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold))),
-                )
-              ],
-            ),
+                          if (res["success"] == false) {
+                            Fluttertoast.showToast(
+                                msg: 'Invalid.Please try again!',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.deepPurple,
+                                textColor: Colors.white);
+                          }
+                        }
+                        }
+
+                    },
+                    child: const Text("Upload",
+                        style: TextStyle(
+                            color: Colors.deepPurple,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold))),
+              )
+            ],
           ),
         ));
   }

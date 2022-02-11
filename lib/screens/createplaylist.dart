@@ -53,6 +53,8 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
               const SizedBox(
                 height: 100,
               ),
+              Image.asset("assets/images/logo.png",
+                  height: 100, width: 300, fit: BoxFit.contain),
               const Center(
                 child: Text('Enter Playlist Name',
                     style: TextStyle(

@@ -77,13 +77,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Email Address",
-                        style: TextStyle(color: Colors.white)),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Email Address",
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(left:4,top: 8.0),
                       child: TextFormField(
                         key: const Key("emailfield"),
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         controller: emailController,
                         onChanged: (value) {
                           email = value;
@@ -100,20 +103,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(5.0),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15.0),
+                              borderRadius: BorderRadius.circular(10.0),
                               borderSide:
-                                  const BorderSide(color: Colors.white)),
+                                  const BorderSide(color: Colors.white, width: 1)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.deepPurpleAccent, width: 6))
                         ),
+
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(top: 8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text("Username",
-                          style: TextStyle(color: Colors.white)),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        padding: const EdgeInsets.only(left:4,top: 8.0),
                       child: TextFormField(
                         key: const Key("usernamefield"),
                         style: const TextStyle(color: Colors.white),
@@ -131,27 +140,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(15.0),
-                              borderSide:
-                                  BorderSide(color: Colors.white)),
+                            contentPadding: EdgeInsets.all(5.0),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide:
+                                const BorderSide(color: Colors.white, width: 1)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.deepPurpleAccent, width: 6))
                         ),
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(top: 8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text("Usertype",
-                          style: TextStyle(color: Colors.white)),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      padding: const EdgeInsets.only(left:8,top: 8.0, bottom: 8.0),
                       child: Container(
                         height: 60,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 14),
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.white, width: 1),
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
@@ -170,9 +184,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                     ),
-                    const Text("Password", style: TextStyle(color: Colors.white)),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Password",
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(top: 8.0, left: 8),
                       child: TextFormField(
                         key: const Key("passwordfield"),
                         style: TextStyle(color: Colors.white),
@@ -191,6 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(5.0),
                           suffixIcon: IconButton(
                               icon: Icon(_isObscure
                                   ? Icons.visibility
@@ -201,25 +220,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 });
                               }),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(10),
                               borderSide:
                                   const BorderSide(color: Colors.white)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.deepPurpleAccent, width: 6))
                         ),
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: Text("Confirm password",
-                          style: TextStyle(color: Colors.white)),
+                      padding: EdgeInsets.all(8.0),
+                      child: Text("Confirm Password",
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: const EdgeInsets.only(top: 8.0, left: 8),
                       child: TextFormField(
                         key: const Key("cpasswordfield"),
                         style: const TextStyle(color: Colors.white),
                         controller: confirmPasswordController,
                         obscureText: _isObscure,
                         decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(5.0),
                           suffixIcon: IconButton(
                               icon: Icon(_isObscure
                                   ? Icons.visibility
@@ -230,9 +254,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 });
                               }),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(10),
                               borderSide:
-                                  const BorderSide(color: Colors.white)),
+                              const BorderSide(color: Colors.white)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.deepPurpleAccent, width: 6)),
                         ),
                       ),
                     ),
@@ -240,7 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -273,10 +301,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.deepPurpleAccent),
+                                        Colors.deepPurpleAccent, ),
                               ),
                               child: const Text("Register",
-                                  style: TextStyle(color: Colors.white))),
+                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
 
                       ],
                     ),

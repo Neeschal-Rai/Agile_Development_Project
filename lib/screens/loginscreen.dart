@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String email = "";
   String password = "";
+
   postData() async {
     try {
       var body = {"email": email, "password": password, "usertype": value};
@@ -38,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
       print(e);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 20),
                 Container(
                   width: 150,
-                  height: 150,
+                  height: 120,
                   child: Image.asset("assets/images/logo.png",
-                      height: 300, width: 300, fit: BoxFit.contain),
+                      height: 100, width: 300, fit: BoxFit.contain),
                 ),
                 const SizedBox(
                   height: 100,
@@ -73,12 +73,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Form(
                     key: _formKey,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Email Address",
-                            style: TextStyle(color: Colors.white)),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Email Address",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                          padding: const EdgeInsets.only(top: 8.0, left: 8),
                           child: TextFormField(
                             key: Key("loginemail"),
                             style: const TextStyle(color: Colors.white),
@@ -87,27 +93,36 @@ class _LoginScreenState extends State<LoginScreen> {
                               email = value;
                             },
                             decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: Colors.white)),
-                            ),
+                                contentPadding: EdgeInsets.all(5.0),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        color: Colors.white, width: 1)),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        color: Colors.deepPurpleAccent,
+                                        width: 6))),
                           ),
                         ),
+
                         const Padding(
-                          padding: EdgeInsets.only(top: 10.0),
+                          padding: EdgeInsets.all(8.0),
                           child: Text("Usertype",
-                              style: TextStyle(color: Colors.white)),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          padding: const EdgeInsets.only(
+                              top: 8.0, bottom: 8.0, left: 8),
                           child: Container(
                             height: 60,
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 14),
+                                horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.white),
+                              border: Border.all(color: Colors.white, width: 1),
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
@@ -119,17 +134,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                     color: Colors.deepPurple, size: 30),
                                 isExpanded: true,
                                 items: items.map(buildMenuItem).toList(),
-                                  onChanged: (value) => {
-
-                                    setState(() => {this.value = value!}),
-                                  },
+                                onChanged: (value) => {
+                                  setState(() => {this.value = value!}),
+                                },
                               ),
                             ),
                           ),
                         ),
-                        const Text("Password", style: TextStyle(color: Colors.white)),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Password",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                          padding: const EdgeInsets.only(left: 8, top: 8.0),
                           child: TextFormField(
                             key: Key("loginpassword"),
                             style: TextStyle(color: Colors.white),
@@ -148,10 +168,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _isObscure = !_isObscure;
                                     });
                                   }),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: Colors.white)),
+                                contentPadding: EdgeInsets.all(5.0),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide:
+                                    const BorderSide(color: Colors.white)),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderSide: const BorderSide(
+                                        color: Colors.deepPurpleAccent, width: 6))
                             ),
                           ),
                         ),
@@ -159,55 +184,62 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                Row(
-
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        key: const Key("loginbtn"),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              var response = await postData();
-                              var res = json.decode(response);
-                              print(res);
-                              if (res["success"] == true) {
-
-                                SharedPreferences userprefs = await SharedPreferences.getInstance();
-                                user_id=res["userId"];
-                                userprefs.setString("userid", res["userId"]);
-                                userprefs.setString("token", res["token"]);
-                                userprefs.clear();
-                                Fluttertoast.showToast(
-                                    msg: 'Login successfully',
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.deepPurple,
-                                    textColor: Colors.white);
-                                Navigator.pop(context);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(index: 0)),
-                                );
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        ElevatedButton(
+                            key: const Key("loginbtn"),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                var response = await postData();
+                                var res = json.decode(response);
+                                print(res);
+                                if (res["success"] == true) {
+                                  SharedPreferences userprefs =
+                                      await SharedPreferences.getInstance();
+                                  user_id = res["userId"];
+                                  userprefs.setString("userid", res["userId"]);
+                                  userprefs.setString("token", res["token"]);
+                                  userprefs.clear();
+                                  Fluttertoast.showToast(
+                                      msg: 'Login successfully',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.deepPurple,
+                                      textColor: Colors.white);
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HomeScreen(index: 0)),
+                                  );
+                                }
+                                if (res["success"] == false) {
+                                  Fluttertoast.showToast(
+                                      msg: 'Invalid login',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.deepPurple,
+                                      textColor: Colors.white);
+                                }
+                              } else {
+                                print("Error");
                               }
-                              if (res["success"] ==false) {
-
-                                Fluttertoast.showToast(
-                                    msg: 'Invalid login',
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.deepPurple,
-                                    textColor: Colors.white);
-                              }
-                            } else {
-                              print("Error");
-                            }
-                          },
-                          child: Text("Log In")),
-                    ),
-                  ],
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                                Colors.deepPurpleAccent, ),
+                            ),
+                            child: const Text("Log In",
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
+                    ],
+                  ),
                 ),
                 Row(
                   children: [

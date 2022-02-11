@@ -12,7 +12,7 @@ class _ChooseUploadScreenState extends State<ChooseUploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Colors.black,
       body: SafeArea(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -34,7 +34,6 @@ class _ChooseUploadScreenState extends State<ChooseUploadScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const UploadSongScreen()),
@@ -53,7 +52,6 @@ class _ChooseUploadScreenState extends State<ChooseUploadScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const AlbumUploadScreen()),

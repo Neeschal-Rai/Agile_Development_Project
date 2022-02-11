@@ -5,6 +5,7 @@ import 'package:dhun/services/AlbumUploadServices.dart';
 import 'package:dhun/services/NotificationServices.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
 
@@ -31,7 +32,6 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
   File? imageFile;
   List<File>? files;
 
-
   uploadAlbumData() async {
     try {
       var body = {
@@ -54,7 +54,7 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,8 +77,8 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                   ),
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0, left: 100),
-                      child: Image.asset("assets/images/musical-note.png",
+                      padding: const EdgeInsets.only(top: 10.0, left: 120),
+                      child: Image.asset("assets/images/album.png",
                           height: 50, width: 50, fit: BoxFit.contain),
                     ),
                   ),
@@ -114,7 +114,7 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                const EdgeInsets.only(left: 8, bottom: 8.0),
                             child: TextFormField(
                               style: const TextStyle(
                                   color: Colors.white,
@@ -130,19 +130,17 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                                 }
                               },
                               cursorColor: Colors.white,
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.only(bottom: 3),
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 2),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 2),
-                                ),
-                              ),
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(5.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2)),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(
+                                          color: Colors.deepPurpleAccent,
+                                          width: 6))),
                             ),
                           ),
                           const Padding(
@@ -153,27 +151,30 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold)),
                           ),
-                          SizedBox(
-                            height: 5 * 24.0,
-                            child: TextField(
-                              maxLines: 5,
-                              controller: AlbumdescController,
-                              onChanged: (value) {
-                                Album_desc = value;
-                              },
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    borderSide: const BorderSide(
-                                        color: Colors.white, width: 2)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    borderSide: const BorderSide(
-                                        color: Colors.white, width: 2)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              height: 5 * 24.0,
+                              child: TextField(
+                                maxLines: 5,
+                                controller: AlbumdescController,
+                                onChanged: (value) {
+                                  Album_desc = value;
+                                },
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderSide: const BorderSide(
+                                          color: Colors.white, width: 2)),
+                                ),
                               ),
                             ),
                           ),
@@ -186,20 +187,23 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                                     fontWeight: FontWeight.bold)),
                           ),
                           if (imageFile != null)
-                            Container(
-                              width: 130,
-                              height: 130,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: FileImage(imageFile!)),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 130,
+                                height: 130,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: FileImage(imageFile!)),
+                                ),
                               ),
                             )
                           else
                             const Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Text("*Required",
-                                  style: TextStyle(color: Colors.red)),
+                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
                             ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -219,37 +223,40 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                           ),
                           const Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Text("Album file",
+                            child: Text("Album File",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold)),
                           ),
                           if (files != null)
-                            GridView.builder(
-                              shrinkWrap: true,
-                                gridDelegate:
-                                    const SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent: 200,
-                                        childAspectRatio: 3 / 2,
-                                        crossAxisSpacing: 20,
-                                        mainAxisSpacing: 20),
-                                itemCount: files?.length,
-                                itemBuilder: (BuildContext ctx, index) {
-                                  return Container(
-                                    alignment: Alignment.center,
-                                    child: Text("files"),
-                                    decoration: BoxDecoration(
-                                        color: Colors.amber,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                  );
-                                })
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GridView.builder(
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 200,
+                                          childAspectRatio: 3 / 2,
+                                          crossAxisSpacing: 20,
+                                          mainAxisSpacing: 20),
+                                  itemCount: files?.length,
+                                  itemBuilder: (BuildContext ctx, index) {
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      child: Text("files"),
+                                      decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                    );
+                                  }),
+                            )
                           else
                             const Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Text("*Required",
-                                  style: TextStyle(color: Colors.red)),
+                                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
                             ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -281,49 +288,37 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                           MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     onPressed: () async {
-                      // var notification = NotificationService().showNotification(
-                      //   1,
-                      //   'main_channel',
-                      //   'New Album',
-                      //   'New Album added',
-                      // );
-                       var response = await uploadAlbumData();
-                        var res = json.decode(response);
-                        print(res["success"]);
-                      // if (_formKey.currentState!.validate()) {
-                      //   var response = await uploadAlbumData();
-                      //   var res = json.decode(response);
-                      //   print(res["success"]);
-                      //
-                      //   if (res["success"] == true) {
-                      //     var notification =
-                      //     NotificationService().showNotification(
-                      //       1,
-                      //       'main_channel',
-                      //       'New Album',
-                      //       'New Album added',
-                      //     );
-                      //     print(notification);
-                      //     Navigator.pop(context);
-                      //     Fluttertoast.showToast(
-                      //         msg: 'Album uploaded',
-                      //         toastLength: Toast.LENGTH_SHORT,
-                      //         gravity: ToastGravity.BOTTOM,
-                      //         timeInSecForIosWeb: 1,
-                      //         backgroundColor: Colors.deepPurple,
-                      //         textColor: Colors.white);
-                      //   }
-                      //
-                      //   if (res["success"] == false) {
-                      //     Fluttertoast.showToast(
-                      //         msg: 'Invalid.Please try again!',
-                      //         toastLength: Toast.LENGTH_SHORT,
-                      //         gravity: ToastGravity.BOTTOM,
-                      //         timeInSecForIosWeb: 1,
-                      //         backgroundColor: Colors.deepPurple,
-                      //         textColor: Colors.white);
-                      //   }
-                      // }
+                      var response = await uploadAlbumData();
+                      var res = json.decode(response);
+                      print(res["success"]);
+
+                      if (res["success"] == true) {
+                        var notification =
+                            NotificationService().showNotification(
+                          1,
+                          'main_channel',
+                          'New Album',
+                          'New Album added',
+                        );
+                        Navigator.pop(context);
+                        Fluttertoast.showToast(
+                            msg: 'Album uploaded',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepPurple,
+                            textColor: Colors.white);
+                      }
+
+                      if (res["success"] == false) {
+                        Fluttertoast.showToast(
+                            msg: 'Invalid.Please try again!',
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepPurple,
+                            textColor: Colors.white);
+                      }
                     },
                     child: const Text("Upload",
                         style: TextStyle(
