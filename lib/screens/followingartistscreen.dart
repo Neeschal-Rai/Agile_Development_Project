@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
+import 'package:dhun/screens/homepagescreen.dart';
 import 'package:dhun/services/FollowArtistServices.dart';
 import 'package:dhun/services/GetAllArtistDataServices.dart';
 import 'package:flutter/material.dart';
@@ -100,8 +101,6 @@ class _FollowingScreenState extends State<FollowingScreen> {
                           jsonDecode(snapshot.data.toString()))["data"];
 
 
-
-
                       return SizedBox(
                         child: StaggeredGridView.countBuilder(
                           crossAxisCount: 4,
@@ -162,7 +161,7 @@ class _FollowingScreenState extends State<FollowingScreen> {
                                                 Navigator.pushReplacement(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (BuildContext context) => super.widget));
+                                                        builder: (BuildContext context) => HomeScreen(index: 3)));
                                               }
                                             },
                                             style: ButtonStyle(

@@ -80,7 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: TextFormField(
-                            style: TextStyle(color: Colors.white),
+                            key: Key("loginemail"),
+                            style: const TextStyle(color: Colors.white),
                             controller: emailController,
                             onChanged: (value) {
                               email = value;
@@ -110,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
+                                key: Key("usertypelogin"),
                                 value: value,
                                 iconSize: 20,
                                 dropdownColor: Colors.black,
@@ -125,10 +127,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        Text("Password", style: TextStyle(color: Colors.white)),
+                        const Text("Password", style: TextStyle(color: Colors.white)),
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: TextFormField(
+                            key: Key("loginpassword"),
                             style: TextStyle(color: Colors.white),
                             controller: passwordController,
                             obscureText: _isObscure,
@@ -161,6 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
+                        key: const Key("loginbtn"),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               var response = await postData();
@@ -186,8 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   MaterialPageRoute(
                                       builder: (context) => const HomeScreen(index: 0)),
                                 );
-                                final snackB =
-                                    SnackBar(content: Text(res["message"]));
                               }
                               if (res["success"] ==false) {
 

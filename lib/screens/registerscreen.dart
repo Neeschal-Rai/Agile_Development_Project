@@ -215,7 +215,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: TextFormField(
-                        key: const Key("confirmpasswordfield"),
+                        key: const Key("cpasswordfield"),
                         style: const TextStyle(color: Colors.white),
                         controller: confirmPasswordController,
                         obscureText: _isObscure,
@@ -242,9 +242,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: ElevatedButton(
+                          ElevatedButton(
+                            key: const Key("registerbutton"),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   var response = await postData();
@@ -276,7 +277,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               child: const Text("Register",
                                   style: TextStyle(color: Colors.white))),
-                        ),
+
                       ],
                     ),
                   ),

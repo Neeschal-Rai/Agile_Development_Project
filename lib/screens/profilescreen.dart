@@ -172,10 +172,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     future: getfollowedartist(),
                                     builder: (BuildContext context,
                                         AsyncSnapshot<dynamic> snapshot) {
-                                      dynamic data =
-                                          jsonDecode(jsonDecode(snapshot.data.toString()))["data"];
-                                      print(snapshot.hasData);
+
+                                      print(data);
                                       if (snapshot.hasData){
+                                        dynamic data =
+                                        jsonDecode(jsonDecode(snapshot.data.toString()))["data"];
                                         return GestureDetector(
                                           onTap: () => Navigator.push(
                                             context,

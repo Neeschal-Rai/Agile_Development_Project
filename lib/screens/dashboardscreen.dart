@@ -25,10 +25,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
     try {
       var profileServices = ProfileServices();
       var response = await profileServices.getUser(user_id_login);
-      dynamic profiledata = jsonDecode(
-          jsonDecode(response.toString()))["data"];
-      print(profiledata);
-      username_log = profiledata["username"];
+
       return response;
     } catch (e) {
       print(e);
@@ -68,14 +65,31 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(
-                    padding: top_pad,
-                    child: Text("WELCOME ${username_log}",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                  ),
+                  FutureBuilder(
+                    future: getData(),
+                    builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasData){
+
+                        dynamic profiledata = jsonDecode(
+                            jsonDecode(snapshot.data.toString()))["data"];
+                        print(profiledata);
+                        username_log = profiledata["username"];
+                        return  Padding(
+                          padding: top_pad,
+                          child: Text("WELCOME ${username_log}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
+                        );
+
+                      }
+                      else{
+                        return Container();
+                      }
+                  },),
+
+
                   Padding(
                     padding: top_pad,
                     child: const Icon(

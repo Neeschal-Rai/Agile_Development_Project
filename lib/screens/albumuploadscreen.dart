@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dhun/services/AlbumUploadServices.dart';
 import 'package:dhun/services/NotificationServices.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -28,22 +29,22 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
   String Album_name = "";
   String Album_desc = "";
   File? imageFile;
- late List<File> files;
-  PlatformFile? musicFile;
+  List<File>? files;
+
 
   uploadAlbumData() async {
     try {
       var body = {
-        "Album_name": Album_name,
-        "Album_desc": Album_desc,
+        "album_name": Album_name,
+        "album_desc": Album_desc,
         "image": imageFile,
-        "Album": musicFile,
+        "album_files": files,
       };
       print(body);
 
-      // var userServices = UploadAlbumServices();
-      // var response = await userServices.uploadAlbum(body);
-      // return response;
+      var albumServices = UploadAlbumServices();
+      var response = await albumServices.uploadalbum(body);
+      return response;
     } catch (e) {
       print(e);
     }
@@ -224,16 +225,26 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold)),
                           ),
-                          if (musicFile != null)
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('${musicFile}',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  )),
-                            )
+                          if (files != null)
+                            GridView.builder(
+                              shrinkWrap: true,
+                                gridDelegate:
+                                    const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 200,
+                                        childAspectRatio: 3 / 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20),
+                                itemCount: files?.length,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  return Container(
+                                    alignment: Alignment.center,
+                                    child: Text("files"),
+                                    decoration: BoxDecoration(
+                                        color: Colors.amber,
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                  );
+                                })
                           else
                             const Padding(
                               padding: EdgeInsets.only(left: 8.0),
@@ -249,7 +260,12 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                                       MaterialStateProperty.all<Color>(
                                           Colors.white),
                                 ),
-                                child: const Text("Choose file", style: TextStyle(color:Colors.deepPurple,fontWeight: FontWeight.bold),)),
+                                child: const Text(
+                                  "Choose file",
+                                  style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontWeight: FontWeight.bold),
+                                )),
                           )
                         ],
                       ),
@@ -262,17 +278,18 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                 child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                      MaterialStateProperty.all<Color>(
-                          Colors.white),
+                          MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     onPressed: () async {
-                      var notification = NotificationService().showNotification(
-                        1,
-                        'main_channel',
-                        'New Album',
-                        'New Album added',
-                      );
-                      print(jsonDecode(jsonDecode(notification.toString())));
+                      // var notification = NotificationService().showNotification(
+                      //   1,
+                      //   'main_channel',
+                      //   'New Album',
+                      //   'New Album added',
+                      // );
+                       var response = await uploadAlbumData();
+                        var res = json.decode(response);
+                        print(res["success"]);
                       // if (_formKey.currentState!.validate()) {
                       //   var response = await uploadAlbumData();
                       //   var res = json.decode(response);
@@ -307,12 +324,12 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                       //         textColor: Colors.white);
                       //   }
                       // }
-
                     },
                     child: const Text("Upload",
                         style: TextStyle(
                             color: Colors.deepPurple,
-                            fontSize: 16, fontWeight: FontWeight.bold))),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold))),
               )
             ],
           ),
@@ -335,7 +352,6 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
       setState(() {
         files = result.paths.map((path) => File(path!)).toList();
         print(files);
-
       });
     }
   }

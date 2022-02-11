@@ -123,7 +123,8 @@ class _ArtistScreeenState extends State<ArtistScreeen> {
                                         var response = json.decode(
                                             await followartist(
                                                 data[index]["_id"]));
-                                        print(response["success"] == true);
+
+                                        print(response["success"] == false);
                                         if (response["success"] == true) {
                                           Fluttertoast.showToast(
                                               msg:
