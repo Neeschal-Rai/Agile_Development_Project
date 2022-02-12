@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dhun/constraints/constraints.dart';
+import 'package:dhun/screens/albumsonglistscreen.dart';
 import 'package:dhun/services/AlbumUploadServices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -53,7 +54,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                   child: Text(
                     "Albums",
                     style: TextStyle(
-                        color: Colors.deepPurpleAccent,
+                        color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
@@ -68,7 +69,6 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     if (snapshot.hasData) {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
-                      print(data);
                       return SizedBox(
                         child: StaggeredGridView.countBuilder(
                           crossAxisCount: 4,
@@ -78,7 +78,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                                 onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const ArtistScreeen()),
+                                      builder: (context) => AlbumSongListScreen(id: data[index]["_id"])),
                                 ),
                                 child: Card(
                             color: Colors.deepPurpleAccent,
@@ -94,7 +94,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
                                     width: 200,
                                     height: 150,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
+                                      shape: BoxShape.circle,
+
                                         image: DecorationImage(
                                             // image: NetworkImage("https://picsum.photos/250?image=9"),
                                             image: NetworkImage(BASE_URL +

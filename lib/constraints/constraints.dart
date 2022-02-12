@@ -25,6 +25,7 @@ const String DELETE_USER = "user/delete/";
 const String SEARCH_SONGS = "song/search/";
 const String ALBUM_UPLOAD = "album/upload";
 const String GET_ALBUM_DATA = "album/showall";
+const String GET_ALBUM_SONG_DATA = "album/song/show/";
 
 
 String get getRegisterUrl => BASE_URL + REGISTER_URL;
@@ -50,3 +51,4 @@ String get deleteaccount => BASE_URL+DELETE_USER;
 String get searchsongfromApi => BASE_URL+SEARCH_SONGS;
 String get albumupload => BASE_URL+ALBUM_UPLOAD;
 String get getalbumdataurl => BASE_URL+GET_ALBUM_DATA;
+String get getalbumsongdataurl => BASE_URL+GET_ALBUM_SONG_DATA;

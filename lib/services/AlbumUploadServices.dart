@@ -35,4 +35,15 @@ class UploadAlbumServices {
       print(e);
     }
   }
+
+  Future<dynamic> getalbumsongdata(String id) async {
+    print("heelaoeg");
+    try {
+      print(getalbumdataurl);
+      var res = await http.get(Uri.parse(getalbumsongdataurl+id));
+      return json.encode(res.body);
+    } catch (e) {
+      print(e);
+    }
+  }
 }

@@ -68,7 +68,7 @@ class _ArtistScreeenState extends State<ArtistScreeen> {
                   child: Text(
                     "Artists",
                     style: TextStyle(
-                        color: Colors.deepPurpleAccent,
+                        color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
