@@ -24,6 +24,7 @@ const String UNFOLLOW_ARTIST= "artist/unfollow/";
 const String DELETE_USER = "user/delete/";
 const String SEARCH_SONGS = "song/search/";
 const String ALBUM_UPLOAD = "album/upload";
+const String GET_ALBUM_DATA = "album/showall";
 
 
 String get getRegisterUrl => BASE_URL + REGISTER_URL;
@@ -48,4 +49,4 @@ String get unfollowArtist => BASE_URL+UNFOLLOW_ARTIST;
 String get deleteaccount => BASE_URL+DELETE_USER;
 String get searchsongfromApi => BASE_URL+SEARCH_SONGS;
 String get albumupload => BASE_URL+ALBUM_UPLOAD;
-
+String get getalbumdataurl => BASE_URL+GET_ALBUM_DATA;

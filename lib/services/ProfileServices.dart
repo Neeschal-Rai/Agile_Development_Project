@@ -7,7 +7,6 @@ class ProfileServices {
   Future<dynamic> getUser(String id) async {
     try {
       var res = await http.get(Uri.parse(getUserProfile+id));
-      
       return json.encode(res.body);
     } catch (e) {
       print(e);
@@ -17,7 +16,6 @@ class ProfileServices {
   Future<dynamic> deleteUser(String id) async {
     try {
       var res = await http.delete(Uri.parse(deleteaccount+id));
-
       return res.body;
     } catch (e) {
       print(e);

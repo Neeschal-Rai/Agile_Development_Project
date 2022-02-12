@@ -31,7 +31,7 @@ class _LyricsScreenState extends State<LyricsScreen> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.black,
         body: SafeArea(
           child: Center(
             child: Column(

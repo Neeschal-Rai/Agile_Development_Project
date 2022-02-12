@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dhun/screens/albumscreen.dart';
 import 'package:dhun/screens/artistlistscreen.dart';
 import 'package:dhun/screens/createplaylist.dart';
 import 'package:dhun/screens/favoritescreeen.dart';
@@ -208,20 +209,27 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 color: Colors.white)),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.transparent,
+                    GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AlbumScreen()),
+                        ),
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.transparent,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        child: const Text("Albums",
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white)),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
-                      child: const Text("Albums",
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 20),

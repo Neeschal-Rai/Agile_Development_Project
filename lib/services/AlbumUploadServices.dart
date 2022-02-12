@@ -25,4 +25,14 @@ class UploadAlbumServices {
       print(e);
     }
   }
+  Future<dynamic> getalbumdata() async {
+    print("heelaoeg");
+    try {
+      print(getalbumdataurl);
+      var res = await http.get(Uri.parse(getalbumdataurl));
+      return json.encode(res.body);
+    } catch (e) {
+      print(e);
+    }
+  }
 }
