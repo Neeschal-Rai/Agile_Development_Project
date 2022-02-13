@@ -4,6 +4,8 @@ import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/services/AlbumUploadServices.dart';
 import 'package:flutter/material.dart';
 
+import 'musicscreen.dart';
+
 class AlbumSongListScreen extends StatefulWidget {
   final String id;
 
@@ -137,6 +139,11 @@ class _AlbumSongListScreenState extends State<AlbumSongListScreen> {
                                           ),
                                           Expanded(
                                             child: GestureDetector(
+                                                onTap: () => Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => MusicScreen(id: "6200012362649cbafcb310d1")),
+                                                ),
                                               child: Container(
                                                 margin: const EdgeInsets.only(
                                                     left: 30.0),

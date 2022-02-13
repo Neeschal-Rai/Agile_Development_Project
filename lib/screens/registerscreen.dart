@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:dhun/component/Model/User.dart';
 import 'package:dhun/screens/loginscreen.dart';
+import 'package:dhun/screens/otpscreen.dart';
 import 'package:dhun/services/RegisterServices.dart';
+import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -18,16 +20,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final items = ["User", "Artist"];
   String? value;
   bool _isObscure = true;
+  bool submitValid = false;
   final emailController = TextEditingController();
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  late EmailAuth emailAuth;
 
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the package
+    emailAuth = EmailAuth(
+      sessionName: "Sample session",
+    );
+
+  }
   String username = "";
   String email = "";
   String password = "";
   String usertype = "";
+
+  void sendOtp() async {
+    bool result = await emailAuth.sendOtp(
+        recipientMail: email, otpLength: 5);
+    if (result) {
+      setState(() {
+        submitValid = true;
+      });
+    }
+  }
 
   postData() async {
     try {
@@ -202,7 +225,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Password is required";
-                          } else if (value.length > 8) {
+                          }
+                          else if (value.length > 8) {
                             return null;
                           } else {
                             return 'Password length must be greater than 8';
@@ -242,6 +266,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: const TextStyle(color: Colors.white),
                         controller: confirmPasswordController,
                         obscureText: _isObscure,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "this field is required";
+                          }else if(value!=password){
+                            return "password didnot match!";
+                          }
+                          else if (value.length > 8) {
+                            return null;
+                          } else {
+                            return 'Password length must be greater than 8';
+                          }
+                        },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(5.0),
                           suffixIcon: IconButton(
@@ -275,25 +311,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ElevatedButton(
                             key: const Key("registerbutton"),
                               onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  var response = await postData();
-                                  var res = json.decode(response);
 
-                                  if (res["success"] == true) {
-                                    Fluttertoast.showToast(
-                                        msg: 'Registered successfully',
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.deepPurple,
-                                        textColor: Colors.white);
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen()));
-                                  }
+                                if (_formKey.currentState!.validate()) {
+                                  sendOtp();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              OTPScreen()));
+
+                                  // var response = await postData();
+                                  // var res = json.decode(response);
+                                  //
+                                  // if (res["success"] == true) {
+                                  //   Fluttertoast.showToast(
+                                  //       msg: 'Registered successfully',
+                                  //       toastLength: Toast.LENGTH_SHORT,
+                                  //       gravity: ToastGravity.BOTTOM,
+                                  //       timeInSecForIosWeb: 1,
+                                  //       backgroundColor: Colors.deepPurple,
+                                  //       textColor: Colors.white);
+                                  //   Navigator.pop(context);
+                                  //   Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //           builder: (context) =>
+                                  // //               LoginScreen()));
+                                  // }
                                 } else {
                                   print("Error");
                                 }

@@ -88,10 +88,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         backgroundColor: Colors.white,
-                        title: Text("Change Password"),
+                        title: const Text("Change Password"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            TextFormField(
+                              cursorColor: Colors.black,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+
+                              decoration: const InputDecoration(
+                                hintText: "Old password",
+                                contentPadding: EdgeInsets.only(bottom: 3),
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.deepPurple, width: 2),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black, width: 2),
+                                ),
+                              ),
+                            ),
                             TextFormField(
                               cursorColor: Colors.white,
                               style: const TextStyle(
@@ -112,10 +131,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               ),
                             ),
                             TextFormField(
-                              cursorColor: Colors.white,
+                              cursorColor: Colors.black,
 
                               style: const TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
 

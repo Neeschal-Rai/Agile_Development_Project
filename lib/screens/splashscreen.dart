@@ -4,6 +4,7 @@ import 'package:dhun/screens/chooseuploadscreen.dart';
 import 'package:dhun/screens/dashboardscreen.dart';
 import 'package:dhun/screens/followingartistscreen.dart';
 import 'package:dhun/screens/homepagescreen.dart';
+import 'package:dhun/screens/otpscreen.dart';
 import 'package:dhun/screens/profilescreen.dart';
 import 'package:dhun/screens/registerscreen.dart';
 import 'package:dhun/screens/uploadsongscreen.dart';
@@ -42,7 +43,7 @@ class _SplashHomeState extends State<SplashHome> {
                   child:
                   SplashScreen(
                       seconds: 5,
-                      navigateAfterSeconds: HomeScreen(index: 0),
+                      navigateAfterSeconds: RegisterScreen(),
                       image: Image.asset("assets/images/logo.png",
                           height: 200, width: 200, fit: BoxFit.contain),
                       backgroundColor: Colors.black,

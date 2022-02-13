@@ -63,7 +63,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (snapshot.hasData) {
                         dynamic data = jsonDecode(
                             jsonDecode(snapshot.data.toString()))["data"];
-                        print(data);
 
                         return Column(
                           children: [
@@ -173,7 +172,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     builder: (BuildContext context,
                                         AsyncSnapshot<dynamic> snapshot) {
 
-                                      print(data);
                                       if (snapshot.hasData){
                                         dynamic data =
                                         jsonDecode(jsonDecode(snapshot.data.toString()))["data"];
@@ -330,6 +328,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void logout() async {
     SharedPreferences userprefs = await SharedPreferences.getInstance();
+    user_id="";
     userprefs.clear();
     Fluttertoast.showToast(
         msg: 'Logged out!',
