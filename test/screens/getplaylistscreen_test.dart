@@ -10,7 +10,8 @@ void main() async {
     var playlistServices = GetPlaylistServices();
 
     var response = await playlistServices.getallplaylist();
-    var resBody = json.decode(response.toString());
+    var resBody = jsonDecode(
+        jsonDecode(response.toString()));
     bool received = resBody["success"];
     expect(expected, received);
   });

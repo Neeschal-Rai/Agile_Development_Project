@@ -4,6 +4,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dhun/constraints/constraints.dart';
 import 'package:dhun/constraints/userdata.dart';
+import 'package:dhun/screens/homepagescreen.dart';
 import 'package:dhun/screens/libraryscreen.dart';
 import 'package:dhun/services/AddToFavoriteServices.dart';
 import 'package:dhun/services/GetSelectedSongServices.dart';
@@ -177,15 +178,18 @@ class _MusicScreenState extends State<MusicScreen> {
         body: SafeArea(
             child: Container(
                 decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.003, 3],
-                  colors: [
-                    Colors.deepPurple,
-                    Colors.black,
-                  ],
-                )),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFF8E24AA),
+                      Color(0xFF7B1FA2),
+                      Color(0xFF6A1B9A),
+                      Color(0XFF4A148C),
+                    ],
+                    stops: [0.1, 0.4, 0.7, 0.9],
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -426,7 +430,7 @@ class _MusicScreenState extends State<MusicScreen> {
                                                             MaterialPageRoute(
                                                                 builder:
                                                                     (context) =>
-                                                                        const LibraryScreen()));
+                                                                        const HomeScreen(index: 2)));
                                                       },
                                                       icon: const Icon(
                                                         Icons.playlist_play,

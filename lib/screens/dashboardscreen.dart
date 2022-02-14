@@ -221,50 +221,46 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                         fontSize: 15,
                         fontWeight: FontWeight.bold)),
               ),
-              Container(
-                child: SizedBox(
-                  height: 160,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset("assets/images/download.jpg",
-                                  height: 100, width: 200, fit: BoxFit.contain),
-                            ),
-                            Padding(
-                              padding: extra_pad,
-                              child: const Text("Hamro Nepal Ma",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15)),
-                            )
-                          ],
-                        ),
+              SizedBox(
+                height: 160,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset("assets/images/download.jpg",
+                                height: 100, width: 200, fit: BoxFit.contain),
+                          ),
+                          Padding(
+                            padding: extra_pad,
+                            child: const Text("Hamro Nepal Ma",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15)),
+                          )
+                        ],
                       ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset("assets/images/naganya.jpg",
-                                  height: 100, width: 200, fit: BoxFit.contain),
-                            ),
-                            Padding(
-                              padding: extra_pad,
-                              child: const Text("Naganya maya",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15)),
-                            )
-                          ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset("assets/images/naganya.jpg",
+                              height: 100, width: 200, fit: BoxFit.contain),
                         ),
-                      )
-                    ],
-                  ),
+                        Padding(
+                          padding: extra_pad,
+                          child: const Text("Naganya maya",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 15)),
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
             ]),
