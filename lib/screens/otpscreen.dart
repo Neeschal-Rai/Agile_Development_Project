@@ -1,7 +1,17 @@
+import 'dart:convert';
+
+import 'package:dhun/screens/loginscreen.dart';
+import 'package:dhun/screens/registerscreen.dart';
+import 'package:dhun/services/RegisterServices.dart';
+import 'package:email_auth/email_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({Key? key}) : super(key: key);
+  final Map<String, String> receivedMap;
+  final EmailAuth emailAuth;
+  const OTPScreen({required this.receivedMap, required this.emailAuth});
+
 
   @override
   _OTPScreenState createState() => _OTPScreenState();
@@ -12,10 +22,45 @@ class _OTPScreenState extends State<OTPScreen> {
   final TextEditingController _fieldTwo = TextEditingController();
   final TextEditingController _fieldThree = TextEditingController();
   final TextEditingController _fieldFour = TextEditingController();
+  final TextEditingController _fieldFive = TextEditingController();
+  final TextEditingController _fieldSix = TextEditingController();
+
 
   // This is the entered code
   // It will be displayed in a Text widget
   String? _otp;
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the package
+    print(widget.receivedMap);
+    print(widget.emailAuth);
+
+  }
+
+  bool verify() {
+    bool res = widget.emailAuth.validateOtp(
+        recipientMail: widget.receivedMap["email"].toString(),
+        userOtp: _otp!);
+
+    return res;
+
+  }
+
+
+
+
+
+  postData() async {
+    try {
+
+      var loginServices = RegisterServices();
+      var response = await loginServices.Register(widget.receivedMap);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +69,7 @@ class _OTPScreenState extends State<OTPScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Phone Number Verification', style: TextStyle(color: Colors.white),),
+          const Text('Email Address Verification', style: TextStyle(color: Colors.white),),
           const SizedBox(
             height: 30,
           ),
@@ -35,20 +80,61 @@ class _OTPScreenState extends State<OTPScreen> {
               OtpInput(_fieldOne, true),
               OtpInput(_fieldTwo, false),
               OtpInput(_fieldThree, false),
-              OtpInput(_fieldFour, false)
+              OtpInput(_fieldFour, false),
+              OtpInput(_fieldFive, false),
+              OtpInput(_fieldSix, false)
             ],
           ),
           const SizedBox(
             height: 30,
           ),
           ElevatedButton(
-              onPressed: () {
+              onPressed: () async{
                 setState(() {
                   _otp = _fieldOne.text +
                       _fieldTwo.text +
                       _fieldThree.text +
-                      _fieldFour.text;
+                      _fieldFour.text+_fieldFive.text+_fieldSix.text;
                 });
+                if(verify()){
+                  var response = await postData();
+                  var res = json.decode(response);
+
+                  if (res["success"] == true) {
+                    Fluttertoast.showToast(
+                        msg: 'Registered successfully',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.deepPurple,
+                        textColor: Colors.white);
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginScreen()));
+                  }else{
+                    Fluttertoast.showToast(
+                        msg: 'Registration unsuccessful!',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.deepPurple,
+                        textColor: Colors.white);
+                  }
+
+                }else{
+                  Fluttertoast.showToast(
+                      msg: 'Pin invalid',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.deepPurple,
+                      textColor: Colors.white);
+
+                }
+
               },
               child: const Text('Submit')),
           const SizedBox(
@@ -76,8 +162,6 @@ class OtpInput extends StatelessWidget {
     return SizedBox(
       height: 60,
       width: 50,
-
-
       child: TextField(
         autofocus: autoFocus,
         textAlign: TextAlign.center,

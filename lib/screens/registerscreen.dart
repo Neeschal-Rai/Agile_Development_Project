@@ -10,7 +10,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -28,6 +27,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   late EmailAuth emailAuth;
 
+  late Map<String, String> map;
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     emailAuth = EmailAuth(
       sessionName: "Sample session",
     );
+
 
   }
   String username = "";
@@ -44,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void sendOtp() async {
     bool result = await emailAuth.sendOtp(
-        recipientMail: email, otpLength: 5);
+        recipientMail: email, otpLength: 4);
     if (result) {
       setState(() {
         submitValid = true;
@@ -52,22 +54,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  postData() async {
-    try {
-      var body = {
-        "username": username,
-        "email": email,
-        "password": password,
-        "usertype": value
-      };
-
-      var loginServices = RegisterServices();
-      var response = await loginServices.Register(body);
-      return response;
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -313,31 +299,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               onPressed: () async {
 
                                 if (_formKey.currentState!.validate()) {
+                                  map = {
+                                    "username": username,
+                                    "email": email,
+                                    "password": password,
+                                    "usertype": value!,
+                                  };
                                   sendOtp();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              OTPScreen()));
+                                              OTPScreen(receivedMap: map,emailAuth: emailAuth,)));
 
-                                  // var response = await postData();
-                                  // var res = json.decode(response);
-                                  //
-                                  // if (res["success"] == true) {
-                                  //   Fluttertoast.showToast(
-                                  //       msg: 'Registered successfully',
-                                  //       toastLength: Toast.LENGTH_SHORT,
-                                  //       gravity: ToastGravity.BOTTOM,
-                                  //       timeInSecForIosWeb: 1,
-                                  //       backgroundColor: Colors.deepPurple,
-                                  //       textColor: Colors.white);
-                                  //   Navigator.pop(context);
-                                  //   Navigator.push(
-                                  //       context,
-                                  //       MaterialPageRoute(
-                                  //           builder: (context) =>
-                                  // //               LoginScreen()));
-                                  // }
+
                                 } else {
                                   print("Error");
                                 }

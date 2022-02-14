@@ -50,15 +50,18 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.3, 3],
-                colors: [
-                  Colors.deepPurple,
-                  Colors.black,
-                ],
-              )),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF8E24AA),
+                Color(0xFF7B1FA2),
+                Color(0xFF6A1B9A),
+                Color(0XFF4A148C),
+              ],
+              stops: [0.1, 0.4, 0.7, 0.9],
+            ),
+          ),
           child: SingleChildScrollView(
             child:
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
