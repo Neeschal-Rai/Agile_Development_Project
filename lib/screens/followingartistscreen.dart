@@ -20,22 +20,23 @@ class FollowingScreen extends StatefulWidget {
 class _FollowingScreenState extends State<FollowingScreen> {
   String text1 = "unfollow";
   dynamic artistdata;
+
   getfollowedartist() async {
     try {
       var followartistServices = FollowArtistServices();
       var response =
-      await followartistServices.getfollowingartist(user_id_login);
+          await followartistServices.getfollowingartist(user_id_login);
       return response;
     } catch (e) {
       print(e);
     }
   }
+
   getfollowfromartist(artistid) async {
     try {
       var followartistServices = GetAllArtistDataServices();
-      var response =
-      await followartistServices.getartistsfromid(artistid);
-      artistdata=jsonDecode(jsonDecode(response.toString()))["data"];
+      var response = await followartistServices.getartistsfromid(artistid);
+      artistdata = jsonDecode(jsonDecode(response.toString()))["data"];
       print(artistdata);
       return response;
     } catch (e) {
@@ -43,18 +44,15 @@ class _FollowingScreenState extends State<FollowingScreen> {
     }
   }
 
-
   unfollowartist(followid) async {
     try {
       var followartistServices = FollowArtistServices();
-      var response =
-      await followartistServices.unfollowartist(followid);
+      var response = await followartistServices.unfollowartist(followid);
       return response;
     } catch (e) {
       print(e);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,125 +98,134 @@ class _FollowingScreenState extends State<FollowingScreen> {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
 
-
                       return SizedBox(
                         child: StaggeredGridView.countBuilder(
                           crossAxisCount: 4,
                           itemCount: data.length,
-                          itemBuilder: (BuildContext context, int index){
+                          itemBuilder: (BuildContext context, int index) {
                             print(index);
-                            return FutureBuilder(future: getfollowfromartist(data[index]["artistid"]),builder:(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                              if(snapshot.hasData){
-                                return Card(
-                                  color: Colors.black,
-                                  elevation: 5.0,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 10.0),
-                                          width: 200,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                // image: NetworkImage("https://picsum.photos/250?image=9"),
-                                                  image: NetworkImage(BASE_URL +
-                                                      artistdata[0]["profilepic"]),
-                                                  fit: BoxFit.cover)),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(artistdata[0]["username"],
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold)),
-                                        ElevatedButton(
-                                            onPressed: () async {
-                                              var response = json.decode(
-                                                  await unfollowartist(
-                                                      data[0]["_id"]));
-                                              print(response);
-                                              if (response["success"] == true) {
-                                                Fluttertoast.showToast(
-                                                    msg:
-                                                    'Artist unfollowed successfully',
-                                                    toastLength: Toast.LENGTH_SHORT,
-                                                    gravity: ToastGravity.BOTTOM,
-                                                    timeInSecForIosWeb: 1,
-                                                    backgroundColor:
-                                                    Colors.deepPurple,
-                                                    textColor: Colors.white);
-                                                setState(() {
-                                                  text1 = "unfollow";
-                                                });
-                                                Navigator.pop(context);
-                                                Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (BuildContext context) => HomeScreen(index: 3)));
-                                              }
-                                            },
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  Colors.deepPurpleAccent),
+                            return FutureBuilder(
+                                future: getfollowfromartist(
+                                    data[index]["artistid"]),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<dynamic> snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Card(
+                                      color: Colors.black,
+                                      elevation: 5.0,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      child: Container(
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10.0),
+                                              width: 200,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      // image: NetworkImage("https://picsum.photos/250?image=9"),
+                                                      image: NetworkImage(
+                                                          BASE_URL +
+                                                              artistdata[0][
+                                                                  "profilepic"]),
+                                                      fit: BoxFit.fill)),
                                             ),
-                                            child: Text(text1,
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(artistdata[0]["username"],
                                                 style: const TextStyle(
-                                                    color: Colors.white))),
-                                      ],
-                                    ),
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            ElevatedButton(
+                                                onPressed: () async {
+                                                  var response = json.decode(
+                                                      await unfollowartist(
+                                                          data[0]["_id"]));
+                                                  print(response);
+                                                  if (response["success"] ==
+                                                      true) {
+                                                    Fluttertoast.showToast(
+                                                        msg:
+                                                            'Artist unfollowed successfully',
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity:
+                                                            ToastGravity.BOTTOM,
+                                                        timeInSecForIosWeb: 1,
+                                                        backgroundColor:
+                                                            Colors.deepPurple,
+                                                        textColor:
+                                                            Colors.white);
+                                                    setState(() {
+                                                      text1 = "unfollow";
+                                                    });
+                                                    Navigator.pop(context);
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                HomeScreen(
+                                                                    index: 3)));
+                                                  }
+                                                },
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty
+                                                          .all<Color>(Colors
+                                                              .deepPurpleAccent),
+                                                ),
+                                                child: Text(text1,
+                                                    style: const TextStyle(
+                                                        color: Colors.white))),
+                                          ],
+                                        ),
 
-                                    // ),
-                                  ),
-                                );
-
-                              }
-                              else{
-                                return Container();
-                              }
-
-                            }
-
-                            );},
+                                        // ),
+                                      ),
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                });
+                          },
                           staggeredTileBuilder: (int index) =>
                               StaggeredTile.count(2, index.isEven ? 3 : 3),
                           mainAxisSpacing: 4.0,
                           crossAxisSpacing: 4.0,
                         ),
                       );
-                    } else if(snapshot.hasError) {
-                      return  Column(children: const [
+                    } else if (snapshot.hasError) {
+                      return Column(children: const [
                         SizedBox(
                           height: 200,
                         ),
                         Center(
                             child: Text(
-                              'No followed artists',
-                              textScaleFactor: 2,
-                              style: TextStyle(color: Colors.white),
-                            )),
+                          'No followed artists',
+                          textScaleFactor: 2,
+                          style: TextStyle(color: Colors.white),
+                        )),
                       ]);
-                    }
-                    else{
-                      return  Column(children: const [
+                    } else {
+                      return Column(children: const [
                         SizedBox(
                           height: 200,
                         ),
                         Center(
                             child: Text(
-                              'No followed artists',
-                              textScaleFactor: 2,
-                              style: TextStyle(color: Colors.white),
-                            )),
+                          'No followed artists',
+                          textScaleFactor: 2,
+                          style: TextStyle(color: Colors.white),
+                        )),
                       ]);
-
                     }
                   },
                 ),

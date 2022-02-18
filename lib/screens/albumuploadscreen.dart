@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dhun/screens/albumscreen.dart';
 import 'package:dhun/services/AlbumUploadServices.dart';
 import 'package:dhun/services/NotificationServices.dart';
 import 'package:file_picker/file_picker.dart';
@@ -308,6 +309,11 @@ class _AlbumUploadScreenState extends State<AlbumUploadScreen> {
                             timeInSecForIosWeb: 1,
                             backgroundColor: Colors.deepPurple,
                             textColor: Colors.white);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AlbumScreen()));
                       }
 
                       if (res["success"] == false) {

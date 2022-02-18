@@ -70,6 +70,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
+                    key: Key("playlist"),
                     cursorColor: Colors.white,
                     style: const TextStyle(
                         color: Colors.white,
@@ -93,7 +94,8 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                 ),
               ),
               Center(
-                child: TextButton(
+                child: ElevatedButton(
+                  key: Key("createplaylist"),
                   onPressed: () async{
                     var res = json.decode(await createplaylist());
                     print(res);

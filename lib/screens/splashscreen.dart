@@ -1,4 +1,5 @@
 
+
 import 'package:dhun/screens/albumuploadscreen.dart';
 import 'package:dhun/screens/chooseuploadscreen.dart';
 import 'package:dhun/screens/dashboardscreen.dart';
@@ -22,37 +23,49 @@ class SplashHome extends StatefulWidget {
 }
 
 class _SplashHomeState extends State<SplashHome> {
+  bool prefsexists=false;
+  checkLogin() async {
+    SharedPreferences userprefs = await SharedPreferences.getInstance();
+    if (userprefs.containsKey("userid")) {
+      setState(() {
+        prefsexists=true;
+      });
+    }
+  }
 
   @override
-  Widget build(BuildContext context){
-    Future<Widget> checkLogin() async {
-      SharedPreferences userprefs = await SharedPreferences.getInstance();
-      if(userprefs.containsKey("userid")){
-        return HomeScreen(index: 0);
-      }else{
-        return LoginScreen();
-      }
+  void initState() {
+    super.initState();
+    checkLogin();
+  }
 
+    @override
+  Widget build(BuildContext context) {
+    if(prefsexists) {
+      return Center(
+          child: SplashScreen(
+              seconds: 5,
+              navigateAfterSeconds: const HomeScreen(
+                index: 0,
+              ),
+              image: Image.asset("assets/images/logo.png",
+                  height: 200, width: 200, fit: BoxFit.contain),
+              backgroundColor: Colors.black,
+              styleTextUnderTheLoader: new TextStyle(),
+              photoSize: 100.0,
+              loaderColor: Colors.red));
+    }else{
+      return Center(
+          child: SplashScreen(
+              seconds: 5,
+              navigateAfterSeconds: LoginScreen(),
+              image: Image.asset("assets/images/logo.png",
+                  height: 200, width: 200, fit: BoxFit.contain),
+              backgroundColor: Colors.black,
+              styleTextUnderTheLoader: new TextStyle(),
+              photoSize: 100.0,
+              loaderColor: Colors.red));
     }
-    return Scaffold(
-        body:
-        Builder(
-            builder: (context) {
 
-              return Center(
-                  child:
-                  SplashScreen(
-                      seconds: 5,
-                      navigateAfterSeconds: RegisterScreen(),
-                      image: Image.asset("assets/images/logo.png",
-                          height: 200, width: 200, fit: BoxFit.contain),
-                      backgroundColor: Colors.black,
-                      styleTextUnderTheLoader: new TextStyle(),
-                      photoSize: 100.0,
-                      loaderColor: Colors.red
-                  )
-              );
-            }
-        ));
   }
 }

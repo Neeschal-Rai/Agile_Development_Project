@@ -7,7 +7,7 @@ class DeleteFromFavoriteServices {
     try {
       var res = await http.delete(Uri.parse(deleteFavorites+id));
 
-      return json.encode(res.body);
+      return res.body;
     } catch (e) {
       print(e);
     }

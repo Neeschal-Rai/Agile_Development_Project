@@ -94,13 +94,15 @@ class _AlbumScreenState extends State<AlbumScreen> {
                                     width: 200,
                                     height: 150,
                                     decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
 
                                         image: DecorationImage(
                                             // image: NetworkImage("https://picsum.photos/250?image=9"),
                                             image: NetworkImage(BASE_URL +
                                                 data[index]["album_image"]),
                                             fit: BoxFit.cover)),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
                                   ),
 
                                   Text(data[index]["album_name"],
@@ -113,7 +115,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                           ),
                               ),
                           staggeredTileBuilder: (int index) =>
-                              StaggeredTile.count(2, index.isEven ? 2.5 : 2),
+                              StaggeredTile.count(2, index.isEven ? 2.5 : 2.2),
                           mainAxisSpacing: 4.0,
                           crossAxisSpacing: 4.0,
                         ),

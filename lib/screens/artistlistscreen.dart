@@ -108,7 +108,7 @@ class _ArtistScreeenState extends State<ArtistScreeen> {
                                             // image: NetworkImage("https://picsum.photos/250?image=9"),
                                             image: NetworkImage(BASE_URL +
                                                 data[index]["profilepic"]),
-                                            fit: BoxFit.cover)),
+                                            fit: BoxFit.fill)),
                                   ),
                                   const SizedBox(
                                     height: 10,

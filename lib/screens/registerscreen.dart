@@ -112,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left:5.0, right: 5, top: 40),
+                            contentPadding: EdgeInsets.only(left:10, bottom: 20, top: 20, right: 5),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide:
@@ -150,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
 
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left:5.0, right: 5, top: 40),
+                            contentPadding: EdgeInsets.only(left:10, bottom: 20, top: 20, right: 5),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                                 borderSide:
@@ -220,8 +220,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left:5.0, right: 5, top: 40),
-                          suffixIcon: IconButton(
+                            contentPadding: EdgeInsets.only(left:10, bottom: 20, top: 20, right: 5),                          suffixIcon: IconButton(
                               icon: Icon(_isObscure
                                   ? Icons.visibility
                                   : Icons.visibility_off),
@@ -267,8 +266,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left:5.0, right: 5, top: 40),
-                          suffixIcon: IconButton(
+                          contentPadding: EdgeInsets.only(left:10, bottom: 20, top: 20, right: 5),                          suffixIcon: IconButton(
                               icon: Icon(_isObscure
                                   ? Icons.visibility
                                   : Icons.visibility_off),

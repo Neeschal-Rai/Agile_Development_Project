@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               email = value;
                             },
                             decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(left:5.0, right: 5, top: 40),
+                                contentPadding: EdgeInsets.only(left:10, bottom: 20, top: 20, right: 5),
                                 enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: const BorderSide(
@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _isObscure = !_isObscure;
                                     });
                                   }),
-                                contentPadding: EdgeInsets.only(left:5.0, right: 5, top: 40),
+                                contentPadding: EdgeInsets.only(left:10, bottom: 20, top: 20, right: 5),
                                 enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide:

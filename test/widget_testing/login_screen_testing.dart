@@ -26,11 +26,7 @@ void main() {
     await tester.tap(loginbtn);
     await tester.pumpAndSettle();
 
-
-
-
     await tester.pump(Duration(seconds: 5));
     //
-
   });
 }

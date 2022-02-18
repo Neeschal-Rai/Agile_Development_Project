@@ -65,7 +65,9 @@ class _UpdateprofileState extends State<Updateprofile> {
 
   updateData() async {
     try {
+      print(username);
       var body = {"username": username, "email": email};
+      print(body);
       var updateprofileServices = UpdateProfileServices();
       var response = await updateprofileServices.updateprofilewithoutimage(
           user_id_login, body);
@@ -79,6 +81,7 @@ class _UpdateprofileState extends State<Updateprofile> {
   updateDatawithoutImage() async {
     try {
       var body = {"username": username, "email": email, "image": imageFile};
+      print(body);
 
       var updateprofileServices = UpdateProfileServices();
       var response =
@@ -122,217 +125,212 @@ class _UpdateprofileState extends State<Updateprofile> {
                       dynamic data = jsonDecode(
                           jsonDecode(snapshot.data.toString()))["data"];
                       username = data["username"];
-                      email = data["email"];
 
-                      print(data["email"]);
-                      return Container(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.arrow_back,
-                                    color: Colors.deepPurpleAccent,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                      nameController.text = data["username"];
+                      email = data["email"];
+                      emailController.text=data["email"];
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.deepPurpleAccent,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.settings,
-                                    color: Colors.deepPurpleAccent,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                SettingsScreen()));
-                                  },
-                                )
-                              ],
-                            ),
-                            const Center(
-                              child: Text(
-                                "Edit Profile",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                               ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.settings,
+                                  color: Colors.deepPurpleAccent,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SettingsScreen()));
+                                },
+                              )
+                            ],
+                          ),
+                          const Center(
+                            child: Text(
+                              "Edit Profile",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center,
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Center(
-                              child: Stack(
-                                children: [
-                                  if (imageFile != null)
-                                    Center(
-                                      child: Container(
-                                        width: 130,
-                                        height: 130,
-                                        decoration: BoxDecoration(
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Center(
+                            child: Stack(
+                              children: [
+                                if (imageFile != null)
+                                  Center(
+                                    child: Container(
+                                      width: 130,
+                                      height: 130,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: FileImage(imageFile!)),
+                                      ),
+                                    ),
+                                  )
+                                else if (data["profilepic"] != null)
+                                  Center(
+                                    child: Container(
+                                      width: 130,
+                                      height: 130,
+                                      decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: FileImage(imageFile!)),
-                                        ),
-                                      ),
-                                    )
-                                  else if (data["profilepic"] != null)
-                                    Center(
-                                      child: Container(
-                                        width: 130,
-                                        height: 130,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: NetworkImage(BASE_URL +
-                                                    data["profilepic"]),
-                                                fit: BoxFit.cover)),
-                                      ),
-                                    )
-                                  else
-                                    Center(
-                                      child: Container(
-                                        width: 130,
-                                        height: 130,
-                                        decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: AssetImage(
-                                                    "assets/images/no-image.png"),
-                                                fit: BoxFit.cover)),
-                                      ),
+                                              image: NetworkImage(BASE_URL +
+                                                  data["profilepic"]),
+                                              fit: BoxFit.cover)),
                                     ),
-                                  Positioned(
-                                      bottom: 0,
-                                      right: 125,
-                                      top: 80,
-                                      child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                              width: 2,
-                                              color: Theme.of(context)
-                                                  .scaffoldBackgroundColor,
-                                            ),
-                                            color: Colors.deepPurple),
-                                        child: IconButton(
-                                          icon: Icon(Icons.camera_alt_rounded),
-                                          onPressed: () {
-                                            _optionsDialogBox();
-                                          },
-                                          color: Colors.white,
-                                        ),
-                                      ))
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 35.0),
-                              child: TextFormField(
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                controller: nameController,
-                                onChanged: (value) {
-                                  username = value;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Username is required';
-                                  } else if (value.length > 8) {
-                                    return null;
-                                  } else {
-                                    return 'Username length must be greater than 8';
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 3),
-                                    labelText: "Username",
-                                    labelStyle: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                  )
+                                else
+                                  Center(
+                                    child: Container(
+                                      width: 130,
+                                      height: 130,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/no-image.png"),
+                                              fit: BoxFit.cover)),
                                     ),
-                                    floatingLabelBehavior:
-                                        FloatingLabelBehavior.always,
-                                    hintText: data["username"],
-                                    hintStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                    enabledBorder: const UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.deepPurple),
-                                    )),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 35.0),
-                              child: Form(
-                                key: _formKey,
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
                                   ),
-                                  controller: emailController,
-                                  onChanged: (value) {
-                                    email = value;
-                                  },
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Email address is required';
-                                    } else if (RegExp(
-                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                        .hasMatch(value)) {
-                                      return null;
-                                    } else {
-                                      return 'Enter valid email address';
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(bottom: 3),
-                                      labelText: "Email Address",
-                                      labelStyle: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                                Positioned(
+                                    bottom: 0,
+                                    right: 125,
+                                    top: 80,
+                                    child: Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            width: 2,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                          ),
+                                          color: Colors.deepPurple),
+                                      child: IconButton(
+                                        icon: Icon(Icons.camera_alt_rounded),
+                                        onPressed: () {
+                                          _optionsDialogBox();
+                                        },
                                         color: Colors.white,
                                       ),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.always,
-                                      hintText: data["email"],
-                                      hintStyle: const TextStyle(
+                                    ))
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 35.0),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 35.0),
+                                    child: TextFormField(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
-                                      enabledBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.deepPurple),
-                                      )),
-                                ),
+                                      controller: nameController,
+                                      onChanged: (value) {
+                                        username = value;
+                                      },
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Username is required';
+                                        } else if (value.length > 8) {
+                                          return null;
+                                        } else {
+                                          return 'Username length must be greater than 8';
+                                        }
+                                      },
+                                      decoration: const InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.only(bottom: 3),
+                                          labelText: "Username",
+                                          labelStyle: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                          floatingLabelBehavior:
+                                              FloatingLabelBehavior.always,
+                                          enabledBorder:
+                                              UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.deepPurple),
+                                          )),
+                                    ),
+                                  ),
+                                  TextFormField(
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    controller: emailController,
+                                    onChanged: (value) {
+                                      email = value;
+                                    },
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Email address is required.';
+                                      } else if (RegExp(
+                                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                          .hasMatch(value)) {
+                                        return null;
+                                      } else {
+                                        return 'Enter valid email address';
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                        contentPadding:
+                                            EdgeInsets.only(bottom: 3),
+                                        labelText: "Email Address",
+                                        labelStyle: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
+                                        enabledBorder:
+                                            const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.deepPurple),
+                                        )),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       );
                     } else {
                       return Center(
