@@ -8,7 +8,7 @@ void main() async {
   test("User Profile", () async {
     bool expected = true;
     var profileServices = ProfileServices();
-    var response = await profileServices.getUser(user_id_login);
+    var response = await profileServices.getUser("62111fd2e9475e050fe3612e");
     var resBody = jsonDecode(
         jsonDecode(response.toString()));
     bool received = resBody["success"];

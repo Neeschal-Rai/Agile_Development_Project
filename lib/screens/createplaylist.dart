@@ -107,6 +107,7 @@ class _CreatePlaylistState extends State<CreatePlaylist> {
                           timeInSecForIosWeb: 1,
                           backgroundColor: Colors.deepPurple,
                           textColor: Colors.white);
+                      Navigator.pop(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(

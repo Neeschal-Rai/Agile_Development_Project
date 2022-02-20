@@ -22,12 +22,6 @@ class _LyricsScreenState extends State<LyricsScreen> {
     return _lyricslist;
   }
 
-  // @override
-  // void initState() {
-  //   _loadsonglyrics();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -73,6 +67,7 @@ class _LyricsScreenState extends State<LyricsScreen> {
                       future: _loadsonglyrics(),
                       builder: (BuildContext context,
                       AsyncSnapshot<dynamic> snapshot) {
+                        print(snapshot.data);
                         if(snapshot.hasData) {
                           return ListView.builder(
                             itemCount: _lyricslist.length,

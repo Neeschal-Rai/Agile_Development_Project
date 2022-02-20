@@ -44,7 +44,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
   @override
   Widget build(BuildContext context) {
-    getData();
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -75,7 +75,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
                         dynamic profiledata = jsonDecode(
                             jsonDecode(snapshot.data.toString()))["data"];
-                        print(profiledata);
                         username_log = profiledata["username"];
                         return  Padding(
                           padding: top_pad,

@@ -13,9 +13,8 @@ void main() {
 
     await tester.enterText(addplaylist, "chill");
     await tester.pump(Duration(seconds: 10));
-    await tester.tap(createplaylistbtn);
-    await tester.pumpAndSettle();
-    await tester.pump(Duration(seconds: 5));
+
+
 
     //
   });

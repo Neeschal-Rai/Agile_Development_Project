@@ -1,5 +1,6 @@
 
 
+import 'package:dhun/constraints/userdata.dart';
 import 'package:dhun/screens/albumuploadscreen.dart';
 import 'package:dhun/screens/chooseuploadscreen.dart';
 import 'package:dhun/screens/dashboardscreen.dart';
@@ -10,6 +11,7 @@ import 'package:dhun/screens/profilescreen.dart';
 import 'package:dhun/screens/registerscreen.dart';
 import 'package:dhun/screens/uploadsongscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -26,7 +28,9 @@ class _SplashHomeState extends State<SplashHome> {
   bool prefsexists=false;
   checkLogin() async {
     SharedPreferences userprefs = await SharedPreferences.getInstance();
+    print(userprefs.getString("userid"));
     if (userprefs.containsKey("userid")) {
+      user_id=userprefs.getString("userid");
       setState(() {
         prefsexists=true;
       });
@@ -36,7 +40,9 @@ class _SplashHomeState extends State<SplashHome> {
   @override
   void initState() {
     super.initState();
+
     checkLogin();
+    print(prefsexists);
   }
 
     @override

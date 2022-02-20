@@ -94,50 +94,62 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   ),
                 ],
               ),
-
               Expanded(
                 child: FutureBuilder(
                   future: getFavoriteData(),
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    dynamic data = jsonDecode(
-                        jsonDecode(snapshot.data.toString()))["data"];
 
-                    if (data.isEmpty != true) {
-                      return SizedBox(
-                        height: 270,
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: data.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            getselectedsong(data[index]["songid"]);
-                            print(index);
-                            return FutureBuilder(
-                                future: getselectedsong(data[index]["songid"]),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<dynamic> snapshot) {
-                                  if (snapshot.hasData) {
-                                    dynamic songdata = jsonDecode(jsonDecode(
-                                        snapshot.data.toString()))["data"];
-                                    print(songdata);
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 0, color: Colors.black),
-                                        color: Colors.black,
-                                      ),
-                                      margin: const EdgeInsets.only(
-                                          top: 20.0, left: 10, right: 10),
-                                      child:
-                                          Card(
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        return Text('Error');
+                      case ConnectionState.waiting:
+                        return Text('Loading');
+                      default:
+                        if (snapshot.hasError) {
+                          return const Center(
+                              child: Text(
+                            'No favorite songs',
+                            textScaleFactor: 3,
+                            style: TextStyle(color: Colors.black),
+                          ));
+                        } else {
+                          dynamic data = jsonDecode(
+                              jsonDecode(snapshot.data.toString()))["data"];
+                          return SizedBox(
+                            height: 270,
+                            child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                getselectedsong(data[index]["songid"]);
+                                print(index);
+                                return FutureBuilder(
+                                    future:
+                                        getselectedsong(data[index]["songid"]),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<dynamic> snapshot) {
+                                      if (snapshot.hasData) {
+                                        dynamic songdata = jsonDecode(
+                                            jsonDecode(snapshot.data
+                                                .toString()))["data"];
+                                        print(songdata);
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 0, color: Colors.black),
+                                            color: Colors.black,
+                                          ),
+                                          margin: const EdgeInsets.only(
+                                              top: 20.0, left: 10, right: 10),
+                                          child: Card(
                                             color: Colors.black,
                                             child: Row(
                                               children: [
-
                                                 Container(
-                                                  margin:
-                                                      const EdgeInsets.symmetric(
-                                                          vertical: 10.0),
+                                                  margin: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 10.0),
                                                   width: 60,
                                                   height: 50,
                                                   decoration: BoxDecoration(
@@ -151,8 +163,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                 Expanded(
                                                   child: GestureDetector(
                                                     child: Container(
-                                                      margin: const EdgeInsets.only(
-                                                          left: 30.0),
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              left: 30.0),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -171,14 +184,16 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                           Padding(
                                                             padding:
                                                                 const EdgeInsets
-                                                                    .only(top: 5),
+                                                                        .only(
+                                                                    top: 5),
                                                             child: Text(
-                                                                songdata[0]
-                                                                    ["song_artist"],
+                                                                songdata[0][
+                                                                    "song_artist"],
                                                                 style: const TextStyle(
                                                                     color: Colors
                                                                         .white,
-                                                                    fontSize: 10,
+                                                                    fontSize:
+                                                                        10,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .normal)),
@@ -189,35 +204,40 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 60.0),
+                                                  padding: EdgeInsets.only(
+                                                      left: 60.0),
                                                   child: IconButton(
                                                     iconSize: 30.0,
                                                     color: Colors.red,
                                                     onPressed: () async {
                                                       var response = json.decode(
                                                           await deletefavorite(
-                                                              data[index]["_id"]));
+                                                              data[index]
+                                                                  ["_id"]));
                                                       if (response["success"] =
                                                           true) {
                                                         Fluttertoast.showToast(
                                                             msg:
                                                                 'Deleted successfully',
-                                                            toastLength:
-                                                                Toast.LENGTH_SHORT,
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
                                                             gravity:
-                                                                ToastGravity.BOTTOM,
-                                                            timeInSecForIosWeb: 1,
+                                                                ToastGravity
+                                                                    .BOTTOM,
+                                                            timeInSecForIosWeb:
+                                                                1,
                                                             backgroundColor:
-                                                                Colors.deepPurple,
+                                                                Colors
+                                                                    .deepPurple,
                                                             textColor:
                                                                 Colors.white);
                                                         Navigator.pop(context);
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    FavoriteScreen()));
+                                                                builder:
+                                                                    (context) =>
+                                                                        FavoriteScreen()));
                                                       }
                                                     },
                                                     icon: const Icon(
@@ -228,28 +248,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                               ],
                                             ),
                                           ),
-
-                                    );
-                                  }   else {
-                                    return const Center(
-                                        child: Text(
+                                        );
+                                      } else {
+                                        return const Center(
+                                            child: Text(
                                           'No favorite songs',
                                           textScaleFactor: 3,
-                                          style: TextStyle(
-                                              color: Colors.white),
+                                          style: TextStyle(color: Colors.white),
                                         ));
-                                  }
-                                });
-                          },
-                        ),
-                      );
-                    } else {
-                      return const Center(
-                          child: Text(
-                        'No favorite songs',
-                        textScaleFactor: 3,
-                        style: TextStyle(color: Colors.white),
-                      ));
+                                      }
+                                    });
+                              },
+                            ),
+                          );
+                        }
                     }
                   },
                 ),

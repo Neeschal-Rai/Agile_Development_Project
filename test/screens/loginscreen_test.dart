@@ -9,7 +9,8 @@ void main() async {
 
     var userServices = LoginServices();
     var body = {
-      "email": "teae@gmail.com",
+      "email": "raibidhan280@gmail.com",
+      "usertype":"User",
       "password": "abcdefghr",
 
     };

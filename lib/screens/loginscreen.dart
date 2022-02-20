@@ -202,7 +202,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   user_id = res["userId"];
                                   userprefs.setString("userid", res["userId"]);
                                   userprefs.setString("token", res["token"]);
-                                  userprefs.clear();
                                   Fluttertoast.showToast(
                                       msg: 'Login successfully',
                                       toastLength: Toast.LENGTH_SHORT,
@@ -219,6 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 }
                                 if (res["success"] == false) {
+                                  print("afefa");
                                   Fluttertoast.showToast(
                                       msg: 'Invalid login',
                                       toastLength: Toast.LENGTH_SHORT,
